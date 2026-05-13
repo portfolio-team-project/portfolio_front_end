@@ -38,6 +38,25 @@ team/
 └── vite.config.ts
 ```
 
+## 프로젝트 가져오기
+
+### 1. Git 설치
+
+[https://git-scm.com](https://git-scm.com) 에서 Git을 다운로드하여 설치합니다.
+
+### 2. Node.js 설치
+
+[https://nodejs.org](https://nodejs.org) 에서 LTS 버전을 다운로드하여 설치합니다.
+
+### 3. VSCode에서 클론
+
+VSCode를 열고 터미널을 실행합니다. (`Ctrl + 백틱`)
+
+```bash
+git clone https://github.com/portfolio-team-project/portfolio_front_end.git
+cd portfolio_front_end
+```
+
 ## 시작하기
 
 ```bash

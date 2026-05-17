@@ -28,7 +28,7 @@ function App() {
           </div>
           <div className="panel-text">
             <p className="panel-number">01 · BACKEND</p>
-            <h2 className="panel-name">KIM<br />JUNHO</h2>
+            <h2 className="panel-name" style={{ fontSize: '2.4rem' }}>JI<br />SANGWON</h2>
             <p className="panel-role">Backend Engineer</p>
             <div className="panel-tags">
               <span className="ptag">Python</span>
@@ -57,8 +57,8 @@ function App() {
           </div>
           <div className="panel-text">
             <p className="panel-number">02 · FRONTEND</p>
-            <h2 className="panel-name" style={{ color: 'var(--b-text)' }}>
-              LEE<br />SUJI
+            <h2 className="panel-name" style={{ color: 'var(--b-text)', fontSize: '2.4rem' }}>
+              LEE<br />EUIGWANG
             </h2>
             <p className="panel-role">Frontend Engineer</p>
             <div className="panel-tags">
@@ -79,8 +79,8 @@ function App() {
     <nav id="nav" className={entered ? 'visible' : ''}>
       <span className="nav-logo" onClick={goBack}>← DEV × DEV</span>
       <ul className="nav-links">
-        <li><a href="#dev-a" className="lnk-a">JUNHO</a></li>
-        <li><a href="#dev-b" className="lnk-b">SUJI</a></li>
+        <li><a href="#dev-a" className="lnk-a">SANGWON</a></li>
+        <li><a href="#dev-b" className="lnk-b">EUIGWANG</a></li>
         <li><a href="#contact" className="lnk-c">CONTACT</a></li>
       </ul>
     </nav>
@@ -93,7 +93,7 @@ function App() {
           <div className="sec-banner">
             <div className="sec-banner-left">
               <p className="sec-idx">01 · BACKEND ENGINEER</p>
-              <h2 className="sec-name">KIM<br /><em>JUNHO</em></h2>
+              <h2 className="sec-name">JI<br /><em>SANGWON</em></h2>
             </div>
             <div className="sec-banner-right">
               <p className="sec-role">Backend · Infra · System Design</p>
@@ -166,7 +166,7 @@ function App() {
           <div className="sec-banner">
             <div className="sec-banner-left">
               <p className="sec-idx">02 · FRONTEND ENGINEER</p>
-              <h2 className="sec-name">LEE<br /><em>SUJI</em></h2>
+              <h2 className="sec-name">LEE<br /><em>EUIGWANG</em></h2>
             </div>
             <div className="sec-banner-right">
               <p className="sec-role">UI · Interaction · UX Design</p>
@@ -236,22 +236,20 @@ function App() {
       {/* CONTACT */}
       <section id="contact">
         <p className="ct-label">LET'S CONNECT</p>
-        <h2 className="ct-title">함께 <em>만들어요.</em></h2>
         <div className="ct-grid">
           <div className="ct-card ca">
-            <p className="ct-name">KIM JUNHO</p>
-            <a href="#" className="ct-lnk">✉ junho@email.com</a>
-            <a href="#" className="ct-lnk">⌥ github.com/junho</a>
-            <a href="#" className="ct-lnk">in linkedin.com/in/junho</a>
+            <p className="ct-name">JI <br/>SANGWON</p>
+            <a href="#" className="ct-lnk">✉ sangwon@email.com</a>
+            <a href="#" className="ct-lnk">⌥ github.com/sangwon</a>
+            <a href="#" className="ct-lnk">in linkedin.com/in/sangwon</a>
           </div>
           <div className="ct-card cb">
-            <p className="ct-name">LEE SUJI</p>
-            <a href="#" className="ct-lnk">✉ suji@email.com</a>
-            <a href="#" className="ct-lnk">⌥ github.com/suji</a>
-            <a href="#" className="ct-lnk">in linkedin.com/in/suji</a>
+            <p className="ct-name">LEE <br/>EUIGWANG</p>
+            <a href="#" className="ct-lnk">✉ pshowx12@naver.com</a>
+            <a href="#" className="ct-lnk">⌥ github.com/EG-L</a>
           </div>
         </div>
-        <p className="footer">© 2026 KIM JUNHO × LEE SUJI</p>
+        <p className="footer">© 2026 JI SANGWON × LEE EUIGWANG</p>
       </section>
 
     </div>

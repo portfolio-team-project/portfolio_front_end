@@ -374,8 +374,18 @@ nav.visible { transform: translateY(0); }
   line-height: 0.9;
   letter-spacing: -0.03em;
 }
-.a-theme .sec-name { color: #fff; }
-.b-theme .sec-name { color: var(--b-text); }
+.a-theme .sec-name { 
+  color: #fff;
+  font-size: clamp(2.4rem, 4.2vw, 4.8rem);
+  max-width: 16ch;
+  word-break: keep-all;
+}
+.b-theme .sec-name {
+  color: var(--b-text);
+  font-size: clamp(2.4rem, 4.2vw, 4.8rem);
+  max-width: 16ch;
+  word-break: keep-all;
+}
 .sec-name em {
   font-style: normal;
   -webkit-text-stroke: 2px;

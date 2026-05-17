@@ -44,7 +44,7 @@ function App() {
       {/* Center divider */}
       <div className="entry-divider"></div>
       <div className="entry-center">
-        <div className="entry-badge">D×D</div>
+        <div className="entry-badge">L×J</div>
         <span className="entry-badge-label">SELECT</span>
       </div>
 
@@ -77,7 +77,7 @@ function App() {
         MAIN CONTENT
     ════════════════════════ */}
     <nav id="nav" className={entered ? 'visible' : ''}>
-      <span className="nav-logo" onClick={goBack}>← DEV × DEV</span>
+      <span className="nav-logo" onClick={goBack}>← LEE × JI</span>
       <ul className="nav-links">
         <li><a href="#dev-a" className="lnk-a">SANGWON</a></li>
         <li><a href="#dev-b" className="lnk-b">EUIGWANG</a></li>

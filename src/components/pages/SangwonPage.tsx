@@ -12,7 +12,7 @@ function  SangwonPage() {
                     </div>
                     <div className="sec-banner-right">
                     <p className="sec-role">Backend · Infra · System Design</p>
-                    <p className="sec-bio">안정적이고 확장 가능한 시스템을 설계하는 것을 좋아합니다. 성능 최적화와 클린 코드에 진심입니다.</p>
+                    <p className="sec-bio">안정적이고 확장 가능한 시스템123을 설계하는 것을 좋아합니다. 성능 최적화와 클린 코드에 진심입니다.</p>
                     </div>
                 </div>
 

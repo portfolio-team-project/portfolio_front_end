@@ -2,11 +2,11 @@ import {Provider} from "react-redux";
 import {BrowserRouter as Router,Routes,Route} from "react-router-dom";
 import './App.css'
 import store from "./store/store";
-import EntryPage from "./components/pages/EntryPage";
+import EntryPage from "./components/pages/main/EntryPage";
 import Layout from "./components/main/Layout";
-import SangwonPage from "./components/pages/SangwonPage";
-import EuigwangPage from "./components/pages/EuigwangPage";
-import QnA from "./components/pages/qna";
+import SangwonPage from "./components/pages/main/SangwonPage";
+import EuigwangPage from "./components/pages/main/EuigwangPage";
+import QnA from "./components/pages/qna/qna";
 
 function App() {
 

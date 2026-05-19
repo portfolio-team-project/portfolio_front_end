@@ -1,13 +1,5 @@
 import { Fragment, useState } from "react";
-
-interface QnaItem {
-  id: number;
-  title: string;
-  content: string;
-  author: string;
-  date: string;
-  answer: string | null;
-}
+import type { QnaItem } from "../../../types/qna";
 
 const initialItems: QnaItem[] = [
   { id: 2, title: "기술 스택 관련 질문이요", content: "Spring Boot 말고 다른 프레임워크도 사용하시나요?", author: "익명", date: "2026-05-18", answer: null },

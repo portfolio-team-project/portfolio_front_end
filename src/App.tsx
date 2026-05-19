@@ -6,6 +6,7 @@ import EntryPage from "./components/pages/EntryPage";
 import Layout from "./components/main/Layout";
 import SangwonPage from "./components/pages/SangwonPage";
 import EuigwangPage from "./components/pages/EuigwangPage";
+import QnA from "./components/pages/qna";
 
 function App() {
 
@@ -17,6 +18,7 @@ function App() {
           <Route element={<Layout />}>
             <Route path="/sangwon" element={<SangwonPage />} />
             <Route path="/euigwang" element={<EuigwangPage />} />
+            <Route path="/qna" element={<QnA />} />
           </Route>
         </Routes>
       </Router>

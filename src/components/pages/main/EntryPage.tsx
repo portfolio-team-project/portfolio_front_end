@@ -28,13 +28,6 @@ function  EntryPage() {
                 </div>
             </div>
 
-            {/* Center divider */}
-            <div className="entry-divider"></div>
-            <div className="entry-center">
-                <div className="entry-badge">L×J</div>
-                <span className="entry-badge-label">SELECT</span>
-            </div>
-
             {/* Panel B */}
             <div className="panel panel-b" onClick={() => navigate('/euigwang')}>
                 <div className="panel-noise"></div>

@@ -36,16 +36,17 @@ function  EntryPage() {
                     <div className="avatar-inner">👩‍💻</div>
                 </div>
                 <div className="panel-text">
-                    <p className="panel-number">02 · FRONTEND</p>
+                    <p className="panel-number">02 · Fullstack</p>
                     <h2 className="panel-name" style={{ color: 'var(--b-text)', fontSize: '2.4rem' }}>
                     LEE<br />EUIGWANG
                     </h2>
-                    <p className="panel-role">Frontend Engineer</p>
+                    <p className="panel-role">Fullstack Engineer</p>
                     <div className="panel-tags">
+                    <span className="ptag">Spring Boot</span>
+                    <span className="ptag">Python</span>
+                    <span className="ptag">Docker</span>
+                    <span className="ptag">Jenkins</span>
                     <span className="ptag">React</span>
-                    <span className="ptag">Next.js</span>
-                    <span className="ptag">Three.js</span>
-                    <span className="ptag">Figma</span>
                     </div>
                     <button className="panel-cta">포트폴리오 보기 →</button>
                 </div>

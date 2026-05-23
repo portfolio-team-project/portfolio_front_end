@@ -422,6 +422,27 @@ nav.visible { transform: translateY(0); }
 }
 .a-theme .proj-tag { background: rgba(210,193,182,0.1); color: var(--a-accent); }
 .b-theme .proj-tag { background: rgba(27,60,83,0.08); color: var(--b-accent); }
+.proj-period {
+  display: inline-block;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.68rem;
+  padding: 3px 10px;
+  border-radius: 2px;
+  margin-bottom: 12px;
+}
+.a-theme .proj-period { background: rgba(210,193,182,0.15); color: var(--a-accent); }
+.b-theme .proj-period { background: rgba(27,60,83,0.08); color: var(--b-accent); }
+
+.proj-desc-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 14px 0;
+  font-size: 0.8rem;
+  line-height: 1.8;
+}
+.proj-desc-list li { display: flex; gap: 8px; }
+.a-theme .proj-desc-list { color: var(--a-muted); }
+.b-theme .proj-desc-list { color: var(--b-muted); }
 .proj-links { display: flex; gap: 12px; }
 .proj-link {
   font-family: 'DM Mono', monospace;
@@ -567,7 +588,7 @@ nav.visible { transform: translateY(0); }
 .col-no { width: 60px; }
 .col-author { width: 90px; }
 .col-date { width: 110px; font-family: 'DM Mono', monospace; font-size: 0.72rem; }
-.col-status { width: 90px; }
+.col-status { width: 120px; }
 
 .qna-badge {
   font-family: 'DM Mono', monospace;

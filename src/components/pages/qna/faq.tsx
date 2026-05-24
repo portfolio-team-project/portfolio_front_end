@@ -2,8 +2,8 @@ import { Fragment, useState } from "react";
 import type { QnaItem } from "../../../types/qna";
 
 const initialItems: QnaItem[] = [
-  { id: 2, title: "기술 스택 관련 질문이요", content: "Spring Boot 말고 다른 프레임워크도 사용하시나요?", author: "익명", date: "2026-05-18", answer: null },
-  { id: 1, title: "포트폴리오 관련 문의드립니다.", content: "프로젝트 협업 제안드리고 싶은데 연락 방법이 있을까요?", author: "방문자", date: "2026-05-17", answer: "contact 섹션의 이메일로 연락 주시면 됩니다!" },
+  { id: 2, title: "왜 팀명이 구황작물인가요?", content: "고구마와 감자의 정신으로 하나된다는 생각으로 정했습니다.", author: "관리자", date: "2026-05-18", answer: null },
+  { id: 1, title: "프로젝트 협업 제안드리고 싶은데 연락 방법이 있을까요?", content: "아래 상단 메뉴에 CONTACT를 클릭하거나 하단에 CONNECT을 보시면 연락처가 나와있습니다., ", author: "관리자", date: "2026-05-17", answer: "contact 섹션의 이메일로 연락 주시면 됩니다!" },
 ];
 
 function QnA() {
@@ -72,15 +72,10 @@ function QnA() {
                       <td colSpan={6}>
                         <div className="qna-detail">
                           <div className="qna-question">
-                            <span className="qna-label">Q</span>
+                            <span className="qna-label">A</span>
                             <p>{item.content}</p>
                           </div>
-                          {item.answer && (
-                            <div className="qna-answer">
-                              <span className="qna-label answer">A</span>
-                              <p>{item.answer}</p>
-                            </div>
-                          )}
+                        
                         </div>
                       </td>
                     </tr>
@@ -94,42 +89,8 @@ function QnA() {
               )}
             </tbody>
           </table>
+      
 
-          <div className="qna-bottom">
-            <input
-              className="qna-search"
-              placeholder="Search"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-            />
-            <button className="qna-write-btn" onClick={() => setShowForm(!showForm)}>
-              {showForm ? "취소" : "글쓰기"}
-            </button>
-          </div>
-
-          {showForm && (
-            <div className="qna-form">
-              <input
-                className="qna-input"
-                placeholder="닉네임 (선택)"
-                value={form.author}
-                onChange={(e) => setForm({ ...form, author: e.target.value })}
-              />
-              <input
-                className="qna-input"
-                placeholder="제목"
-                value={form.title}
-                onChange={(e) => setForm({ ...form, title: e.target.value })}
-              />
-              <textarea
-                className="qna-textarea"
-                placeholder="질문 내용을 입력하세요"
-                value={form.content}
-                onChange={(e) => setForm({ ...form, content: e.target.value })}
-              />
-              <button className="qna-submit-btn" onClick={submit}>등록</button>
-            </div>
-          )}
         </div>
       </section>
     </Fragment>

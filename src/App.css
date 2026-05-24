@@ -567,7 +567,7 @@ nav.visible { transform: translateY(0); }
 .col-no { width: 60px; }
 .col-author { width: 90px; }
 .col-date { width: 110px; font-family: 'DM Mono', monospace; font-size: 0.72rem; }
-.col-status { width: 90px; }
+.col-status { width: 120px; }
 
 .qna-badge {
   font-family: 'DM Mono', monospace;
@@ -608,6 +608,35 @@ nav.visible { transform: translateY(0); }
   margin-bottom: 24px;
   position: relative;
 }
+.boardList-top {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  gap: 10px;
+  margin-bottom: 24px;
+  position: relative;
+}
+
+.write-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  justify-content: left;
+  gap: 10px;
+  margin-bottom: 24px;
+  position: relative;
+  padding: 9px 16px;
+}
+
+.qna-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 24px;
+  position: relative;
+}
+
 .qna-search {
   font-family: 'Noto Sans KR', sans-serif;
   font-size: 0.82rem;
@@ -658,9 +687,12 @@ nav.visible { transform: translateY(0); }
   outline: none;
   transition: border-color 0.2s;
 }
+
 .qna-input:focus, .qna-textarea:focus { border-color: rgba(210,193,182,0.3); }
+
 .qna-input::placeholder, .qna-textarea::placeholder { color: var(--a-muted); }
 .qna-textarea { min-height: 110px; resize: vertical; }
+
 .qna-submit-btn {
   align-self: flex-end;
   font-family: 'DM Mono', monospace;
@@ -674,6 +706,7 @@ nav.visible { transform: translateY(0); }
   cursor: pointer;
   transition: opacity 0.2s;
 }
+
 .qna-submit-btn:hover { opacity: 0.85; }
 
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
@@ -688,3 +721,84 @@ nav.visible { transform: translateY(0); }
   .sec-banner { flex-direction: column; align-items: flex-start; gap: 24px; }
   .sec-banner-right { text-align: left; }
 }
+
+.dropdown .dropdown-title {
+    color: #c8dae2;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.dropdown:hover .dropdown-title {
+    color: #fff;
+}
+
+.dropdown {
+    position: relative;
+
+}
+
+/* 드롭다운 박스 */
+.dropdown-menu {
+
+  
+    position: absolute;
+
+    top: 100%;
+    left: 50%;
+    transform: translate(-50%, -8px);
+
+    min-width: max-content;
+    padding: 8px 0;
+
+    background: rgba(20, 20, 20, 0.95);
+    backdrop-filter: blur(8px);
+
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+
+    list-style: none;
+
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+
+    transition: all 0.25s ease;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+}
+
+/* hover 시 */
+.dropdown:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+
+    transform: translate(-50%, 0);
+}
+
+/* 메뉴 아이템 */
+.dropdown-menu li {
+    padding: 0;
+}
+
+.dropdown-menu a {
+    display: block;
+    padding: 10px 18px;
+    text-decoration: none;
+
+    font-size: 14px;
+    letter-spacing: 0.3px;
+
+    transition: all 0.2s ease;
+    color: #fff;
+}
+
+/* hover 효과 */
+.dropdown-menu a:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: #c8dae2;
+    padding-left: 22px;
+}
+

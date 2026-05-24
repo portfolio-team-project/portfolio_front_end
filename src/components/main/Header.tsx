@@ -3,16 +3,24 @@ import { Link, useNavigate } from "react-router-dom";
 
 function Header() {
   const navigate = useNavigate();
-  
-  return (
+    return (
     <Fragment> 
         <nav id="nav" className="visible">
             <span className="nav-logo" onClick={() => navigate('/')}>← LEE × JI</span>
             <ul className="nav-links">
                 <li><Link to="/sangwon" className="lnk-a" onClick={() => window.scrollTo(0, 0)}>SANGWON</Link></li>
                 <li><Link to="/euigwang" className="lnk-b" onClick={() => window.scrollTo(0, 0)}>EUIGWANG</Link></li>
-                <li><Link to="/qna" className="qna" onClick={() => window.scrollTo(0,0)}>Q&A</Link></li>
                 <li><a href="#contact" className="lnk-c">CONTACT</a></li>
+                  <li className="dropdown">
+                    <span className="dropdown-title">MENU</span>
+                     <ul className="dropdown-menu">
+                  {/* 추가예정 
+                        <li><Link to="/Login" className="Login" onClick={() => window.scrollTo(0,0)}>LOGIN</Link></li> */}
+                        {/* <li><Link to="/faq" className="faq" onClick={() => window.scrollTo(0,0)}>FAQ</Link></li> */}
+                        <li><Link to="/qna" className="qna" onClick={() => window.scrollTo(0,0)}>Q&A</Link></li>
+                        <li><Link to="/BoardList" className="BoardList" onClick={() => window.scrollTo(0,0)}>게시판</Link></li>
+                     </ul>
+                </li>
             </ul>
         </nav>
     </Fragment>

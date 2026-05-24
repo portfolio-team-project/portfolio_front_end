@@ -12,7 +12,7 @@ function Boardwrite() {
             <input className="qna-input" placeholder="제목" />
             <textarea
               className="qna-textarea"
-              placeholder="질문 내용을 입력하세요"
+              placeholder="내용을 입력하세요"
             />
             <button className="qna-submit-btn">등록</button>
           </div>

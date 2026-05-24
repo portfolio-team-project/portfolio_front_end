@@ -691,7 +691,11 @@ nav.visible { transform: translateY(0); }
 .qna-input:focus, .qna-textarea:focus { border-color: rgba(210,193,182,0.3); }
 
 .qna-input::placeholder, .qna-textarea::placeholder { color: var(--a-muted); }
-.qna-textarea { min-height: 110px; resize: vertical; }
+.qna-textarea {
+  min-height: 400px;
+  resize: none;      
+  overflow-y: auto;  
+}
 
 .qna-submit-btn {
   align-self: flex-end;

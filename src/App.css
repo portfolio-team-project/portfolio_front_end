@@ -806,3 +806,131 @@ nav.visible { transform: translateY(0); }
     padding-left: 22px;
 }
 
+.main-content {
+  width: 55%;
+  margin: 6em auto;
+  display: flex;
+
+  border-radius: 18px;
+  overflow: hidden;
+
+  background: #D2C1B6;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+}
+
+.company__info {
+  flex: 1;
+  background: linear-gradient(135deg, #456882, #1e3d52);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  color: #fff;
+  padding: 2em;
+}
+
+.company__logo h2 {
+  font-size: 2.5rem;
+}
+
+.company_title {
+  margin-top: 10px;
+  font-weight: 500;
+  opacity: 0.9;
+}
+
+/* RIGHT SIDE */
+.login_form {
+  flex: 2;
+  background: #D2C1B6;
+  padding: 2.5em;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* TITLE */
+.row > h2 {
+  color: #0f766e;
+  font-size: 1.6rem;
+  margin-bottom: 1.5em;
+}
+
+
+/* INPUT */
+.form__input {
+  width: 100%;
+  padding: 12px 14px;
+  margin: 1em 0;
+
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+
+  outline: none;
+  transition: all 0.2s ease;
+
+  font-size: 0.95rem;
+}
+
+
+/* BUTTON */
+.login-btn {
+  width: 100%;
+  padding: 12px;
+
+  border-radius: 10px;
+  border: none;
+
+  background: #0f766e;
+  color: #fff;
+
+  font-weight: 600;
+  cursor: pointer;
+
+  transition: 0.2s ease;
+  margin-top: 1.5em;
+}
+
+
+.kakao-btn {
+  margin-top: 5px;
+
+  padding: 1px;   /* 🔥 위아래 + 좌우 10씩 확장 */
+  border: none;
+  cursor: pointer;
+
+  background: transparent; /* 필요하면 */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-wrap {
+  position: relative;
+  display: inline-block;
+}
+
+.hero-img {
+  width: 150px;
+  height: auto;
+  display: block;
+}
+
+/* 🔥 핵심 */
+.hero-wrap::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0) 50%,
+    rgba(255, 255, 255, 1) 100%
+  );
+
+  pointer-events: none;
+}
+

@@ -10,6 +10,8 @@ import QnA from "./components/pages/qna/qna";
 import BoardList from "./components/pages/qna/BoardList";
 import Boardwrite from "./components/pages/qna/Boardwrite";
 import Faq from "./components/pages/qna/faq";
+import Accession from "./components/pages/member/Accession";
+import Login from "./components/pages/member/Login";
 
 function App() {
 
@@ -25,6 +27,9 @@ function App() {
             <Route path="/BoardList" element={<BoardList />} />
             <Route path="/Boardwrite" element={<Boardwrite />} />
             <Route path="/faq" element={<Faq />} />
+            <Route path="/accession" element={<Accession />} />
+            <Route path="/login" element={<Login />} />
+           
           </Route>
         </Routes>
       </Router>

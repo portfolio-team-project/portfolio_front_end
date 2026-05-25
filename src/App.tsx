@@ -29,6 +29,7 @@ function App() {
             <Route path="/faq" element={<Faq />} />
             <Route path="/accession" element={<Accession />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/Accession" element={<Accession />} />
            
           </Route>
         </Routes>

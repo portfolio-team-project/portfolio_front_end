@@ -15,9 +15,9 @@ function Header() {
                     <span className="dropdown-title">MENU</span>
                      <ul className="dropdown-menu">
                         <li><Link to="/Login" className="Login" onClick={() => window.scrollTo(0,0)}>LOGIN</Link></li>
-                        {/* <li><Link to="/faq" className="faq" onClick={() => window.scrollTo(0,0)}>FAQ</Link></li> */}
                         <li><Link to="/qna" className="qna" onClick={() => window.scrollTo(0,0)}>Q&A</Link></li>
                         <li><Link to="/BoardList" className="BoardList" onClick={() => window.scrollTo(0,0)}>게시판</Link></li>
+                        <li><Link to="/Accession" className="Accession" onClick={() => window.scrollTo(0,0)}>회원가입</Link></li>
                      </ul>
                 </li>
             </ul>

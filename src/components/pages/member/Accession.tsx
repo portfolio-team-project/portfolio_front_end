@@ -3,83 +3,77 @@ import { Fragment } from "react";
 // 회원가입
 
 function Accession() {
-      return (
-        <Fragment>
+  return (
+    <Fragment>
       <section className="qna-section">
         <div className="qna-wrap">
-          <h2 className="qna-title">문의</h2>
+          <h2 className="qna-title">회원가입</h2>
 
-          <div className="boardList-top">
-            <input className="qna-search" placeholder="Search" />
-            <button className="qna-write-btn">검색</button>
-          </div>
+          <div className="signup-form">
+            <div className="signup-row">
+              <label>아이디</label>
+              <input
+                type="text"
+                className="qna-search"
+                placeholder="아이디를 입력하세요"
+              />
+            </div>
 
-          <table className="qna-table">
-            <thead>
-              <tr>
-                <th className="col-no">No</th>
-                <th className="col-title">제목</th>
-                <th className="col-author">작성자</th>
-                <th className="col-date">작성일</th>
-                <th className="col-status">상태</th>
-                <th className="col-status">조회수</th>
-              </tr>
-            </thead>
+            <div className="signup-row">
+              <label>비밀번호</label>
+              <input
+                type="password"
+                className="qna-search"
+                placeholder="비밀번호를 입력하세요"
+              />
+            </div>
 
-            <tbody>
-              <Fragment>
-                <tr>
-                  <td className="col-no">１</td>
-                  <td className="col-title">123123</td>
-                  <td className="col-author">123123</td>
-                  <td className="col-date">1231232</td>
-                  <td className="col-status">
-                    <span className={`qna-badge ${"answered"}`}>답변완료</span>
-                  </td>
-                  <td className="col-status">0</td>
-                </tr>
-                <tr>
-                  <td className="col-no">２</td>
-                  <td className="col-title">123123</td>
-                  <td className="col-author">123123</td>
-                  <td className="col-date">1231232</td>
-                  <td className="col-status">
-                    <span className={`qna-badge ${"answered"}`}>답변완료</span>
-                  </td>
-                  <td className="col-status">0</td>
-                </tr>
-                <tr>
-                  <td className="col-no">３</td>
-                  <td className="col-title">title</td>
-                  <td className="col-author">author</td>
-                  <td className="col-date">date</td>
-                  <td className="col-status">
-                    <span className={`qna-badge ${"waiting"}`}>대기중</span>
-                  </td>
-                  <td className="col-status">0</td>
-                </tr>
-                <tr>
-                  <td className="col-no">４</td>
-                  <td className="col-title">title</td>
-                  <td className="col-author">author</td>
-                  <td className="col-date">date</td>
-                  <td className="col-status">
-                    <span className={`qna-badge ${"waiting"}`}>대기중</span>
-                  </td>
-                  <td className="col-status">0</td>
-                </tr>
-             
-              </Fragment>
-            </tbody>
-        </table>
-          <div className="write-bottom">
-           
+            <div className="signup-row">
+              <label>비밀번호 확인</label>
+              <input
+                type="password"
+                className="qna-search"
+                placeholder="비밀번호를 다시 입력하세요"
+              />
+            </div>
+
+            <div className="signup-row">
+              <label>이름</label>
+              <input
+                type="text"
+                className="qna-search"
+                placeholder="이름을 입력하세요"
+              />
+            </div>
+
+            <div className="signup-row">
+              <label>이메일</label>
+              <input
+                type="email"
+                className="qna-search"
+                placeholder="이메일을 입력하세요"
+              />
+            </div>
+
+            <div className="signup-row">
+              <label>전화번호</label>
+              <input
+                type="text"
+                className="qna-search"
+                placeholder="전화번호를 입력하세요"
+              />
+            </div>
+
+            <div className="write-bottom">
+              <button className="qna-write-btn">
+                회원가입
+              </button>
+            </div>
           </div>
         </div>
       </section>
     </Fragment>
-
-     );
+  );
 }
 
 export default Accession;

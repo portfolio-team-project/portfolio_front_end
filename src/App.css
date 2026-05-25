@@ -782,7 +782,6 @@ nav.visible { transform: translateY(0); }
 
 /* 드롭다운 박스 */
 .dropdown-menu {
-
   
     position: absolute;
 
@@ -910,68 +909,218 @@ nav.visible { transform: translateY(0); }
 
   font-size: 0.95rem;
 }
+.wrap {
+  display: flex;
+  width: 900px;
+  max-width: 95%;
+  min-height: 520px;
 
+  margin: 80px auto;
 
-/* BUTTON */
-.login-btn {
-  width: 100%;
-  padding: 12px;
+  border-radius: 16px;
+  overflow: hidden;
 
-  border-radius: 10px;
-  border: none;
-
-  background: #0f766e;
-  color: #fff;
-
-  font-weight: 600;
-  cursor: pointer;
-
-  transition: 0.2s ease;
-  margin-top: 1.5em;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: #0f172a;
 }
 
+.left {
+  width: 240px;
+  flex-shrink: 0;
 
-.kakao-btn {
-  margin-top: 5px;
+  background: #0d2137;
 
-  padding: 1px;   /* 🔥 위아래 + 좌우 10씩 확장 */
-  border: none;
-  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 
-  background: transparent; /* 필요하면 */
-  display: inline-flex;
+  padding: 40px 24px;
+  gap: 16px;
+}
+
+.left-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+
+  background: rgba(29,158,117,0.18);
+
+  display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.hero-wrap {
-  position: relative;
-  display: inline-block;
+.left-title {
+  color: #9FE1CB;
+  font-size: 15px;
+  font-weight: 500;
+  text-align: center;
+  line-height: 1.5;
 }
 
-.hero-img {
-  width: 150px;
-  height: auto;
+.left-sub {
+  color: #5DCAA5;
+  font-size: 12px;
+  text-align: center;
+  opacity: 0.7;
+  line-height: 1.6;
+}
+
+.dots {
+  display: flex;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #1D9E75;
+  opacity: 0.4;
+}
+
+.dot.active {
+  opacity: 1;
+}
+
+/* RIGHT */
+.right {
+  flex: 1;
+  background: #0f172a;
+
+  padding: 50px 40px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.right h2 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 6px;
+}
+
+.right p {
+  font-size: 13px;
+  color: #94a3b8;
+  margin-bottom: 28px;
+}
+
+/* INPUT FIELD */
+.field {
+  margin-bottom: 16px;
+}
+
+.field label {
   display: block;
+  font-size: 12px;
+  color: #94a3b8;
+  margin-bottom: 6px;
+  font-weight: 500;
 }
 
-/* 🔥 핵심 */
-.hero-wrap::after {
-  content: "";
-  position: absolute;
-  inset: 0;
+.field input {
+  width: 100%;
+  height: 42px;
 
-  background: radial-gradient(
-    circle,
-    rgba(255, 255, 255, 0) 50%,
-    rgba(255, 255, 255, 1) 100%
-  );
+  border: 1px solid #334155;
+  border-radius: 8px;
 
-  pointer-events: none;
+  padding: 0 14px;
+
+  font-size: 14px;
+
+  background: #111c2e;
+  color: #fff;
+
+  outline: none;
+
+  transition: 0.15s;
 }
 
+.field input:focus {
+  border-color: #1D9E75;
+  box-shadow: 0 0 0 3px rgba(29,158,117,0.12);
+}
 
+/* BUTTON */
+.btn-login {
+  width: 100%;
+  height: 44px;
 
+  background: #0F6E56;
+  border: none;
+  border-radius: 8px;
+
+  color: #E1F5EE;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  margin-top: 10px;
+  margin-bottom: 12px;
+
+  transition: 0.15s;
+}
+
+.btn-login:hover {
+  background: #085041;
+}
+
+/* DIVIDER */
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  margin: 8px 0 12px;
+}
+
+.divider span {
+  font-size: 11px;
+  color: #64748b;
+  white-space: nowrap;
+}
+
+.divider hr {
+  flex: 1;
+  border: none;
+  border-top: 1px solid #334155;
+}
+
+/* KAKAO */
+.btn-kakao {
+  width: 100%;
+  height: 44px;
+
+  background: #FEE500;
+  border: none;
+  border-radius: 8px;
+
+  color: #191919;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  transition: 0.15s;
+}
+
+.btn-kakao:hover {
+  background: #f5dc00;
+}
 
 
 .signup-section {
@@ -998,6 +1147,12 @@ nav.visible { transform: translateY(0); }
   font-size: 34px;
   color: #fff;
   margin-bottom: 35px;
+}
+
+.field label {
+  display: block;
+  text-align: left;
+  color: #e6e6e6;
 }
 
 /* row */
@@ -1081,6 +1236,36 @@ nav.visible { transform: translateY(0); }
 }
 
 
+.btn-signup-move {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  height: 44px;
+
+  margin-top: 8px;
+  margin-bottom: 10px;
+
+  background: transparent;
+  border: 1px solid #334155;
+  border-radius: 8px;
+
+  color: #94a3b8;
+  font-size: 14px;
+  font-weight: 500;
+
+  text-decoration: none; /* 중요 */
+  cursor: pointer;
+
+  transition: 0.15s;
+}
+
+.btn-signup-move:hover {
+  background: rgba(255,255,255,0.05);
+  border-color: #1D9E75;
+  color: #9FE1CB;
+}
 
 
 

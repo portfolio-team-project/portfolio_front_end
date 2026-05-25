@@ -1,23 +1,16 @@
 import { Fragment, useState } from "react";
+import type { AccessionItem } from "../../../types/Accession";
 
-// 👇 form 타입 정의 (TS 핵심)
-type FormType = {
-  id: string;
-  name: string;
-  password: string;
-  passwordCheck: string;
-  company: string;
-  rank: string;
-};
 
 function Accession() {
-  const [form, setForm] = useState<FormType>({
-    id: "",
-    name: "",
-    password: "",
-    passwordCheck: "",
-    company: "",
-    rank: "",
+  const [form, setForm] = useState<AccessionItem>({
+      user_id: "",
+      user_name: "",
+      rank: "",
+      cp_name: "",
+      password: "",
+      passwordCheck: "",
+      nick_name: "",
   });
 
   // 비밀번호 불일치 체크
@@ -25,7 +18,7 @@ function Accession() {
     form.passwordCheck.length > 0 &&
     form.password !== form.passwordCheck;
 
-  // 👇 TS 핵심 (e 타입 지정)
+
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 

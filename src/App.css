@@ -422,6 +422,27 @@ nav.visible { transform: translateY(0); }
 }
 .a-theme .proj-tag { background: rgba(210,193,182,0.1); color: var(--a-accent); }
 .b-theme .proj-tag { background: rgba(27,60,83,0.08); color: var(--b-accent); }
+.proj-period {
+  display: inline-block;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.68rem;
+  padding: 3px 10px;
+  border-radius: 2px;
+  margin-bottom: 12px;
+}
+.a-theme .proj-period { background: rgba(210,193,182,0.15); color: var(--a-accent); }
+.b-theme .proj-period { background: rgba(27,60,83,0.08); color: var(--b-accent); }
+
+.proj-desc-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 14px 0;
+  font-size: 0.8rem;
+  line-height: 1.8;
+}
+.proj-desc-list li { display: flex; gap: 8px; }
+.a-theme .proj-desc-list { color: var(--a-muted); }
+.b-theme .proj-desc-list { color: var(--b-muted); }
 .proj-links { display: flex; gap: 12px; }
 .proj-link {
   font-family: 'DM Mono', monospace;
@@ -461,7 +482,8 @@ nav.visible { transform: translateY(0); }
 .ct-title { font-family: 'Syne', sans-serif; font-weight: 800; font-size: clamp(2rem, 5vw, 3.5rem); margin-bottom: 48px; }
 .ct-title em { font-style: normal; color: var(--a-accent); }
 .ct-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; max-width: 660px; margin: 0 auto 60px; }
-.ct-card { padding: 28px; border-radius: 3px; text-align: left; }
+.ct-card { padding: 28px; border-radius: 3px; text-align: left; display: flex; flex-direction: column; }
+.ct-links { flex: 1; }
 .ct-card.ca { background: #1e3d52; border: 1px solid rgba(210,193,182,0.15); }
 .ct-card.cb { background: #D2C1B6; border: 1px solid rgba(27,60,83,0.15); }
 .ct-name { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.2rem; margin-bottom: 18px; }
@@ -471,6 +493,20 @@ nav.visible { transform: translateY(0); }
 .ca .ct-lnk { color: var(--a-accent); }
 .cb .ct-lnk { color: var(--b-accent); }
 .footer { font-family: 'DM Mono', monospace; font-size: 0.62rem; color: #456882; letter-spacing: 0.1em; margin-top: 48px; }
+.ct-btn-wrap { display: flex; justify-content: center; margin-top: 16px; }
+.ct-btn {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  padding: 9px 22px;
+  border-radius: 2px;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.2s;
+}
+.ct-btn:hover { opacity: 0.8; transform: translateY(-2px); }
+.ct-btn.ca { background: var(--a-accent); color: #1B3C53; }
+.ct-btn.cb { background: var(--b-accent); color: #e8ddd8; }
 
 /* ── PROJECT ACCORDION ── */
 .proj-accordion { list-style: none; display: flex; flex-direction: column; }

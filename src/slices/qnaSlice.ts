@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import type { QnaItem } from "../types/qna";
+import axiosInstance from "../api/axiosInstance";
 
 interface QnaState {
   items: QnaItem[];
@@ -15,7 +16,7 @@ const initialState: QnaState = {
 };
 
 export const fetchQnaList = createAsyncThunk("qna/fetchList", async () => {
-  const response = await axios.get("http://localhost/api/qna");
+  const response = await axiosInstance.get("/api/qna");
   return response.data;
 });
 

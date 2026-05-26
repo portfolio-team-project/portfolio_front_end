@@ -29,6 +29,18 @@ export const login = createAsyncThunk(
     }
 );
 
+export const refreshAccessToken = createAsyncThunk(
+  "member/refresh",
+  async (_, { rejectWithValue }) => {
+    try {
+      const res = await axios.post("/api/auth/refresh");
+      return res.data; // 새 accessToken
+    } catch {
+      return rejectWithValue("세션이 만료되었습니다.");
+    }
+  }
+);
+
 const memberSlice = createSlice({
     name: "member",
     initialState,

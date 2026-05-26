@@ -23,7 +23,7 @@ function Footer() {
                 <p className="ct-name">LEE <br/>EUIGWANG</p>
                 <div className="ct-links">
                     <a href="#" className="ct-lnk">✉ pshowx12@naver.com</a>
-                    <a href="#" className="ct-lnk">⌥ github.com/EG-L</a>
+                    <a href="https://github.com/EG-L" className="ct-lnk" target="_blank" rel="noreferrer">⌥ github.com/EG-L</a>
                 </div>
                 <div className="ct-btn-wrap">
                     <button className="ct-btn cb" onClick={handleContact}>Contact</button>

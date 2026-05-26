@@ -4,8 +4,8 @@ import axios from "axios";
 
 interface MemberState {
     user: { 
-        user_id: string;
-        user_name: string;
+        userId: string;
+        userName: string;
         accessToken: string;
     } | null;
     loading: boolean;
@@ -28,7 +28,7 @@ export const login = createAsyncThunk(
                 return rejectWithValue(response.data.message || "로그인에 실패했습니다.");
             }
 
-            return response.data;
+            return response.data.data;
         } catch (error: any) {
             return rejectWithValue(error.response?.data?.message ?? "서버에 연결 할 수 없습니다.");
         }

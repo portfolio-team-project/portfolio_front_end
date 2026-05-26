@@ -20,12 +20,17 @@ const initialState: MemberState = {
 
 export const login = createAsyncThunk(
     "member/login",
-    async (data: { user_id: string; password: string }, {rejectWithValue}) => {
+    async (data: { userId: string; password: string }, {rejectWithValue}) => {
         try {
-            const response = await axios.post("${import.meta.env.VITE_API_URL}/api/login", data);
+            const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/login`, data);
+
+            if (!response.data.success) {
+                return rejectWithValue(response.data.message || "로그인에 실패했습니다.");
+            }
+
             return response.data;
         } catch (error: any) {
-            return rejectWithValue(error.response?.data ?? "서버에 연결 할 수 없습니다.");
+            return rejectWithValue(error.response?.data?.message ?? "서버에 연결 할 수 없습니다.");
         }
     }
 );

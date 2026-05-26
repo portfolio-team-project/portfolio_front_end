@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch, RootState } from "../../../store/store";
 import { login } from "../../../slices/memberSlice";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 function Login() {
 
@@ -12,21 +13,20 @@ function Login() {
 
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
-  const { error, loading } = useSelector((state: RootState) => state.member);
+  const { loading } = useSelector((state: RootState) => state.member);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    const result = await dispatch(login({ user_id: userId, password: password }));
+    const result = await dispatch(login({ userId: userId, password: password }));
     if (login.fulfilled.match(result)) {
-      // 이전 페이지가 있으면 돌아감
       if (window.history.length > 1) {
         navigate(-1);
-      }
-      else {
-        // 없으면 홈으로
+      } else {
         navigate("/");
       }
-    };
+    } else if (login.rejected.match(result)) {
+      toast.error(String(result.payload || "로그인에 실패했습니다."));
+    }
   };
 
 
@@ -73,7 +73,6 @@ function Login() {
               <input type="password" placeholder="비밀번호를 입력하세요" value={password} onChange={(e) => setPassword(e.target.value)} />
             </div>
 
-            {error && <p style={{ color: "red" }}>{error}</p>}
             <button className="btn-login" type="submit" disabled={loading}>
               {loading ? "로그인 중..." : "로그인"}
             </button>

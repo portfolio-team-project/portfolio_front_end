@@ -19,7 +19,6 @@ function Header() {
                         <li><Link to="/Accession" className="Accession" onClick={() => window.scrollTo(0,0)}>회원가입</Link></li>
                      </ul>
                   </li>
-                <li><a href="#contact" className="lnk-c">CONTACT</a></li>
             </ul>
         </nav>
     </Fragment>

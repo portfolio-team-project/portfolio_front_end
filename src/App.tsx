@@ -12,6 +12,7 @@ import Boardwrite from "./components/pages/qna/Boardwrite";
 import Faq from "./components/pages/qna/faq";
 import Accession from "./components/pages/member/Accession";
 import Login from "./components/pages/member/Login";
+import HeaderOnlyLayout from "./components/main/HeaderOnlyLayout";
 
 function App() {
 
@@ -27,10 +28,10 @@ function App() {
             <Route path="/BoardList" element={<BoardList />} />
             <Route path="/Boardwrite" element={<Boardwrite />} />
             <Route path="/faq" element={<Faq />} />
+          </Route>
+          <Route element={<HeaderOnlyLayout />}>
             <Route path="/accession" element={<Accession />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/Accession" element={<Accession />} />
-           
           </Route>
         </Routes>
       </Router>

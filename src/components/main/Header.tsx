@@ -10,7 +10,6 @@ function Header() {
             <ul className="nav-links">
                 <li><Link to="/sangwon" className="lnk-a" onClick={() => window.scrollTo(0, 0)}>SANGWON</Link></li>
                 <li><Link to="/euigwang" className="lnk-b" onClick={() => window.scrollTo(0, 0)}>EUIGWANG</Link></li>
-                <li><a href="#contact" className="lnk-c">CONTACT</a></li>
                   <li className="dropdown">
                     <span className="dropdown-title">MENU</span>
                      <ul className="dropdown-menu">
@@ -19,7 +18,8 @@ function Header() {
                         <li><Link to="/BoardList" className="BoardList" onClick={() => window.scrollTo(0,0)}>게시판</Link></li>
                         <li><Link to="/Accession" className="Accession" onClick={() => window.scrollTo(0,0)}>회원가입</Link></li>
                      </ul>
-                </li>
+                  </li>
+                <li><a href="#contact" className="lnk-c">CONTACT</a></li>
             </ul>
         </nav>
     </Fragment>

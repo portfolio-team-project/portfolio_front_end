@@ -13,11 +13,14 @@ import Faq from "./components/pages/qna/faq";
 import Accession from "./components/pages/member/Accession";
 import Login from "./components/pages/member/Login";
 import HeaderOnlyLayout from "./components/main/HeaderOnlyLayout";
+import PrivateRoute from "./components/main/PrivateRoute";
+import { Toaster } from "react-hot-toast";
 
 function App() {
 
   return (
     <Provider store={store}>
+      <Toaster position="top-center" />
       <Router>
         <Routes>
           <Route path="/" element={<EntryPage />} />
@@ -25,8 +28,10 @@ function App() {
             <Route path="/sangwon" element={<SangwonPage />} />
             <Route path="/euigwang" element={<EuigwangPage />} />
             <Route path="/qna" element={<QnA />} />
-            <Route path="/BoardList" element={<BoardList />} />
-            <Route path="/Boardwrite" element={<Boardwrite />} />
+            <Route element={<PrivateRoute />}>
+              <Route path="/BoardList" element={<BoardList />} />
+              <Route path="/Boardwrite" element={<Boardwrite />} />
+            </Route>
             <Route path="/faq" element={<Faq />} />
           </Route>
           <Route element={<HeaderOnlyLayout />}>

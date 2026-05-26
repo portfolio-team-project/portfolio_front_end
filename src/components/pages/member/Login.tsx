@@ -16,8 +16,17 @@ function Login() {
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    const result = await dispatch(login({ user_id: userId, password }));
-    if (login.fulfilled.match(result)) navigate("/");
+    const result = await dispatch(login({ user_id: userId, password: password }));
+    if (login.fulfilled.match(result)) {
+      // 이전 페이지가 있으면 돌아감
+      if (window.history.length > 1) {
+        navigate(-1);
+      }
+      else {
+        // 없으면 홈으로
+        navigate("/");
+      }
+    };
   };
 
 

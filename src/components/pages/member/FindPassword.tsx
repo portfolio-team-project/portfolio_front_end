@@ -1,10 +1,23 @@
 import { Fragment, useState, useEffect, useRef } from "react";
+import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 
 function FindPassword() {
   const [step, setStep] = useState<"input" | "verify" | "done">("input");
   const [timeLeft, setTimeLeft] = useState(180); // 3분 = 180초
+  const [userId, setUserId] = useState("");
+  const [email, setEmail] = useState("");
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  const handleSendCode = () => {
+      if (userId.trim() === "" || email.trim() === "") {
+        return toast.error("아이디와 이메일을 모두 입력해주세요.");
+      }
+      /* TODO: 서버에 아이디와 이메일을 전송하여 인증번호 발송 로직 추가 */
+
+      /* TODO: 인증번호 검증 확인 후 성공 시 반환 추가 */
+      return setStep("verify");
+  };
 
   const formatTime = (seconds: number) => {
     const m = Math.floor(seconds / 60).toString().padStart(2, "0");
@@ -66,15 +79,15 @@ function FindPassword() {
               <form>
                 <div className="field">
                   <label>아이디</label>
-                  <input type="text" placeholder="아이디를 입력하세요" />
+                  <input type="text" placeholder="아이디를 입력하세요" value={userId} onChange={(e) => setUserId(e.target.value)} />
                 </div>
 
                 <div className="field">
                   <label>이메일</label>
-                  <input type="email" placeholder="이메일을 입력하세요" />
+                  <input type="email" placeholder="이메일을 입력하세요" value={email} onChange={(e) => setEmail(e.target.value)} />
                 </div>
 
-                <button className="btn-login" type="button" onClick={() => setStep("verify")}>
+                <button className="btn-login" type="button" onClick={() => handleSendCode()}>
                   인증번호 발송
                 </button>
               </form>

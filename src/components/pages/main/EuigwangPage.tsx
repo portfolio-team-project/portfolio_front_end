@@ -84,15 +84,33 @@ function EuigwangPage() {
                     <div className="tl">
                         <div className="tl-item">
                             <div className="tl-dot"/>
-                            <p className="tl-date">2024.00</p>
-                            <p className="tl-ttl">자격증명</p>
-                            <p className="tl-sub">발급기관</p>
+                            <p className="tl-date">2024.07</p>
+                            <p className="tl-ttl">빅데이터분석기사</p>
+                            <p className="tl-sub">한국데이터산업진흥원</p>
                         </div>
                         <div className="tl-item">
                             <div className="tl-dot"/>
-                            <p className="tl-date">2023.00</p>
-                            <p className="tl-ttl">자격증명</p>
-                            <p className="tl-sub">발급기관</p>
+                            <p className="tl-date">2023.10</p>
+                            <p className="tl-ttl">SQL 개발자</p>
+                            <p className="tl-sub">한국데이터산업진흥원</p>
+                        </div>
+                        <div className="tl-item">
+                            <div className="tl-dot"/>
+                            <p className="tl-date">2023.06</p>
+                            <p className="tl-ttl">정보처리기사</p>
+                            <p className="tl-sub">한국산업인력공단</p>
+                        </div>
+                        <div className="tl-item">
+                            <div className="tl-dot"/>
+                            <p className="tl-date">2023.03</p>
+                            <p className="tl-ttl">데이터분석 준전문가</p>
+                            <p className="tl-sub">한국데이터산업진흥원</p>
+                        </div>
+                        <div className="tl-item">
+                            <div className="tl-dot"/>
+                            <p className="tl-date">2022.05</p>
+                            <p className="tl-ttl">정보통신산업기사</p>
+                            <p className="tl-sub">한국방송통신전파진흥원</p>
                         </div>
                     </div>
                 </div>

@@ -80,6 +80,24 @@ function EuigwangPage() {
                 </div>
 
                 <div className="tl-wrap">
+                    <p className="sub-title">자격증</p>
+                    <div className="tl">
+                        <div className="tl-item">
+                            <div className="tl-dot"/>
+                            <p className="tl-date">2024.00</p>
+                            <p className="tl-ttl">자격증명</p>
+                            <p className="tl-sub">발급기관</p>
+                        </div>
+                        <div className="tl-item">
+                            <div className="tl-dot"/>
+                            <p className="tl-date">2023.00</p>
+                            <p className="tl-ttl">자격증명</p>
+                            <p className="tl-sub">발급기관</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="tl-wrap">
                     <p className="sub-title">경력 / 학력</p>
                     <div className="tl">
                         <div className="tl-item">

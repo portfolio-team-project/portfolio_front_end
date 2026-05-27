@@ -54,6 +54,7 @@ function EuigwangPage() {
                             <div className="proj-acc-left">
                             <span className="proj-acc-num">0{idx + 1}</span>
                             <span className="proj-acc-name">{proj.name}</span>
+                            <span className="proj-acc-period">{proj.period}</span>
                             </div>
                             <div className="proj-acc-right">
                             <span className="proj-acc-arrow">{openId === proj.id ? "▲" : "▼"}</span>
@@ -61,7 +62,6 @@ function EuigwangPage() {
                         </div>
                         {openId === proj.id && (
                             <div className="proj-acc-body" style={{ textAlign: "left" }}>
-                                <span className="proj-period">{proj.period}</span>
                                 <ul className="proj-desc-list">
                                     {Array.isArray(proj.desc)
                                         ? (proj.desc as string[]).map((line, i) => (

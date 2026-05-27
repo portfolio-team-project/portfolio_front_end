@@ -1521,11 +1521,16 @@ nav.visible { transform: translateY(0); }
 /* ── 480px 이하 (좁은 폰) ── */
 @media (max-width: 480px) {
 
-  /* QnA / 게시판 테이블
-     table-layout: fixed 에서 display:none 은 너비를 여전히 점유하므로
-     auto 로 전환해야 숨긴 컬럼이 완전히 사라짐 */
-  .qna-table { table-layout: auto; }
-  .col-author, .col-date { display: none; }
+  /* table-layout:fixed 에서 display:none 만으로는 공간이 남으므로
+     width:0 !important 로 강제 제거 */
+  .col-author,
+  .col-date {
+    display: none !important;
+    width: 0 !important;
+    padding: 0 !important;
+  }
+  .col-no     { width: 28px; }
+  .col-status { width: 74px; }
   .qna-table th, .qna-table td { padding: 10px 6px; font-size: 0.76rem; }
 
   /* 진입 화면 */

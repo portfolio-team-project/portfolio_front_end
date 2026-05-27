@@ -5,7 +5,7 @@ const projects = [
     { id: 2, name: "○○시청 민원분석시스템 운영 및 유지관리", desc: ["민원분석시스템 유지관리","파이썬을 이용한 키워드 추출 및 wordcloud 구현","highchart를 이용한 통계 화면 구축","운영계/개발계 SSL 적용","보고서 게시판 화면 재구축","공지사항 재구축","민원 관련 데이터 후처리 작업 적용","개발서버 테이블 통이관 작업","Apache tomcat 9.0.48을 이용한 외부개발용 WAS 구축","개발 llama 서버용 중계 미들웨어 서비스 구축","Jenkins 기반 CI/CD 파이프라인 구축 및 Docker 컨테이너를 활용한 개발 WAS 서버 자동 배포 환경 구현"], tags: ["JAVA", "JSP", "HTML", "CSS", "JAVASCRIPT", "jQuery", "Spring", "Oracle", "Apache-Tomcat 9", "Python", "GitLab", "FastAPI"], period: "2025.01.01 ~ 현재" },
     { id: 3, name: "□□ □□ 진흥원 통합 VOC시스템 구축", desc: ["고유식별정보 암호화 구현", "임시비밀번호 메일 송신 구현", "비밀번호 검증 로직 구현"], tags: ["JAVA", "JSP", "HTML", "CSS", "JAVASCRIPT", "jQuery", "Petra", "Spring", "Oracle", "Jeus8"], period: "2024.10.30 ~ 2024.12.31" },
     { id: 4, name: "☆☆ ☆☆ 위원회 AI기반 통합콜센터 서비스 구축 2차 사업 VOP 이관", desc: ["회원가입 페이지 구현", "로드킬 관련 RESTAPI 구현", "포스트그레 마이그레이션 작업"], tags: ["JAVA", "JSP", "HTML", "CSS", "JAVASCRIPT", "jQuery", "D`Amo", "Spring", "Postgre", "Tomcat", "Jenkins"], period: "2024.06.27 ~ 2024.10.30" },
-    { id: 5, name: "해양재난 대응을 위한 3차원 해수유동(조류,해류)관측기술 개발", desc: ["MQTT 통신을 이용한 센서 데이터 송수신 GUI 구축", "유속 데이터 벡터장 구현", "라즈베리파이를 이용한 TX/RX 구현"], tags: ["python", "rabbitMqtt", "PyQt", "numpy", "opencv", "pyqtgraph"], period: "2021.08.09 ~ 2023.06.16" },
+    { id: 5, name: "해양재난 대응 관측 시스템 개발", desc: ["MQTT 통신을 이용한 센서 데이터 송수신 GUI 구축", "유속 데이터 벡터장 구현", "라즈베리파이를 이용한 TX/RX 구현"], tags: ["python", "rabbitMqtt", "PyQt", "numpy", "opencv", "pyqtgraph"], period: "2021.08.09 ~ 2023.06.16" },
 ];
 
 function EuigwangPage() {

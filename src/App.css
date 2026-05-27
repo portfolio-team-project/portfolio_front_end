@@ -1518,20 +1518,66 @@ nav.visible { transform: translateY(0); }
   .signup-col { margin-bottom: 18px; }
 }
 
-/* ── 480px 이하 (좁은 폰) ── */
+/* ── 480px 이하 (좁은 폰) — 테이블 → 카드 레이아웃 ── */
 @media (max-width: 480px) {
 
-  /* table-layout:fixed 에서 display:none 만으로는 공간이 남으므로
-     width:0 !important 로 강제 제거 */
-  .col-author,
-  .col-date {
-    display: none !important;
-    width: 0 !important;
-    padding: 0 !important;
+  /* 테이블 헤더 숨기고 각 행을 카드로 표시 */
+  .qna-table { table-layout: auto; width: 100%; display: block; }
+  .qna-table thead { display: none; }
+  .qna-table tbody { display: block; }
+
+  .qna-table tr.qna-row {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 12px;
+    border-bottom: 1px solid rgba(210,193,182,0.06);
+    cursor: pointer;
   }
-  .col-no     { width: 28px; }
-  .col-status { width: 74px; }
-  .qna-table th, .qna-table td { padding: 10px 6px; font-size: 0.76rem; }
+  .qna-table tr.qna-row:hover,
+  .qna-table tr.qna-row.open { background: rgba(210,193,182,0.05); }
+
+  /* 번호: 작게 */
+  .qna-table td.col-no {
+    display: block;
+    flex-shrink: 0;
+    width: 20px;
+    text-align: center;
+    font-size: 0.72rem;
+    color: var(--a-muted);
+  }
+
+  /* 제목: 남은 공간 모두 차지, 말줄임 */
+  .qna-table td.col-title {
+    display: block;
+    flex: 1;
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 0.88rem;
+    text-align: left;
+  }
+
+  /* 상태 뱃지 */
+  .qna-table td.col-status:first-of-type,
+  .qna-table td:nth-child(5) {
+    display: block;
+    flex-shrink: 0;
+  }
+
+  /* 작성자·작성일·조회수 숨김 */
+  .qna-table td.col-author,
+  .qna-table td.col-date,
+  .qna-table td:nth-child(6) { display: none !important; }
+
+  /* 펼침 상세 행 */
+  .qna-table tr.qna-detail-row { display: block; }
+  .qna-table tr.qna-detail-row td { display: block; }
+
+  /* 빈 결과 행 */
+  .qna-table tr:not(.qna-row):not(.qna-detail-row) { display: block; }
 
   /* 진입 화면 */
   .panel-name { font-size: 2rem !important; }

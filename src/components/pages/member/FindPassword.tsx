@@ -13,6 +13,12 @@ function FindPassword() {
       if (userId.trim() === "" || email.trim() === "") {
         return toast.error("아이디와 이메일을 모두 입력해주세요.");
       }
+      else if (userId.trim() === "") {
+        return toast.error("아이디를 입력해주세요."); 
+      }
+      else if (email.trim() === "") {
+        return toast.error("이메일을 입력해주세요."); 
+      }
       /* TODO: 서버에 아이디와 이메일을 전송하여 인증번호 발송 로직 추가 */
 
       /* TODO: 인증번호 검증 확인 후 성공 시 반환 추가 */

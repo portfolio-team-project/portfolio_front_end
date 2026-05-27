@@ -71,6 +71,9 @@ function Login() {
             <div className="field">
               <label>비밀번호</label>
               <input type="password" placeholder="비밀번호를 입력하세요" value={password} onChange={(e) => setPassword(e.target.value)} />
+              <Link to="/find-password" onClick={() => window.scrollTo(0, 0)} className="find-password-link">
+                비밀번호 찾기
+              </Link>
             </div>
 
             <button className="btn-login" type="submit" disabled={loading}>
@@ -78,10 +81,10 @@ function Login() {
             </button>
           </form>
 
-              <Link
-                to="/Accession" onClick={() => window.scrollTo(0, 0)} className="btn-signup-move">
-                회원가입
-              </Link>
+          <Link
+            to="/Accession" onClick={() => window.scrollTo(0, 0)} className="btn-signup-move">
+            회원가입
+          </Link>
 
 
           <div className="divider">

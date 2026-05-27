@@ -1236,6 +1236,21 @@ nav.visible { transform: translateY(0); }
 }
 
 
+/* 비밀번호 찾기 */
+.find-password-link {
+  display: block;
+  text-align: right;
+  margin-top: 6px;
+  font-size: 11px;
+  color: #64748b;
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.find-password-link:hover {
+  color: #9FE1CB;
+}
+
 .btn-signup-move {
   display: flex;
   align-items: center;

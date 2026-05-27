@@ -1521,11 +1521,12 @@ nav.visible { transform: translateY(0); }
 /* ── 480px 이하 (좁은 폰) ── */
 @media (max-width: 480px) {
 
-  /* QnA / 게시판 테이블: 작성자·날짜 컬럼 숨겨서 가로 overflow 방지 */
+  /* QnA / 게시판 테이블
+     table-layout: fixed 에서 display:none 은 너비를 여전히 점유하므로
+     auto 로 전환해야 숨긴 컬럼이 완전히 사라짐 */
+  .qna-table { table-layout: auto; }
   .col-author, .col-date { display: none; }
-  .qna-table th, .qna-table td { padding: 10px 8px; font-size: 0.78rem; }
-  .col-no { width: 36px; }
-  .col-status { width: 72px; }
+  .qna-table th, .qna-table td { padding: 10px 6px; font-size: 0.76rem; }
 
   /* 진입 화면 */
   .panel-name { font-size: 2rem !important; }

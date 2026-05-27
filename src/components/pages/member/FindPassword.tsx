@@ -10,7 +10,7 @@ function FindPassword() {
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const handleSendCode = () => {
-      if (userId.trim() === "" || email.trim() === "") {
+      if (userId.trim() === "" && email.trim() === "") {
         return toast.error("아이디와 이메일을 모두 입력해주세요.");
       }
       else if (userId.trim() === "") {

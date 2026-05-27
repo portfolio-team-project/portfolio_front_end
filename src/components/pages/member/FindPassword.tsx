@@ -99,19 +99,17 @@ function FindPassword() {
                       {timeLeft === 0 ? "시간 만료" : formatTime(timeLeft)}
                     </span>
                   </div>
-                  <input type="text" placeholder="인증번호 6자리를 입력하세요" maxLength={6} disabled={timeLeft === 0} />
+                  <input type="text" placeholder="인증번호 6자리를 입력하세요" maxLength={6} />
                 </div>
 
-                <button className="btn-login" type="button" onClick={() => setStep("done")} disabled={timeLeft === 0}>
+                <button className="btn-login" type="button" onClick={() => setStep("done")}>
                   확인
                 </button>
-
-                {timeLeft === 0 && (
-                  <button className="btn-login" type="button" style={{ marginTop: 8, background: "#1e3a5f" }} onClick={() => startTimer()}>
-                    인증번호 재발송
-                  </button>
-                )}
               </form>
+
+              <button className="btn-signup-move" type="button" onClick={() => startTimer()}>
+                인증번호 재전송
+              </button>
 
               <button className="btn-signup-move" type="button" onClick={() => setStep("input")}>
                 이메일 다시 입력

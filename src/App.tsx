@@ -16,8 +16,15 @@ import HeaderOnlyLayout from "./components/main/HeaderOnlyLayout";
 import PrivateRoute from "./components/main/PrivateRoute";
 import { Toaster } from "react-hot-toast";
 import FindPassword from "./components/pages/member/FindPassword";
+import { useEffect } from "react";
+import { refreshAccessToken } from "./slices/memberSlice";
 
 function App() {
+  // App.tsx
+  useEffect(() => {
+    store.dispatch(refreshAccessToken()); // 앱 시작 시 자동으로 refresh 시도
+  }, []);
+
 
   return (
     <Provider store={store}>

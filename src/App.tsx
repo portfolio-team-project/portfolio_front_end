@@ -15,6 +15,7 @@ import Login from "./components/pages/member/Login";
 import HeaderOnlyLayout from "./components/main/HeaderOnlyLayout";
 import PrivateRoute from "./components/main/PrivateRoute";
 import { Toaster } from "react-hot-toast";
+import FindPassword from "./components/pages/member/FindPassword";
 
 function App() {
 
@@ -37,6 +38,7 @@ function App() {
           <Route element={<HeaderOnlyLayout />}>
             <Route path="/accession" element={<Accession />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/find-password" element={<FindPassword />} />
           </Route>
         </Routes>
       </Router>

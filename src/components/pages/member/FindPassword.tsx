@@ -1,3 +1,4 @@
+import axios from "axios";
 import { Fragment, useState, useEffect, useRef } from "react";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
@@ -7,9 +8,12 @@ function FindPassword() {
   const [timeLeft, setTimeLeft] = useState(180); // 3분 = 180초
   const [userId, setUserId] = useState("");
   const [email, setEmail] = useState("");
+  const [certificateNum, setCertificateNum] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  const handleSendCode = () => {
+  const handleSendCode = async () => {
       if (userId.trim() === "" && email.trim() === "") {
         return toast.error("아이디와 이메일을 모두 입력해주세요.");
       }
@@ -20,10 +24,59 @@ function FindPassword() {
         return toast.error("이메일을 입력해주세요."); 
       }
       /* TODO: 서버에 아이디와 이메일을 전송하여 인증번호 발송 로직 추가 */
+      await handleSendEmail();
 
       /* TODO: 인증번호 검증 확인 후 성공 시 반환 추가 */
       return setStep("verify");
   };
+
+  const handleSendEmail = async () => {
+    await axios.post('/findPassword', null, {
+      params: {
+        userId,
+        email
+      }
+    }).catch((error) => {
+      toast.error(error.response?.data?.message || "인증번호 발송에 실패했습니다.");
+    });
+  }
+
+  const handleVerifyCode = async () => {
+    await axios.post('/verifyNum', null, {
+      params: {
+        userId,
+        certificateNum
+      }
+    }).then((response) => {
+      if (response.data.success) {
+        setStep("done");
+      } else {
+        toast.error(response.data.message || "인증번호가 일치하지 않습니다.");
+      }
+    }).catch((error) => {
+      toast.error(error.response?.data?.message || "인증번호 검증에 실패했습니다.");
+    });
+  }
+
+  const handleResetPassword = async () => {
+    if (newPassword.trim() === "" || confirmPassword.trim() === "") {
+      return toast.error("새 비밀번호와 확인을 모두 입력해주세요.");
+    }
+    if (newPassword !== confirmPassword) {
+      return toast.error("새 비밀번호와 확인이 일치하지 않습니다.");
+    }
+    await axios.post('/resetPassword', {
+        userId,
+        newPassword
+    }).then(() => {
+        toast.success("비밀번호가 성공적으로 변경되었습니다.");
+        setTimeout(() => {
+          window.location.href = "/login";
+        }, 2000);
+    }).catch((error) => {
+      toast.error(error.response?.data?.message || "비밀번호 변경에 실패했습니다.");
+    });
+  }
 
   const formatTime = (seconds: number) => {
     const m = Math.floor(seconds / 60).toString().padStart(2, "0");
@@ -32,6 +85,7 @@ function FindPassword() {
   };
 
   const startTimer = () => {
+    handleSendEmail();
     setTimeLeft(180);
     if (timerRef.current) clearInterval(timerRef.current);
     timerRef.current = setInterval(() => {
@@ -118,10 +172,10 @@ function FindPassword() {
                       {timeLeft === 0 ? "시간 만료" : formatTime(timeLeft)}
                     </span>
                   </div>
-                  <input type="text" placeholder="인증번호 6자리를 입력하세요" maxLength={6} />
+                  <input type="text" placeholder="인증번호 6자리를 입력하세요" maxLength={6} value={certificateNum} onChange={(e) => setCertificateNum(e.target.value)} />
                 </div>
 
-                <button className="btn-login" type="button" onClick={() => setStep("done")}>
+                <button className="btn-login" type="button" onClick={() => handleVerifyCode()} disabled={timeLeft === 0}>
                   확인
                 </button>
               </form>
@@ -138,17 +192,24 @@ function FindPassword() {
 
           {/* STEP 3: 완료 */}
           {step === "done" && (
-            <div className="find-pw-result">
-              <div className="find-pw-icon">✉️</div>
-              <h2>이메일을 확인해주세요</h2>
-              <p className="find-pw-desc">
-                인증이 완료됐어요.<br />
-                이메일로 비밀번호 재설정 링크를 보냈어요.
-              </p>
-              <Link to="/login" onClick={() => window.scrollTo(0, 0)} className="btn-signup-move">
-                로그인으로 돌아가기
-              </Link>
-            </div>
+            <>
+              <h2>비밀번호 재설정</h2>
+              <p>새로운 비밀번호를 입력해주세요</p>
+
+              <form>
+                  <div className="field">
+                      <label>새 비밀번호</label>
+                      <input type="password" placeholder="새 비밀번호를 입력하세요" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
+                  </div>
+                  <div className="field">
+                      <label>비밀번호 확인</label>
+                      <input type="password" placeholder="비밀번호를 다시 입력하세요" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+                  </div>
+                  <button className="btn-login" type="button" onClick={handleResetPassword} >
+                      비밀번호 변경
+                  </button>
+              </form>
+          </>
           )}
 
         </div>

@@ -1,5 +1,6 @@
 import { Fragment } from "react";
 import { useNavigate } from "react-router-dom";
+import githubIcon from '../../../assets/github.svg';
 
 function  EntryPage() {
     const navigate = useNavigate();
@@ -52,6 +53,16 @@ function  EntryPage() {
                 </div>
                 </div>
             </div>
+            </div>
+            <div className="github-links">
+                <a href="https://github.com/portfolio-team-project/portfolio_back_end/tree/crops_project" target="_blank" rel="noopener noreferrer">
+                    <img src={githubIcon} alt="GitHub" width={20} height={20} />
+                    Backend
+                </a>
+                <a href="https://github.com/portfolio-team-project/portfolio_front_end/tree/cropsProject" target="_blank" rel="noopener noreferrer">
+                    <img src={githubIcon} alt="GitHub" width={20} height={20} />
+                    Frontend
+                </a>
             </div>
         </Fragment>
     );

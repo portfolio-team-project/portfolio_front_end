@@ -784,6 +784,29 @@ nav.visible { transform: translateY(0); }
 .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
 /* ── 768px 이하 ── */
+.github-links {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 300;
+  display: flex;
+  gap: 32px;
+}
+.github-links a {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.75rem;
+  text-decoration: none;
+  letter-spacing: 0.05em;
+  transition: color 0.2s;
+}
+.github-links a img { opacity: 0.6; transition: opacity 0.2s; }
+.github-links a:hover img { opacity: 1; }
+.github-links a:hover { color: rgba(255, 255, 255, 1); }
+
 @media (max-width: 768px) {
 
   /* ▸ 진입 화면 */

@@ -29,6 +29,14 @@ function Login() {
     }
   };
 
+  const kakaoLogin = () => {
+    const REST_API_KEY = import.meta.env.VITE_REST_API_KEY;
+    const REDIRECT_URL = import.meta.env.VITE_REDIRECT_URL;
+    const kakaoAuthURL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URL}/kakao&response_type=code`;
+    
+    return window.location.href = kakaoAuthURL;
+  }
+
 
 
   return (
@@ -93,7 +101,7 @@ function Login() {
             <hr />
           </div>
 
-          <button className="btn-kakao" type="button">
+          <button className="btn-kakao" type="button" onClick={()=>kakaoLogin()}>
             <svg width="18" height="18" viewBox="0 0 18 18">
               <path
                 d="M9 1.5C4.86 1.5 1.5 4.19 1.5 7.5c0 2.1 1.26 3.95 3.18 5.04L3.9 15.3a.3.3 0 0 0 .43.33l3.6-2.4c.35.05.71.07 1.07.07 4.14 0 7.5-2.69 7.5-6S13.14 1.5 9 1.5Z"

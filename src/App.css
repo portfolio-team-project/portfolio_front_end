@@ -1303,7 +1303,8 @@ nav.visible { transform: translateY(0); }
 }
 
 .btn-kakao:hover {
-  background: #f5dc00;
+  background: #e6cf00;
+  box-shadow: 0 4px 12px rgba(254, 229, 0, 0.4);
 }
 
 

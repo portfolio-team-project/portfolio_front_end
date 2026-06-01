@@ -103,4 +103,4 @@ npm run build
 | 이름 | 역할 |
 |------|------|
 | 지상원 | Frontend |
-| 이의광 | Fullstack · Backend · Infra |
+| 이의광 | Fullstack · Infra |

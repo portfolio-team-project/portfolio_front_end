@@ -22,7 +22,7 @@ src/
 │   └── axiosInstance.ts       # Axios 인스턴스 (interceptor 포함)
 ├── assets/                    # 이미지, 아이콘
 ├── components/
-│   ├── main/
+│   ├── layout/
 │   │   ├── Header.tsx
 │   │   ├── Footer.tsx
 │   │   ├── Layout.tsx

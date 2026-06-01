@@ -1209,12 +1209,16 @@ nav.visible { transform: translateY(0); }
   width: 80px;
   height: 80px;
   border-radius: 50%;
-
   background: rgba(29,158,117,0.18);
-
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.code-icon {
+  font-family: 'DM Mono', monospace;
+  font-size: 1.5rem;
+  color: #9FE1CB;
+  letter-spacing: -0.05em;
 }
 
 .left-title {

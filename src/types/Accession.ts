@@ -7,5 +7,6 @@ password: string
 passwordCheck: string
 nick_name : string
 emailId : string
+emailDomain : string
   
 }

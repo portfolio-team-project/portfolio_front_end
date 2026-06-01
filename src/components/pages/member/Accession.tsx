@@ -11,14 +11,49 @@ function Accession() {
     passwordCheck: "",
     nick_name: "",
     emailId: "",
+    emailDomain: "",
   });
 
-  const [emailDomain, setEmailDomain] = useState("gmail.com");
+  const [isCustomDomain, setIsCustomDomain] = useState(false);
 
   const isPasswordMismatch =
     form.passwordCheck.length > 0 &&
     form.password !== form.passwordCheck;
 
+  // 이메일 아이디
+  const handleEmailIdChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setForm((prev) => ({
+      ...prev,
+      emailId: e.target.value,
+    }));
+  };
+
+  // 도메인 선택
+  const handleDomainSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const value = e.target.value;
+
+    if (value === "etc") {
+      setIsCustomDomain(true);
+      setForm((prev) => ({
+        ...prev,
+        emailDomain: "",
+      }));
+    } else {
+      setIsCustomDomain(false);
+      setForm((prev) => ({
+        ...prev,
+        emailDomain: value,
+      }));
+    }
+  };
+
+  // 도메인 직접 입력
+  const handleDomainInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setForm((prev) => ({
+      ...prev,
+      emailDomain: e.target.value,
+    }));
+  };
 
   return (
     <Fragment>
@@ -31,7 +66,7 @@ function Accession() {
 
           <form className="signup-form">
 
-            
+            {/* 계정 정보 */}
             <div className="signup-group">
               <h3>계정 정보</h3>
 
@@ -40,9 +75,14 @@ function Accession() {
                   <div className="signup-field">
                     <label>아이디 *</label>
                     <input
-                      name="user_id"
-                                           
+                      value={form.user_id}
                       placeholder="아이디 입력"
+                      onChange={(e) =>
+                        setForm((prev) => ({
+                          ...prev,
+                          user_id: e.target.value,
+                        }))
+                      }
                     />
                   </div>
                 </div>
@@ -51,9 +91,14 @@ function Accession() {
                   <div className="signup-field">
                     <label>이름 *</label>
                     <input
-                      name="user_name"
-                      
+                      value={form.user_name}
                       placeholder="이름 입력"
+                      onChange={(e) =>
+                        setForm((prev) => ({
+                          ...prev,
+                          user_name: e.target.value,
+                        }))
+                      }
                     />
                   </div>
                 </div>
@@ -64,10 +109,15 @@ function Accession() {
                   <div className="signup-field">
                     <label>비밀번호 *</label>
                     <input
-                      name="password"
-                     
-                 
+                      type="password"
+                      value={form.password}
                       placeholder="비밀번호 입력"
+                      onChange={(e) =>
+                        setForm((prev) => ({
+                          ...prev,
+                          password: e.target.value,
+                        }))
+                      }
                     />
                   </div>
                 </div>
@@ -76,11 +126,16 @@ function Accession() {
                   <div className="signup-field">
                     <label>비밀번호 확인 *</label>
                     <input
-                      name="passwordCheck"
-                   
                       type="password"
+                      value={form.passwordCheck}
                       placeholder="비밀번호 재입력"
                       className={isPasswordMismatch ? "error-input" : ""}
+                      onChange={(e) =>
+                        setForm((prev) => ({
+                          ...prev,
+                          passwordCheck: e.target.value,
+                        }))
+                      }
                     />
                   </div>
                 </div>
@@ -96,9 +151,14 @@ function Accession() {
                   <div className="signup-field">
                     <label>회사명</label>
                     <input
-                      name="cp_name"
-              
+                      value={form.cp_name}
                       placeholder="회사명을 입력해주세요"
+                      onChange={(e) =>
+                        setForm((prev) => ({
+                          ...prev,
+                          cp_name: e.target.value,
+                        }))
+                      }
                     />
                   </div>
                 </div>
@@ -107,8 +167,14 @@ function Accession() {
                   <div className="signup-field">
                     <label>직급</label>
                     <input
-                      name="rank"
+                      value={form.rank}
                       placeholder="직급을 입력해주세요"
+                      onChange={(e) =>
+                        setForm((prev) => ({
+                          ...prev,
+                          rank: e.target.value,
+                        }))
+                      }
                     />
                   </div>
                 </div>
@@ -126,18 +192,23 @@ function Accession() {
                   <div className="signup-field">
                     <label>닉네임</label>
                     <input
-                      name="nick_name"
-             
+                      value={form.nick_name}
                       placeholder="닉네임 입력"
+                      onChange={(e) =>
+                        setForm((prev) => ({
+                          ...prev,
+                          nick_name: e.target.value,
+                        }))
+                      }
                     />
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* 인증 */}
+            {/* 이메일 인증 */}
             <div className="signup-group">
-              <h3>인증</h3>
+              <h3>이메일 인증</h3>
 
               <div className="signup-col email-col-wide">
                 <div className="signup-field email-field">
@@ -146,36 +217,46 @@ function Accession() {
 
                     <label className="email-label">이메일 *</label>
 
+                    {/* 이메일 ID */}
                     <input
                       type="text"
                       placeholder="이메일 입력"
                       value={form.emailId}
-                      onChange={(e) =>
-                        setForm((prev) => ({
-                          ...prev,
-                          emailId: e.target.value,
-                        }))
-                      }
+                      onChange={handleEmailIdChange}
                     />
 
                     <span className="email-at">@</span>
 
-                    <select
-                      className="email-select"
-                      value={emailDomain}
-                      onChange={(e) => setEmailDomain(e.target.value)} >
-                      <option value="gmail.com">gmail.com</option>
-                      <option value="naver.com">naver.com</option>
-                      <option value="daum.net">daum.net</option>
-                      <option value="outlook.com">outlook.com</option>
-                      <option value="etc">직접 입력</option>
-                    </select>
+                    {/* 도메인 선택 or 입력 */}
+                    {!isCustomDomain ? (
+                      <select
+                        className="email-select"
+                        value={form.emailDomain}
+                        onChange={handleDomainSelect}
+                      >
+                        <option value="">도메인 선택</option>
+                        <option value="gmail.com">gmail.com</option>
+                        <option value="naver.com">naver.com</option>
+                        <option value="daum.net">daum.net</option>
+                        <option value="outlook.com">outlook.com</option>
+                        <option value="etc">직접 입력</option>
+                      </select>
+                    ) : (
+                      <input
+                        className="email-select"
+                        type="text"
+                        placeholder="도메인 직접 입력"
+                        value={form.emailDomain}
+                        onChange={handleDomainInput}
+                      />
+                    )}
 
                     <button type="button" className="email-send-btn">
                       인증번호 전송
                     </button>
 
                   </div>
+
                 </div>
               </div>
 
@@ -199,13 +280,15 @@ function Accession() {
             <button type="submit" className="signup-btn">
               회원가입
             </button>
-             <div className="signup-footer">
+
+            <div className="signup-footer">
               <span>이미 계정이 있으신가요?</span>
-              
+
               <button type="button" className="login-link-btn">
                 로그인
               </button>
             </div>
+
           </form>
         </div>
       </section>

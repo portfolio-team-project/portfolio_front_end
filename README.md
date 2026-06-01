@@ -38,10 +38,10 @@ src/
 │       │   ├── Accession.tsx
 │       │   └── FindPassword.tsx
 │       └── qna/
-│           ├── qna.tsx
+│           ├── Qna.tsx
 │           ├── BoardList.tsx
 │           ├── Boardwrite.tsx
-│           └── faq.tsx
+│           └── Faq.tsx
 ├── slices/
 │   ├── memberSlice.ts
 │   └── qnaSlice.ts

@@ -291,7 +291,7 @@ nav.visible { transform: translateY(0); }
   border-bottom: 1px solid;
 }
 .a-theme .sec-banner { border-color: rgba(210,193,182,0.18); }
-.b-theme .sec-banner { border-color: rgba(27,60,83,0.18); }
+.b-theme .sec-banner { border-color: rgba(27,60,83,0.18); flex-direction: column; align-items: center; text-align: center; gap: 12px; }
 
 .sec-banner-left { display: flex; flex-direction: column; }
 .sec-idx {
@@ -318,9 +318,10 @@ nav.visible { transform: translateY(0); }
 }
 .b-theme .sec-name {
   color: var(--b-text);
-  font-size: clamp(2.4rem, 4.2vw, 4.8rem);
-  max-width: 16ch;
+  font-size: clamp(2.6rem, 4.5vw, 5.2rem);
+  max-width: 100%;
   word-break: keep-all;
+  overflow: hidden;
 }
 .sec-name em {
   font-style: normal;
@@ -807,6 +808,83 @@ nav.visible { transform: translateY(0); }
 .github-links a:hover img { opacity: 1; }
 .github-links a:hover { color: rgba(255, 255, 255, 1); }
 
+/* ── B-THEME ENHANCED ── */
+.b-quote-wrap {
+  position: relative;
+  margin-bottom: 80px;
+  padding: 40px 0;
+  border-top: 1px solid rgba(27,60,83,0.12);
+  border-bottom: 1px solid rgba(27,60,83,0.12);
+  overflow: hidden;
+}
+.b-quote-bg {
+  position: absolute;
+  top: -20px;
+  left: -8px;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(8rem, 18vw, 14rem);
+  font-weight: 800;
+  line-height: 1;
+  color: rgba(27,60,83,0.07);
+  user-select: none;
+  pointer-events: none;
+}
+.b-quote-text {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.4rem, 2.8vw, 2.2rem);
+  line-height: 1.45;
+  color: var(--b-text);
+  letter-spacing: -0.02em;
+  position: relative;
+}
+.b-quote-sub {
+  margin-top: 12px;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  color: var(--b-accent);
+  opacity: 0.55;
+  position: relative;
+}
+
+.b-skill-grid { display: flex; flex-direction: column; }
+.b-skill-row {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  gap: 24px;
+  align-items: start;
+  padding: 20px 0;
+  border-bottom: 1px solid rgba(27,60,83,0.1);
+}
+.b-skill-row:first-child { border-top: 1px solid rgba(27,60,83,0.1); }
+.b-skill-cat-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.63rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--b-accent);
+  padding-top: 6px;
+}
+.b-skill-cat-right { display: flex; flex-direction: column; gap: 8px; }
+.b-skill-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.b-skill-cat-desc {
+  font-size: 0.78rem;
+  color: rgba(27,60,83,0.45);
+  line-height: 1.5;
+}
+
+.b-proj-role {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  padding: 3px 10px;
+  border-radius: 2px;
+  background: rgba(27,60,83,0.1);
+  color: var(--b-accent);
+  white-space: nowrap;
+}
+
 @media (max-width: 768px) {
 
   /* ▸ 진입 화면 */
@@ -883,11 +961,14 @@ nav.visible { transform: translateY(0); }
   /* ▸ 섹션 레이아웃 */
   .proj-grid { grid-template-columns: 1fr; }
   .ct-grid { grid-template-columns: 1fr; }
-  .sec-banner { flex-direction: column; align-items: flex-start; gap: 24px; }
+  .sec-banner { flex-direction: column; align-items: flex-start; gap: 12px; }
   .sec-banner-right { text-align: left; }
+    .b-theme .sec-banner-left { align-items: center; }
   .sec-wrap { padding: 0 20px; }
   #dev-a, #dev-b { padding: 80px 0 60px; }
   #contact { padding: 80px 20px 60px; }
+  .b-skill-row { grid-template-columns: 1fr; gap: 10px; }
+  .b-skill-cat-label { padding-top: 0; }
 
   /* ▸ QnA / 게시판 */
   .qna-section { padding: 80px 0 60px; }

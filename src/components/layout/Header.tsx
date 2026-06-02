@@ -60,6 +60,7 @@ function Header() {
           {user && (
             <li className="mobile-user-info">
               <span className="mobile-user-id">{user.userId}</span>
+              <button className="mobile-logout-btn" onClick={() => { navigate("/account"); closeMenu(); }}>계정설정</button>
               <button className="mobile-logout-btn" onClick={handleLogout}>로그아웃</button>
             </li>
           )}
@@ -95,6 +96,7 @@ function Header() {
             {profileOpen && (
               <div className="profile-dropdown">
                 <span className="profile-name">{user.userName}</span>
+                <button>계정설정</button>
                 <button onClick={handleLogout}>로그아웃</button>
               </div>
             )}

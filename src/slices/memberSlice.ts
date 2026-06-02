@@ -48,6 +48,18 @@ export const refreshAccessToken = createAsyncThunk(
   }
 );
 
+export const kakaoLogin = createAsyncThunk(
+    "member/kakaoLogin",
+    async (data: { code: string }, { rejectWithValue }) => {
+        try {
+            const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/social/kakao`, data);
+            return response.data.data;
+        } catch (error: any) {
+            return rejectWithValue(error.response?.data);
+        }
+    }
+);
+
 const memberSlice = createSlice({
     name: "member",
     initialState,
@@ -67,6 +79,18 @@ const memberSlice = createSlice({
                 state.user = action.payload;
             })
             .addCase(login.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload as string;
+            })
+            .addCase(kakaoLogin.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(kakaoLogin.fulfilled, (state, action) => {
+                state.loading = false;
+                state.user = action.payload;
+            })
+            .addCase(kakaoLogin.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload as string;
             })

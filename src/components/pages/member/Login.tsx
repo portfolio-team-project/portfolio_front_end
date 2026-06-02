@@ -46,7 +46,7 @@ function Login() {
         {/* LEFT */}
         <div className="left">
           <div className="left-icon">
-            <i className="ti ti-plant-2" />
+            <span className="code-icon">&lt;/&gt;</span>
           </div>
 
           <div>

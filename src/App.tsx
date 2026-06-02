@@ -3,19 +3,20 @@ import {BrowserRouter as Router,Routes,Route} from "react-router-dom";
 import './App.css'
 import store from "./store/store";
 import EntryPage from "./components/pages/main/EntryPage";
-import Layout from "./components/main/Layout";
+import Layout from "./components/layout/Layout";
 import SangwonPage from "./components/pages/main/SangwonPage";
 import EuigwangPage from "./components/pages/main/EuigwangPage";
-import QnA from "./components/pages/qna/qna";
+import QnA from "./components/pages/qna/Qna";
 import BoardList from "./components/pages/qna/BoardList";
 import Boardwrite from "./components/pages/qna/Boardwrite";
-import Faq from "./components/pages/qna/faq";
+import Faq from "./components/pages/qna/Faq";
 import Accession from "./components/pages/member/Accession";
 import Login from "./components/pages/member/Login";
-import HeaderOnlyLayout from "./components/main/HeaderOnlyLayout";
-import PrivateRoute from "./components/main/PrivateRoute";
+import HeaderOnlyLayout from "./components/layout/HeaderOnlyLayout";
+import PrivateRoute from "./components/layout/PrivateRoute";
 import { Toaster } from "react-hot-toast";
 import FindPassword from "./components/pages/member/FindPassword";
+import KakaoCallback from "./components/pages/member/KakaoCallback";
 import { useEffect } from "react";
 import { refreshAccessToken } from "./slices/memberSlice";
 
@@ -46,6 +47,7 @@ function App() {
             <Route path="/accession" element={<Accession />} />
             <Route path="/login" element={<Login />} />
             <Route path="/find-password" element={<FindPassword />} />
+            <Route path="/kakao" element={<KakaoCallback />} />
           </Route>
         </Routes>
       </Router>

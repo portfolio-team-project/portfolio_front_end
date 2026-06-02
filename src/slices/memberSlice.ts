@@ -53,7 +53,7 @@ export const kakaoLogin = createAsyncThunk(
     async (data: { code: string }, { rejectWithValue }) => {
         try {
             const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/social/kakao`, data);
-            return response.data;
+            return response.data.data;
         } catch (error: any) {
             return rejectWithValue(error.response?.data);
         }

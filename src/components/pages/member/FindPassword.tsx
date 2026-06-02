@@ -23,22 +23,21 @@ function FindPassword() {
       else if (email.trim() === "") {
         return toast.error("이메일을 입력해주세요."); 
       }
-      /* TODO: 서버에 아이디와 이메일을 전송하여 인증번호 발송 로직 추가 */
-      await handleSendEmail();
-
-      /* TODO: 인증번호 검증 확인 후 성공 시 반환 추가 */
-      return setStep("verify");
+      const success = await handleSendEmail();
+      if (!success) return;
+      setStep("verify");
   };
 
-  const handleSendEmail = async () => {
-    await axios.post('/findPassword', null, {
-      params: {
-        userId,
-        email
-      }
-    }).catch((error) => {
+  const handleSendEmail = async (): Promise<boolean> => {
+    try {
+      await axios.post('/findPassword', null, {
+        params: { userId, email }
+      });
+      return true;
+    } catch (error: any) {
       toast.error(error.response?.data?.message || "인증번호 발송에 실패했습니다.");
-    });
+      return false;
+    }
   }
 
   const handleVerifyCode = async () => {

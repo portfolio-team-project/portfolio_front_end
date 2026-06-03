@@ -1,4 +1,5 @@
 import { Fragment, useState } from "react";
+import axios from "axios";
 import type { AccessionItem } from "../../../types/Accession";
 
 function Accession() {
@@ -9,10 +10,13 @@ function Accession() {
     cp_name: "",
     password: "",
     passwordCheck: "",
-    nick_name: "",
+    work: "",
     emailId: "",
     emailDomain: "",
+    authenticationCode: "",
+    department: "",
   });
+
 
   const [isCustomDomain, setIsCustomDomain] = useState(false);
 
@@ -21,9 +25,7 @@ function Accession() {
     form.password !== form.passwordCheck;
 
   // 이메일 아이디
-  const handleEmailIdChange = (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleEmailIdChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm((prev) => ({
       ...prev,
       emailId: e.target.value,
@@ -31,21 +33,17 @@ function Accession() {
   };
 
   // 도메인 선택
-  const handleDomainSelect = (
-    e: React.ChangeEvent<HTMLSelectElement>
-  ) => {
+  const handleDomainSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const value = e.target.value;
 
     if (value === "etc") {
       setIsCustomDomain(true);
-
       setForm((prev) => ({
         ...prev,
         emailDomain: "",
       }));
     } else {
       setIsCustomDomain(false);
-
       setForm((prev) => ({
         ...prev,
         emailDomain: value,
@@ -54,14 +52,102 @@ function Accession() {
   };
 
   // 도메인 직접 입력
-  const handleDomainInput = (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleDomainInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm((prev) => ({
       ...prev,
       emailDomain: e.target.value,
     }));
   };
+
+  // 이메일 전송
+  const handleSendEmail = async () => {
+  const emailId = form.emailId.trim();
+  const emailDomain = form.emailDomain.trim();
+
+  if (!emailId || !emailDomain) {
+    alert("이메일을 확인해주세요");
+    return;
+  }
+
+  const email = `${emailId}@${emailDomain}`;
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  if (!emailRegex.test(email)) {
+    alert("이메일 형식이 올바르지 않습니다");
+    return;
+  }
+
+  if (isCustomDomain && !emailDomain) {
+    alert("도메인을 입력해주세요");
+    return;
+  }
+
+  try {
+    const res = await axios.post("/sendEmailAuth", {
+      email,
+    });
+
+    alert("인증번호가 전송되었습니다");
+    console.log(res.data);
+  } catch (error: any) {
+    alert(error.response?.data?.message || "이메일 전송 실패");
+  }
+};
+
+  // 아이디 중복검사
+  const [isIdChecked, setIsIdChecked] = useState(false);
+  const dTest = async (user_id: string): Promise<boolean> => {
+    if (!user_id.trim()) {
+      alert("아이디를 입력해주세요");
+      return false;
+    }
+
+    try {
+      const res = await axios.post("/checkUserId", {
+        user_id,
+      });
+
+      if (res.data.available) {
+        alert("사용 가능한 아이디입니다");
+        setIsIdChecked(true);
+        return true;
+      } else {
+        alert("이미 사용 중인 아이디입니다");
+        return false;
+      }
+    } catch (error: any) {
+      alert(error.response?.data?.message || "중복검사 실패");
+      return false;
+    }
+  };
+
+    //회원가입
+    const handleSubmit = async (e: React.FormEvent) => {
+      e.preventDefault();
+
+      if (!isIdChecked) {
+        alert("아이디 중복검사를 해주세요");
+        return;
+      }
+
+      if (isPasswordMismatch) {
+        alert("비밀번호가 일치하지 않습니다");
+        return;
+      }
+
+      //passwordCheck와 authenticationCode form 제외
+      const { passwordCheck, authenticationCode, ...sendData } = form;
+
+      try {
+        const res = await axios.post("/AccessionSignup", sendData);
+
+        alert("회원가입 성공!");
+        console.log(res.data);
+      } catch (error: any) {
+        alert(error.response?.data?.message || "회원가입 실패");
+      }
+    };
+
 
   return (
     <Fragment>
@@ -71,7 +157,7 @@ function Accession() {
             <h2 className="signup-title">회원가입</h2>
           </div>
 
-          <form className="signup-form">
+          <form className="signup-form" onSubmit={handleSubmit}>
             {/* 계정 정보 */}
             <div className="signup-group">
               <h3>계정 정보</h3>
@@ -80,26 +166,27 @@ function Accession() {
                 <div className="signup-col">
                   <div className="signup-field">
                     <label>아이디 *</label>
-                    <input
-                      value={form.user_id}
-                      placeholder="아이디 입력"
-                      onChange={(e) =>
-                        setForm((prev) => ({
-                          ...prev,
-                          user_id: e.target.value,
-                        }))
-                      }
-                    />
+                   <input
+                        value={form.user_id}
+                        placeholder="아이디 입력"
+                        onChange={(e) => {
+                          setForm((prev) => ({
+                            ...prev,
+                            user_id: e.target.value,
+                          }));
 
-                               <button
-                    type="button"
-                    className="id-checker-btn"
-                  >
-                    중복검사
-                  </button>
+                          setIsIdChecked(false);
+                        }}
+                      />
+                 <button
+                  type="button"
+                  className="id-checker-btn"
+                  onClick={() => dTest(form.user_id)}
+                >
+                  중복검사
+                </button>
                   </div>
 
-       
                 </div>
 
                 <div className="signup-col">
@@ -203,20 +290,28 @@ function Accession() {
                 <div className="signup-col">
                   <div className="signup-field">
                     <label>부서</label>
-                    <input placeholder="부서를 입력해주세요" />
+                    <input
+                    value={form.department}
+                    onChange={(e) =>
+                      setForm((prev) => ({
+                        ...prev,
+                        department: e.target.value,
+                      }))
+                    }
+                  />
                   </div>
                 </div>
 
                 <div className="signup-col">
                   <div className="signup-field">
-                    <label>닉네임</label>
+                    <label>담당업무</label>
                     <input
-                      value={form.nick_name}
-                      placeholder="닉네임 입력"
+                      value={form.work}
+                      placeholder="담당업무 입력"
                       onChange={(e) =>
                         setForm((prev) => ({
                           ...prev,
-                          nick_name: e.target.value,
+                          work: e.target.value,
                         }))
                       }
                     />
@@ -290,6 +385,7 @@ function Accession() {
                     <button
                       type="button"
                       className="email-send-btn"
+                      onClick={handleSendEmail}
                     >
                       인증번호 전송
                     </button>
@@ -302,6 +398,12 @@ function Accession() {
                   <div className="signup-field">
                     <label>인증번호</label>
                     <input placeholder="인증번호 입력" />
+                    <button
+                      type="button"
+                      className="email-send-btn"
+                    >
+                      인증하기
+                    </button>
                   </div>
                 </div>
               </div>

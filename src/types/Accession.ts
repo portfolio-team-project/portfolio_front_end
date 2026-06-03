@@ -5,8 +5,10 @@ rank : string
 cp_name : string
 password: string
 passwordCheck: string
-nick_name : string
+work : string
 emailId : string
 emailDomain : string
+authenticationCode : string
+department : string
   
 }

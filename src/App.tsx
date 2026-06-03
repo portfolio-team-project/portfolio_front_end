@@ -16,6 +16,7 @@ import HeaderOnlyLayout from "./components/layout/HeaderOnlyLayout";
 import PrivateRoute from "./components/layout/PrivateRoute";
 import { Toaster } from "react-hot-toast";
 import FindPassword from "./components/pages/member/FindPassword";
+import KakaoCallback from "./components/pages/member/KakaoCallback";
 import { useEffect } from "react";
 import { refreshAccessToken } from "./slices/memberSlice";
 
@@ -46,6 +47,7 @@ function App() {
             <Route path="/accession" element={<Accession />} />
             <Route path="/login" element={<Login />} />
             <Route path="/find-password" element={<FindPassword />} />
+            <Route path="/kakao" element={<KakaoCallback />} />
           </Route>
         </Routes>
       </Router>

@@ -21,7 +21,9 @@ function Accession() {
     form.password !== form.passwordCheck;
 
   // 이메일 아이디
-  const handleEmailIdChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleEmailIdChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setForm((prev) => ({
       ...prev,
       emailId: e.target.value,
@@ -29,17 +31,21 @@ function Accession() {
   };
 
   // 도메인 선택
-  const handleDomainSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleDomainSelect = (
+    e: React.ChangeEvent<HTMLSelectElement>
+  ) => {
     const value = e.target.value;
 
     if (value === "etc") {
       setIsCustomDomain(true);
+
       setForm((prev) => ({
         ...prev,
         emailDomain: "",
       }));
     } else {
       setIsCustomDomain(false);
+
       setForm((prev) => ({
         ...prev,
         emailDomain: value,
@@ -48,7 +54,9 @@ function Accession() {
   };
 
   // 도메인 직접 입력
-  const handleDomainInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleDomainInput = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setForm((prev) => ({
       ...prev,
       emailDomain: e.target.value,
@@ -59,13 +67,11 @@ function Accession() {
     <Fragment>
       <section className="signup-section">
         <div className="signup-wrap">
-
           <div className="signup-header">
             <h2 className="signup-title">회원가입</h2>
           </div>
 
           <form className="signup-form">
-
             {/* 계정 정보 */}
             <div className="signup-group">
               <h3>계정 정보</h3>
@@ -84,7 +90,16 @@ function Accession() {
                         }))
                       }
                     />
+
+                               <button
+                    type="button"
+                    className="id-checker-btn"
+                  >
+                    중복검사
+                  </button>
                   </div>
+
+       
                 </div>
 
                 <div className="signup-col">
@@ -129,7 +144,9 @@ function Accession() {
                       type="password"
                       value={form.passwordCheck}
                       placeholder="비밀번호 재입력"
-                      className={isPasswordMismatch ? "error-input" : ""}
+                      className={
+                        isPasswordMismatch ? "error-input" : ""
+                      }
                       onChange={(e) =>
                         setForm((prev) => ({
                           ...prev,
@@ -137,7 +154,9 @@ function Accession() {
                         }))
                       }
                     />
+
                   </div>
+                  
                 </div>
               </div>
             </div>
@@ -212,12 +231,11 @@ function Accession() {
 
               <div className="signup-col email-col-wide">
                 <div className="signup-field email-field">
-
                   <div className="email-box">
+                    <label className="email-label">
+                      이메일 *
+                    </label>
 
-                    <label className="email-label">이메일 *</label>
-
-                    {/* 이메일 ID */}
                     <input
                       type="text"
                       placeholder="이메일 입력"
@@ -227,36 +245,55 @@ function Accession() {
 
                     <span className="email-at">@</span>
 
-                    {/* 도메인 선택 or 입력 */}
-                    {!isCustomDomain ? (
-                      <select
-                        className="email-select"
-                        value={form.emailDomain}
-                        onChange={handleDomainSelect}
-                      >
-                        <option value="">도메인 선택</option>
-                        <option value="gmail.com">gmail.com</option>
-                        <option value="naver.com">naver.com</option>
-                        <option value="daum.net">daum.net</option>
-                        <option value="outlook.com">outlook.com</option>
-                        <option value="etc">직접 입력</option>
-                      </select>
-                    ) : (
-                      <input
-                        className="email-select"
-                        type="text"
-                        placeholder="도메인 직접 입력"
-                        value={form.emailDomain}
-                        onChange={handleDomainInput}
-                      />
-                    )}
+                    <input
+                      className="email-domain-input"
+                      type="text"
+                      placeholder={
+                        isCustomDomain
+                          ? "도메인 직접 입력"
+                          : "이메일 주소를 선택해주세요"
+                      }
+                      value={form.emailDomain}
+                      disabled={!isCustomDomain}
+                      onChange={handleDomainInput}
+                    />
 
-                    <button type="button" className="email-send-btn">
+                    <select
+                      className="email-select"
+                      value={
+                        isCustomDomain
+                          ? "etc"
+                          : form.emailDomain
+                      }
+                      onChange={handleDomainSelect}
+                    >
+                      <option value="">
+                        도메인 선택
+                      </option>
+                      <option value="gmail.com">
+                        gmail.com
+                      </option>
+                      <option value="naver.com">
+                        naver.com
+                      </option>
+                      <option value="daum.net">
+                        daum.net
+                      </option>
+                      <option value="outlook.com">
+                        outlook.com
+                      </option>
+                      <option value="etc">
+                        직접 입력
+                      </option>
+                    </select>
+
+                    <button
+                      type="button"
+                      className="email-send-btn"
+                    >
                       인증번호 전송
                     </button>
-
                   </div>
-
                 </div>
               </div>
 
@@ -272,23 +309,28 @@ function Accession() {
 
             {/* 에러 */}
             {isPasswordMismatch && (
-              <p className="error-text">
-                비밀번호가 서로 일치하지 않습니다.
-              </p>
+           <p className={`error-text ${isPasswordMismatch ? "show" : ""}`}>
+            비밀번호가 일치하지 않습니다.
+          </p>
             )}
 
-            <button type="submit" className="signup-btn">
+            <button
+              type="submit"
+              className="signup-btn"
+            >
               회원가입
             </button>
 
             <div className="signup-footer">
               <span>이미 계정이 있으신가요?</span>
 
-              <button type="button" className="login-link-btn">
+              <button
+                type="button"
+                className="login-link-btn"
+              >
                 로그인
               </button>
             </div>
-
           </form>
         </div>
       </section>

@@ -28,6 +28,7 @@ function Login() {
     } else if (login.rejected.match(result)) {
       const message = String(result.payload || "로그인에 실패했습니다.");
       if (message === MessageConstants.PWD_EXPIRED) {
+        toast.error("비밀번호가 만료되었습니다. 비밀번호 변경 페이지로 이동합니다.");
         navigate("/change-password", { state: { userId } });
       } else {
         toast.error(message);

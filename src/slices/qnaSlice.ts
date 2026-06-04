@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
 import type { QnaItem } from "../types/qna";
 import axiosInstance from "../api/axiosInstance";
 

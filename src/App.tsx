@@ -48,7 +48,7 @@ function App() {
             <Route path="/accession" element={<Accession />} />
             <Route path="/login" element={<Login />} />
             <Route path="/find-password" element={<FindPassword />} />
-            <Route path="/kakao" element={<KakaoCallback />} />
+            <Route path="/kakao/callback" element={<KakaoCallback />} />
             <Route path="/change-password" element={<ChangePassword />} />
           </Route>
         </Routes>

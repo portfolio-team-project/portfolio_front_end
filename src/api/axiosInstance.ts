@@ -4,6 +4,7 @@ import { logout, refreshAccessToken } from "../slices/memberSlice";
 
 const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
+  withCredentials: true,
 });
 
 // 요청마다 accessToken 자동으로 헤더에 추가

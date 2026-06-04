@@ -39,7 +39,7 @@ function Login() {
   const kakaoLogin = () => {
     const REST_API_KEY = import.meta.env.VITE_REST_API_KEY;
     const REDIRECT_URL = import.meta.env.VITE_REDIRECT_URL;
-    const kakaoAuthURL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URL}/kakao&response_type=code`;
+    const kakaoAuthURL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URL}&response_type=code`;
     
     return window.location.href = kakaoAuthURL;
   }

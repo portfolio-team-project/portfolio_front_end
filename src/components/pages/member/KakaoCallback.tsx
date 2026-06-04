@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import type { AppDispatch } from "../../../store/store";
 import { kakaoLogin } from "../../../slices/memberSlice";
 import toast from "react-hot-toast";
+import * as MessageConstants from "../../../constants/messageConstants";
 
 function KakaoCallback() {
   const navigate = useNavigate();
@@ -19,7 +20,7 @@ function KakaoCallback() {
         navigate("/");
       } else if (kakaoLogin.rejected.match(result)) {
         const payload = result.payload as any;
-        if (payload?.message === "존재하지 않는 아이디입니다.") {
+        if (payload?.message === MessageConstants.MEMBER_NOT_FOUND) {
           toast.error("카카오 계정과 연결된 회원이 없습니다. 회원가입 페이지로 이동합니다.");
           navigate("/accession", { state: { kakaoId: payload.data.kakaoId } });
         } else {

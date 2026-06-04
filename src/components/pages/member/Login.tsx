@@ -1,4 +1,5 @@
 import { Fragment, useState } from "react";
+import * as MessageConstants from "../../../constants/messageConstants";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch, RootState } from "../../../store/store";
@@ -25,7 +26,12 @@ function Login() {
         navigate("/");
       }
     } else if (login.rejected.match(result)) {
-      toast.error(String(result.payload || "로그인에 실패했습니다."));
+      const message = String(result.payload || "로그인에 실패했습니다.");
+      if (message === MessageConstants.PWD_EXPIRED) {
+        navigate("/change-password", { state: { userId } });
+      } else {
+        toast.error(message);
+      }
     }
   };
 

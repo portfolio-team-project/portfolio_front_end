@@ -284,8 +284,8 @@ nav.visible { transform: translateY(0); }
 .nav-links a.qna:hover { color: #ffffff; }
 
 /* ── SECTIONS ── */
-#dev-a { background: var(--a-bg); color: var(--a-text); padding: 120px 0 100px; }
-#dev-b { background: var(--b-bg); color: var(--b-text); padding: 120px 0 100px; }
+#dev-a { background: var(--a-bg); color: var(--a-text); padding: 120px 0 100px; overflow-x: hidden; }
+#dev-b { background: var(--b-bg); color: var(--b-text); padding: 120px 0 100px; overflow-x: hidden; }
 
 .sec-wrap { max-width: 1080px; margin: 0 auto; padding: 0 48px; }
 
@@ -989,6 +989,15 @@ nav.visible { transform: translateY(0); }
     .b-theme .sec-banner-left { align-items: center; }
   .sec-wrap { padding: 0 20px; }
   #dev-a, #dev-b { padding: 80px 0 60px; }
+  .b-theme .skills-wrap,
+  .b-theme .tl-wrap {
+    padding: 20px;
+    margin-left: -20px;
+    margin-right: -20px;
+  }
+  .b-theme .sec-name { font-size: clamp(1.6rem, 8.5vw, 2.6rem); }
+  .b-quote-wrap { padding: 32px 24px; }
+  .b-quote-sub { letter-spacing: 0.04em; }
   #contact { padding: 80px 20px 60px; }
   .b-skill-row { grid-template-columns: 1fr; gap: 10px; }
   .b-skill-cat-label { padding-top: 0; }
@@ -1018,10 +1027,10 @@ nav.visible { transform: translateY(0); }
   .qna-table th, .qna-table td { padding: 12px 6px; font-size: 0.78rem; }
 
   /* ▸ 프로젝트 아코디언 헤더 (긴 이름 overflow 방지) */
-  .proj-acc-left { flex-wrap: wrap; gap: 4px; }
+  .proj-acc-left { flex-wrap: wrap; gap: 4px; min-width: 0; overflow: hidden; }
   .proj-acc-name { font-size: 0.88rem; }
   .proj-acc-period { width: 100%; order: 3; padding-left: 30px; }
-  .b-theme .proj-acc-period { width: auto; order: 0; padding-left: 0; white-space: nowrap; }
+  .b-theme .proj-acc-period { width: 100%; order: 3; padding-left: 0; white-space: nowrap; opacity: 0.5; font-size: 0.65rem; }
   .b-theme .proj-acc-name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
   /* ▸ 로그인 / 비밀번호 찾기 */

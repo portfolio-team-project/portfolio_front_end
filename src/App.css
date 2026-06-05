@@ -10,7 +10,15 @@
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
-body { font-family: 'Noto Sans KR', sans-serif; overflow-x: hidden; background: #1B3C53; }
+body {
+  font-family: 'Noto Sans KR', sans-serif;
+  overflow-x: hidden;
+  background-color: #1B3C53;
+  background-image:
+    linear-gradient(rgba(210,193,182,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(210,193,182,0.06) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
 
 /* ═══════════════════════════════
     ENTRY SCREEN
@@ -359,6 +367,13 @@ nav.visible { transform: translateY(0); }
 .b-theme .sub-title { border-left: 3px solid var(--b-accent); padding-left: 12px; }
 
 .skills-wrap { margin-bottom: 80px; }
+.b-theme .skills-wrap {
+  background: rgba(0,0,0,0.04);
+  border-radius: 4px;
+  padding: 28px;
+  margin-left: -28px;
+  margin-right: -28px;
+}
 .skill-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 8px; }
 .sk {
   font-family: 'DM Mono', monospace;
@@ -458,6 +473,13 @@ nav.visible { transform: translateY(0); }
 
 /* Timeline */
 .tl-wrap { margin-bottom: 40px; }
+.b-theme .tl-wrap {
+  background: rgba(0,0,0,0.04);
+  border-radius: 4px;
+  padding: 28px;
+  margin-left: -28px;
+  margin-right: -28px;
+}
 .tl { position: relative; padding-left: 26px; }
 .tl::before { content: ''; position: absolute; left: 0; top: 8px; bottom: 0; width: 1px; }
 .a-theme .tl::before { background: rgba(210,193,182,0.22); }

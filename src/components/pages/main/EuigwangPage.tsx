@@ -88,9 +88,9 @@ function EuigwangPage() {
                     <div className="b-quote-wrap">
                         <span className="b-quote-bg">"</span>
                         <p className="b-quote-text">
-                            사용자 경험을 최우선으로 생각하는<br />풀스택 개발자입니다.
+                            서비스가 멈추지 않도록,<br />설계부터 운영까지 책임집니다.
                         </p>
-                        <p className="b-quote-sub">안정적이고 확장 가능한 시스템 설계를 추구합니다</p>
+                        <p className="b-quote-sub">안정성과 확장성을 함께 고려하는 시스템을 만듭니다</p>
                     </div>
 
                     <div className="skills-wrap">

@@ -40,7 +40,7 @@ export const refreshAccessToken = createAsyncThunk(
     try {
       const response = await axiosInstance.post("/api/auth/refresh");
 
-      return response.data; // 새 accessToken
+      return response.data.data;
     } catch {
       return rejectWithValue("세션이 만료되었습니다.");
     }
@@ -94,9 +94,7 @@ const memberSlice = createSlice({
                 state.error = action.payload as string;
             })
             .addCase(refreshAccessToken.fulfilled, (state, action) => {
-                if (state.user) {
-                    state.user.accessToken = action.payload.accessToken;
-                }
+                state.user = action.payload;
             })
             .addCase(refreshAccessToken.rejected, (state) => {
                 state.user = null;

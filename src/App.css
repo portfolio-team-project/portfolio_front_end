@@ -1065,6 +1065,7 @@ nav.visible { transform: translateY(0); }
 .profile-wrap {
   position: relative;
   flex-shrink: 0;
+  width: 34px;
 }
 
 .profile-avatar {

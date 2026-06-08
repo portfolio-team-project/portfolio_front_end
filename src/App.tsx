@@ -18,6 +18,7 @@ import { Toaster } from "react-hot-toast";
 import FindPassword from "./components/pages/member/FindPassword";
 import KakaoCallback from "./components/pages/member/KakaoCallback";
 import ChangePassword from "./components/pages/member/ChangePassword";
+import AdminPage from "./components/pages/admin/adminPage";
 import { useEffect } from "react";
 import { refreshAccessToken } from "./slices/memberSlice";
 
@@ -50,6 +51,7 @@ function App() {
             <Route path="/find-password" element={<FindPassword />} />
             <Route path="/kakao/callback" element={<KakaoCallback />} />
             <Route path="/change-password" element={<ChangePassword />} />
+            <Route path="/admin" element={<AdminPage />} />
           </Route>
         </Routes>
       </Router>

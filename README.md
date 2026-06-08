@@ -1,6 +1,6 @@
-# 팀 포트폴리오 & 작물 관리 플랫폼
+# 팀 포트폴리오
 
-React + TypeScript + Vite 기반의 팀 포트폴리오 및 작물 관리 플랫폼 프론트엔드입니다.
+React + TypeScript + Vite 기반의 팀 포트폴리오 프론트엔드입니다.
 
 ## 기술 스택
 
@@ -33,10 +33,14 @@ src/
 │       │   ├── EntryPage.tsx
 │       │   ├── SangwonPage.tsx
 │       │   └── EuigwangPage.tsx
+│       ├── admin/
+│       │   └── adminPage.tsx
 │       ├── member/
 │       │   ├── Login.tsx
 │       │   ├── Accession.tsx
-│       │   └── FindPassword.tsx
+│       │   ├── FindPassword.tsx
+│       │   ├── ChangePassword.tsx
+│       │   └── KakaoCallback.tsx
 │       └── qna/
 │           ├── Qna.tsx
 │           ├── BoardList.tsx
@@ -44,7 +48,8 @@ src/
 │           └── Faq.tsx
 ├── slices/
 │   ├── memberSlice.ts
-│   └── qnaSlice.ts
+│   ├── qnaSlice.ts
+│   └── adminSlice.ts
 ├── store/
 │   ├── store.ts
 │   └── hooks.ts

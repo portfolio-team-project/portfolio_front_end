@@ -6,6 +6,7 @@ interface MemberState {
         userId: string;
         userName: string;
         accessToken: string;
+        role: string;
     } | null;
     loading: boolean;
     error: string | null;
@@ -59,13 +60,6 @@ export const kakaoLogin = createAsyncThunk(
     }
 );
 
-export const logoutAsync = createAsyncThunk(
-    "member/logout",
-    async () => {
-        await axiosInstance.post("/api/logout");
-    }
-);
-
 const memberSlice = createSlice({
     name: "member",
     initialState,
@@ -104,12 +98,6 @@ const memberSlice = createSlice({
                 state.user = action.payload;
             })
             .addCase(refreshAccessToken.rejected, (state) => {
-                state.user = null;
-            })
-            .addCase(logoutAsync.fulfilled, (state) => {
-                state.user = null;
-            })
-            .addCase(logoutAsync.rejected, (state) => {
                 state.user = null;
             });
     }

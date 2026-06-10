@@ -2,7 +2,7 @@ import { Fragment, useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import type { RootState, AppDispatch } from "../../store/store";
-import { logout } from "../../slices/memberSlice";
+import { logoutAsync } from "../../slices/memberSlice";
 
 function Header() {
   const navigate = useNavigate();
@@ -14,8 +14,8 @@ function Header() {
 
   const closeMenu = () => setMenuOpen(false);
 
-  const handleLogout = () => {
-    dispatch(logout());
+  const handleLogout = async () => {
+    await dispatch(logoutAsync());
     navigate("/login");
     closeMenu();
     setProfileOpen(false);

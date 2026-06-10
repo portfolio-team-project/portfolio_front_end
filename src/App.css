@@ -268,7 +268,7 @@ nav.visible { transform: translateY(0); }
   text-decoration: none;
   cursor: pointer;
 }
-.nav-links { display: flex; gap: 32px; list-style: none; }
+.nav-links { display: flex; gap: 32px; list-style: none; margin-left: auto; }
 .nav-links a {
   font-family: 'DM Mono', monospace;
   font-size: 0.75rem;
@@ -2063,11 +2063,21 @@ nav.visible { transform: translateY(0); }
 /* ══════════════════════════════════
    ADMIN PAGE
 ══════════════════════════════════ */
+#root:has(.admin-layout) {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  border-inline: none;
+}
+
 .admin-layout {
   display: flex;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
   min-height: 100vh;
   background: #111e29;
   font-family: 'Noto Sans KR', sans-serif;
+  padding-top: 57px;
 }
 
 /* ── Sidebar ── */
@@ -2079,7 +2089,7 @@ nav.visible { transform: translateY(0); }
   display: flex;
   flex-direction: column;
   position: fixed;
-  top: 0;
+  top: 57px;
   left: 0;
   bottom: 0;
   z-index: 50;
@@ -2229,10 +2239,6 @@ nav.visible { transform: translateY(0); }
   padding: 24px 32px 16px;
   border-bottom: 1px solid rgba(210,193,182,0.08);
   background: rgba(13,30,42,0.5);
-  backdrop-filter: blur(8px);
-  position: sticky;
-  top: 0;
-  z-index: 10;
 }
 
 .admin-page-title {
@@ -2506,7 +2512,8 @@ nav.visible { transform: translateY(0); }
 }
 
 @media (max-width: 768px) {
-  .admin-sidebar { width: 64px; }
+  .admin-layout { padding-top: 50px; }
+  .admin-sidebar { width: 64px; top: 50px; }
   .admin-logo-title, .admin-logo-sub, .admin-nav-item span:last-child,
   .admin-user-name, .admin-user-id, .admin-back-btn { display: none; }
   .admin-main { margin-left: 64px; }

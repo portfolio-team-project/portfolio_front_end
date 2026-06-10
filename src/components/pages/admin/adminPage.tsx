@@ -1,6 +1,6 @@
 import { Fragment, useState } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate, Navigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import type { RootState } from "../../../store/store";
 
 type MenuTab = "dashboard" | "members" | "qna" | "board";
@@ -26,8 +26,7 @@ const mockPosts = [
 ];
 
 function AdminPage() {
-  const navigate = useNavigate();
-  const { user } = useSelector((state: RootState) => state.member);
+const { user } = useSelector((state: RootState) => state.member);
   const [activeTab, setActiveTab] = useState<MenuTab>("dashboard");
 
   if (!user) {
@@ -82,9 +81,7 @@ function AdminPage() {
                 <div className="admin-user-id">{user.userId}</div>
               </div>
             </div>
-            <button className="admin-back-btn" onClick={() => navigate("/")}>
-              ← 메인으로
-            </button>
+
           </div>
         </aside>
 

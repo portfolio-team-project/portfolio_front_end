@@ -48,6 +48,17 @@ export const refreshAccessToken = createAsyncThunk(
   }
 );
 
+export const logoutAsync = createAsyncThunk(
+    "member/logout",
+    async (_, { rejectWithValue }) => {
+        try {
+            await axiosInstance.post("/api/logout");
+        } catch (error: any) {
+            return rejectWithValue(error.response?.data?.message ?? "로그아웃 중 오류가 발생했습니다.");
+        }
+    }
+);
+
 export const kakaoLogin = createAsyncThunk(
     "member/kakaoLogin",
     async (data: { code: string }, { rejectWithValue }) => {
@@ -98,6 +109,12 @@ const memberSlice = createSlice({
                 state.user = action.payload;
             })
             .addCase(refreshAccessToken.rejected, (state) => {
+                state.user = null;
+            })
+            .addCase(logoutAsync.fulfilled, (state) => {
+                state.user = null;
+            })
+            .addCase(logoutAsync.rejected, (state) => {
                 state.user = null;
             });
     }

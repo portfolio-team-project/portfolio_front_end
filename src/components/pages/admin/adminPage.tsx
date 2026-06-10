@@ -1,6 +1,6 @@
 import { Fragment, useState } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
 import type { RootState } from "../../../store/store";
 
 type MenuTab = "dashboard" | "members" | "qna" | "board";
@@ -31,8 +31,7 @@ function AdminPage() {
   const [activeTab, setActiveTab] = useState<MenuTab>("dashboard");
 
   if (!user) {
-    navigate("/login");
-    return null;
+    return <Navigate to="/" replace />;
   }
 
   const stats = [

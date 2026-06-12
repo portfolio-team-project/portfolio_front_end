@@ -61,6 +61,9 @@ function Header() {
             <li className="mobile-user-info">
               <span className="mobile-user-id">{user.userName}</span>
               <button className="mobile-logout-btn" onClick={() => { navigate("/account"); closeMenu(); }}>계정설정</button>
+              {user.role === import.meta.env.VITE_CHECK_AUTH && (
+                <button className="mobile-logout-btn" onClick={() => { navigate("/admin"); closeMenu(); }}>관리자</button>
+              )}
               <button className="mobile-logout-btn" onClick={handleLogout}>로그아웃</button>
             </li>
           )}

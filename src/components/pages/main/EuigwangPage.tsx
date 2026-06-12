@@ -198,7 +198,7 @@ function EuigwangPage() {
                             <div className="tl-item">
                                 <div className="tl-dot" />
                                 <p className="tl-date">2019.02 — 2021.02</p>
-                                <p className="tl-ttl">한국 폴리텍 대학교 메카트로닉스과 졸업</p>
+                                <p className="tl-ttl">한국 폴리텍 대학교 인천캠퍼스 메카트로닉스과 졸업</p>
                             </div>
                             <div className="tl-item">
                                 <div className="tl-dot" />

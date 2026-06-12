@@ -20,11 +20,7 @@ function Login() {
     e.preventDefault();
     const result = await dispatch(login({ userId: userId, password: password }));
     if (login.fulfilled.match(result)) {
-      if (window.history.length > 1) {
-        navigate(-1);
-      } else {
-        navigate("/");
-      }
+        window.location.href = "/";
     } else if (login.rejected.match(result)) {
       const message = String(result.payload || "로그인에 실패했습니다.");
       if (message === MessageConstants.PWD_EXPIRED) {

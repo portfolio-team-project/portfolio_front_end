@@ -1469,6 +1469,11 @@ nav.visible { transform: translateY(0); }
   background: #085041;
 }
 
+.btn-login:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 /* DIVIDER */
 .divider {
   display: flex;

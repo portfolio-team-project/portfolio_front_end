@@ -12,6 +12,7 @@ function FindPassword() {
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const [isSending,setIsSending] = useState(false);
 
   const handleSendCode = async () => {
       if (userId.trim() === "" && email.trim() === "") {
@@ -23,14 +24,19 @@ function FindPassword() {
       else if (email.trim() === "") {
         return toast.error("이메일을 입력해주세요."); 
       }
-      const success = await handleSendEmail();
-      if (!success) return;
-      setStep("verify");
+      setIsSending(true);
+      try{
+        const success = await handleSendEmail();
+        if (!success) return;
+        setStep("verify");
+      } finally {
+        setIsSending(false);
+      }
   };
 
   const handleSendEmail = async (): Promise<boolean> => {
     try {
-      await axios.post('/findPassword', null, {
+      await axios.post(`${import.meta.env.VITE_API_URL}/api/member/findPassword`, null, {
         params: { userId, email }
       });
       return true;
@@ -41,7 +47,7 @@ function FindPassword() {
   }
 
   const handleVerifyCode = async () => {
-    await axios.post('/verifyNum', null, {
+    await axios.post(`${import.meta.env.VITE_API_URL}/api/member/verifyNum`, null, {
       params: {
         userId,
         certificateNum
@@ -64,14 +70,19 @@ function FindPassword() {
     if (newPassword !== confirmPassword) {
       return toast.error("새 비밀번호와 확인이 일치하지 않습니다.");
     }
-    await axios.post('/resetPassword', {
+    await axios.post(`${import.meta.env.VITE_API_URL}/api/member/resetPassword`, {
         userId,
         newPassword
-    }).then(() => {
-        toast.success("비밀번호가 성공적으로 변경되었습니다.");
-        setTimeout(() => {
+    }).then((response) => {
+        if (response.data.success) {
+          toast.success("비밀번호가 성공적으로 변경되었습니다.");
+          setTimeout(() => {
           window.location.href = "/login";
         }, 2000);
+        }
+        else {
+          toast.error(response.data.message || "비밀번호가 동일한지 확인해주세요.");
+        }
     }).catch((error) => {
       toast.error(error.response?.data?.message || "비밀번호 변경에 실패했습니다.");
     });
@@ -84,7 +95,6 @@ function FindPassword() {
   };
 
   const startTimer = () => {
-    handleSendEmail();
     setTimeLeft(180);
     if (timerRef.current) clearInterval(timerRef.current);
     timerRef.current = setInterval(() => {
@@ -146,8 +156,8 @@ function FindPassword() {
                   <input type="email" placeholder="이메일을 입력하세요" value={email} onChange={(e) => setEmail(e.target.value)} />
                 </div>
 
-                <button className="btn-login" type="button" onClick={() => handleSendCode()}>
-                  인증번호 발송
+                <button className="btn-login" type="button" onClick={() => handleSendCode()} disabled={isSending}>
+                  {isSending ? "발송 중" : "인증번호 발송"}
                 </button>
               </form>
 
@@ -179,8 +189,8 @@ function FindPassword() {
                 </button>
               </form>
 
-              <button className="btn-signup-move" type="button" onClick={() => startTimer()}>
-                인증번호 재전송
+              <button className="btn-signup-move" type="button" onClick={() => {handleSendEmail(); startTimer();}} disabled={isSending}>
+                {isSending ? "발송 중" : "인증번호 재전송"}
               </button>
 
               <button className="btn-signup-move" type="button" onClick={() => setStep("input")}>

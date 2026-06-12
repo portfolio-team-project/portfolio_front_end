@@ -7,30 +7,7 @@ const initialItems: QnaItem[] = [
 ];
 
 function QnA() {
-  const [items, setItems] = useState<QnaItem[]>(initialItems);
   const [openId, setOpenId] = useState<number | null>(null);
-  const [showForm, setShowForm] = useState(false);
-  const [search, setSearch] = useState("");
-  const [form, setForm] = useState({ title: "", content: "", author: "" });
-
-  const filtered = items.filter(
-    (i) => i.title.includes(search) || i.content.includes(search)
-  );
-
-  const submit = () => {
-    if (!form.title.trim() || !form.content.trim()) return;
-    const newItem: QnaItem = {
-      id: items.length > 0 ? Math.max(...items.map((i) => i.id)) + 1 : 1,
-      title: form.title,
-      content: form.content,
-      author: form.author || "익명",
-      date: new Date().toISOString().slice(0, 10),
-      answer: null,
-    };
-    setItems([newItem, ...items]);
-    setForm({ title: "", content: "", author: "" });
-    setShowForm(false);
-  };
 
   return (
     <Fragment>
@@ -50,7 +27,7 @@ function QnA() {
               </tr>
             </thead>
             <tbody>
-              {filtered.map((item) => (
+              {initialItems.map((item) => (
                 <Fragment key={item.id}>
                   <tr
                     className={`qna-row ${openId === item.id ? "open" : ""}`}
@@ -82,7 +59,7 @@ function QnA() {
                   )}
                 </Fragment>
               ))}
-              {filtered.length === 0 && (
+              {initialItems.length === 0 && (
                 <tr>
                   <td colSpan={6} className="qna-empty">검색 결과가 없습니다.</td>
                 </tr>

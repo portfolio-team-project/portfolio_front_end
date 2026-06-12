@@ -187,25 +187,26 @@ function EuigwangPage() {
                         <div className="tl">
                             <div className="tl-item">
                                 <div className="tl-dot" />
-                                <p className="tl-date">2022.09 — 현재</p>
-                                <p className="tl-ttl">□□ 에이전시 · 프론트엔드 개발자</p>
-                                <p className="tl-sub">20+ 클라이언트 웹사이트 개발 리드</p>
+                                <p className="tl-date">2024.05 — 현재</p>
+                                <p className="tl-ttl">SRPOST · 웹 개발자</p>
                             </div>
                             <div className="tl-item">
                                 <div className="tl-dot" />
-                                <p className="tl-date">2022.01 — 2022.08</p>
-                                <p className="tl-ttl">◇◇ 스타트업 · UI 개발 인턴</p>
-                                <p className="tl-sub">디자인 시스템 구축, Storybook 도입</p>
+                                <p className="tl-date">2021.08 — 2023.06</p>
+                                <p className="tl-ttl">경원산업 · 연구원</p>
                             </div>
                             <div className="tl-item">
                                 <div className="tl-dot" />
-                                <p className="tl-date">2018 — 2022</p>
-                                <p className="tl-ttl">○○대학교 소프트웨어학부</p>
-                                <p className="tl-sub">HCI 트랙 · 캡스톤 프로젝트 최우수상</p>
+                                <p className="tl-date">2019.02 — 2021.02</p>
+                                <p className="tl-ttl">한국 폴리텍 대학교 메카트로닉스과 졸업</p>
+                            </div>
+                            <div className="tl-item">
+                                <div className="tl-dot" />
+                                <p className="tl-date">2013.02 — 2018.12</p>
+                                <p className="tl-ttl">대전대학교 경제학과 중퇴</p>
                             </div>
                         </div>
                     </div>
-
                 </div>
             </section>
         </Fragment>

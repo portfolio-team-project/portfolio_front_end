@@ -87,6 +87,20 @@ function AdminPage() {
           </div>
         </aside>
 
+        {/* Mobile Tab Bar */}
+        <div className="admin-mobile-tabs">
+          {menuItems.map((item) => (
+            <button
+              key={item.key}
+              className={`admin-mobile-tab ${activeTab === item.key ? "active" : ""}`}
+              onClick={() => setActiveTab(item.key)}
+            >
+              <span>{item.icon}</span>
+              <span>{item.label}</span>
+            </button>
+          ))}
+        </div>
+
         {/* Main Content */}
         <main className="admin-main">
           {/* Top bar */}
@@ -136,8 +150,8 @@ function AdminPage() {
                         <tr key={m.userId}>
                           <td>{m.userId}</td>
                           <td>{m.userName}</td>
-                          <td>{m.createdDate}</td>
-                          <td><span className="admin-role-badge user">{m.status}</span></td>
+                          <td>{m.createdDate?.slice(0, 10)}</td>
+                          <td><span className="admin-role-badge user">{m.status === "Y" ? "활성" : "비활성"}</span></td>
                         </tr>
                       ))}
                     </tbody>
@@ -185,7 +199,7 @@ function AdminPage() {
                       <th>이름</th>
                       <th>이메일</th>
                       <th>가입일</th>
-                      <th>권한</th>
+                      <th>상태</th>
                       <th>관리</th>
                     </tr>
                   </thead>
@@ -196,10 +210,10 @@ function AdminPage() {
                         <td>{m.userId}</td>
                         <td>{m.userName}</td>
                         <td>{m.email}</td>
-                        <td>{m.createdDate}</td>
+                        <td>{m.createdDate?.slice(0, 10)}</td>
                         <td>
-                          <span className={`admin-role-badge ${m.status.toLowerCase()}`}>
-                            {m.status}
+                          <span className={`admin-role-badge ${m.status === "Y" ? "active" : "inactive"}`}>
+                            {m.status === "Y" ? "활성" : "비활성"}
                           </span>
                         </td>
                         <td>

@@ -2425,6 +2425,22 @@ nav.visible { transform: translateY(0); }
   border: 1px solid rgba(255,180,50,0.25);
 }
 
+/* ── Back Button ── */
+.admin-back-btn {
+  background: none;
+  border: none;
+  color: #0F6E56;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  padding: 0;
+}
+
+.admin-back-btn:hover {
+  opacity: 0.7;
+}
+
 /* ── Action Buttons ── */
 .admin-action-btn {
   font-family: 'DM Mono', monospace;

@@ -84,6 +84,13 @@ function Header() {
                   게시판
                 </Link>
               </li>
+              {user?.role === import.meta.env.VITE_CHECK_AUTH && (
+                <li>
+                  <Link to="/admin" className="admin" onClick={() => { window.scrollTo(0, 0); closeMenu(); }}>
+                    관리자
+                  </Link>
+                </li>
+              )}
             </ul>
           </li>
         </ul>

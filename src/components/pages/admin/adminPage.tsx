@@ -1,16 +1,10 @@
-import { Fragment, useState } from "react";
-import { useSelector } from "react-redux";
+import { Fragment, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
-import type { RootState } from "../../../store/store";
+import { type AppDispatch, type RootState } from "../../../store/store";
+import { fetchMembers } from "../../../slices/adminSlice";
 
 type MenuTab = "dashboard" | "members" | "qna" | "board";
-
-const mockMembers = [
-  { no: 1, userId: "admin", userName: "관리자", email: "admin@crops.io", role: "ADMIN", joinDate: "2025-01-01" },
-  { no: 2, userId: "user01", userName: "홍길동", email: "hong@naver.com", role: "USER", joinDate: "2025-03-12" },
-  { no: 3, userId: "user02", userName: "김철수", email: "kim@gmail.com", role: "USER", joinDate: "2025-04-05" },
-  { no: 4, userId: "user03", userName: "이영희", email: "lee@kakao.com", role: "USER", joinDate: "2025-05-20" },
-];
 
 const mockQna = [
   { no: 1, title: "작물 병해 식별 기능 문의", author: "홍길동", date: "2025-06-01", status: "answered" },
@@ -26,10 +20,18 @@ const mockPosts = [
 ];
 
 function AdminPage() {
-const { user } = useSelector((state: RootState) => state.member);
+  const { user } = useSelector((state: RootState) => state.member);
   const [activeTab, setActiveTab] = useState<MenuTab>("dashboard");
+  const {members} = useSelector((state: RootState)=> state.admin);
+  const dispatch = useDispatch<AppDispatch>();
+  
+  useEffect(() => {
+    if (user?.role === import.meta.env.VITE_CHECK_AUTH) {
+      dispatch(fetchMembers());
+    }
+  },[]);
 
-  if (!user) {
+  if (!user || user.role !== import.meta.env.VITE_CHECK_AUTH ) {
     return <Navigate to="/" replace />;
   }
 
@@ -130,12 +132,12 @@ const { user } = useSelector((state: RootState) => state.member);
                       </tr>
                     </thead>
                     <tbody>
-                      {mockMembers.slice(1).map((m) => (
-                        <tr key={m.no}>
+                      {members.slice(0, 5).map((m) => (
+                        <tr key={m.userId}>
                           <td>{m.userId}</td>
                           <td>{m.userName}</td>
-                          <td>{m.joinDate}</td>
-                          <td><span className="admin-role-badge user">USER</span></td>
+                          <td>{m.createdDate}</td>
+                          <td><span className="admin-role-badge user">{m.status}</span></td>
                         </tr>
                       ))}
                     </tbody>
@@ -167,6 +169,7 @@ const { user } = useSelector((state: RootState) => state.member);
           {/* Members */}
           {activeTab === "members" && (
             <div className="admin-content">
+              <button className="admin-back-btn" onClick={() => setActiveTab("dashboard")}>← 대시보드로</button>
               <div className="admin-card">
                 <div className="admin-card-header">
                   <span className="admin-card-title">전체 회원 목록</span>
@@ -187,23 +190,21 @@ const { user } = useSelector((state: RootState) => state.member);
                     </tr>
                   </thead>
                   <tbody>
-                    {mockMembers.map((m) => (
-                      <tr key={m.no}>
-                        <td>{m.no}</td>
+                    {members.map((m, idx) => (
+                      <tr key={m.userId}>
+                        <td>{idx + 1}</td>
                         <td>{m.userId}</td>
                         <td>{m.userName}</td>
                         <td>{m.email}</td>
-                        <td>{m.joinDate}</td>
+                        <td>{m.createdDate}</td>
                         <td>
-                          <span className={`admin-role-badge ${m.role.toLowerCase()}`}>
-                            {m.role}
+                          <span className={`admin-role-badge ${m.status.toLowerCase()}`}>
+                            {m.status}
                           </span>
                         </td>
                         <td>
                           <button className="admin-action-btn">상세</button>
-                          {m.role !== "ADMIN" && (
-                            <button className="admin-action-btn danger">탈퇴</button>
-                          )}
+                          <button className="admin-action-btn danger">탈퇴</button>
                         </td>
                       </tr>
                     ))}
@@ -216,6 +217,7 @@ const { user } = useSelector((state: RootState) => state.member);
           {/* QnA */}
           {activeTab === "qna" && (
             <div className="admin-content">
+              <button className="admin-back-btn" onClick={() => setActiveTab("dashboard")}>← 대시보드로</button>
               <div className="admin-card">
                 <div className="admin-card-header">
                   <span className="admin-card-title">Q&A 목록</span>
@@ -265,6 +267,7 @@ const { user } = useSelector((state: RootState) => state.member);
           {/* Board */}
           {activeTab === "board" && (
             <div className="admin-content">
+              <button className="admin-back-btn" onClick={() => setActiveTab("dashboard")}>← 대시보드로</button>
               <div className="admin-card">
                 <div className="admin-card-header">
                   <span className="admin-card-title">게시판 게시글</span>

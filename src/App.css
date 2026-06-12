@@ -1126,6 +1126,11 @@ nav.visible { transform: translateY(0); }
 /* 데스크탑에서 mobile-user-info 숨김 */
 .mobile-user-info { display: none; }
 
+/* 모바일에서 desktop-only 숨김 */
+@media (max-width: 768px) {
+  .desktop-only { display: none; }
+}
+
 /* 모바일에서 profile-wrap 숨김 */
 @media (max-width: 768px) {
   .profile-wrap { display: none; }

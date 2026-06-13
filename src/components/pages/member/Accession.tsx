@@ -1,6 +1,7 @@
 import { Fragment, useState } from "react";
 import type { AccessionItem } from "../../../types/Accession";
 import axiosInstance from "../../../api/axiosInstance";
+import toast from "react-hot-toast";
 
 
 function Accession() {
@@ -75,53 +76,57 @@ function Accession() {
   const handleSendEmail = async () => {
     const emailId = form.emailId.trim();
     const emailDomain = form.emailDomain.trim();
-    if (!emailId || !emailDomain) { alert("이메일을 확인해주세요"); return; }
+    if (!emailId || !emailDomain) { toast.error("이메일을 확인해주세요"); return; }
     const email = `${emailId}@${emailDomain}`;
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { alert("이메일 형식이 올바르지 않습니다"); return; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { toast.error("이메일 형식이 올바르지 않습니다"); return; }
     try {
       await axiosInstance.post("/api/accession/sendEmailAuth", { email });
       setIsEmailVerified(false);
-      alert("인증번호가 전송되었습니다");
+      toast.success("인증번호가 전송되었습니다");
     } catch (error: any) {
-      alert(error.response?.data?.message || "이메일 전송 실패");
+      toast.error(error.response?.data?.message || "이메일 전송 실패");
     }
   };
 
   const handleVerifyNum = async () => {
     const email = `${form.emailId.trim()}@${form.emailDomain.trim()}`;
     const certNum = form.authenticationCode.trim();
-    if (!certNum) { alert("인증번호를 입력해주세요"); return; }
+    if (!certNum) { toast.error("인증번호를 입력해주세요"); return; }
     try {
       await axiosInstance.post("/api/accession/verifyNum", { email, certNum });
       setIsEmailVerified(true);
-      alert("이메일 인증이 완료되었습니다");
+      toast.success("이메일 인증이 완료되었습니다");
     } catch (error: any) {
-      alert(error.response?.data?.message || "인증번호 확인 실패");
+      toast.error(error.response?.data?.message || "인증번호 확인 실패");
     }
   };
 
   const handleIdCheck = async () => {
-    if (!form.user_id.trim()) { alert("아이디를 입력해주세요"); return; }
+    if (!form.user_id.trim()) { toast.error("아이디를 입력해주세요"); return; }
     try {
       const res = await axiosInstance.get("/api/member/idCheck", { params: { userId: form.user_id } });
-      if (res.data === true) {
-        alert("이미 사용 중인 아이디입니다");
+      const status = res.data?.data;
+      if (status === "DUPLICATED") {
+        toast.error("이미 사용 중인 아이디입니다");
+        setIsIdChecked(false);
+      } else if (status === "WITHDRAWN") {
+        toast.error("탈퇴한 계정의 아이디입니다");
         setIsIdChecked(false);
       } else {
-        alert("사용 가능한 아이디입니다");
+        toast.success("사용 가능한 아이디입니다");
         setIsIdChecked(true);
       }
     } catch (error: any) {
-      alert(error.response?.data?.message || "중복검사 실패");
+      toast.error(error.response?.data?.message || "중복검사 실패");
     }
   };
 
   const handleSubmit = async (e: { preventDefault(): void }) => {
     e.preventDefault();
-    if (!isIdChecked) { alert("아이디 중복검사를 해주세요"); return; }
-    if (!isEmailVerified) { alert("이메일 인증을 완료해주세요"); return; }
-    if (!isAllRequired) { alert("필수 약관에 동의해주세요"); return; }
-    if (isPasswordMismatch || !form.password) { alert("비밀번호를 확인해주세요"); return; }
+    if (!isIdChecked) { toast.error("아이디 중복검사를 해주세요"); return; }
+    if (!isEmailVerified) { toast.error("이메일 인증을 완료해주세요"); return; }
+    if (!isAllRequired) { toast.error("필수 약관에 동의해주세요"); return; }
+    if (isPasswordMismatch || !form.password) { toast.error("비밀번호를 확인해주세요"); return; }
     const email = `${form.emailId.trim()}@${form.emailDomain.trim()}`;
     try {
       await axiosInstance.post("/api/accession/join", {
@@ -137,10 +142,10 @@ function Accession() {
         privacyAgree: form.privacy_agree,
         marketingAgree: form.marketing_agree,
       });
-      alert("회원가입이 완료되었습니다!");
-      window.location.href = "/";
+      toast.success("회원가입이 완료되었습니다!");
+      setTimeout(() => { window.location.href = "/"; }, 1500);
     } catch (error: any) {
-      alert(error.response?.data?.message || "회원가입 실패");
+      toast.error(error.response?.data?.message || "회원가입 실패");
     }
   };
 

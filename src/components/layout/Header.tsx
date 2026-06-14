@@ -65,6 +65,7 @@ function Header() {
                 <button className="mobile-logout-btn" onClick={() => { navigate("/admin"); closeMenu(); }}>관리자</button>
               )}
               <button className="mobile-logout-btn" onClick={handleLogout}>로그아웃</button>
+              <button className="mobile-logout-btn" style={{ color: "#e53e3e" }} onClick={() => { navigate("/withdraw"); closeMenu(); }}>계정삭제</button>
             </li>
           )}
           <li className="dropdown">
@@ -109,6 +110,7 @@ function Header() {
                   <span className="profile-name">{user.userName}</span>
                   <button onClick={() => { navigate("/account"); setProfileOpen(false); }}>계정설정</button>
                   <button onClick={handleLogout}>로그아웃</button>
+                  <button style={{ color: "#e53e3e" }} onClick={() => { navigate("/withdraw"); setProfileOpen(false); }}>계정삭제</button>
                 </div>
               )}
             </>

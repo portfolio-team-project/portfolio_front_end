@@ -11,14 +11,18 @@ interface Props {
 }
 
 function ContactModal({ target, onClose }: Props) {
-  const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
 
   if (!target) return null;
 
   const submit = () => {
-    if (!form.name.trim() || !form.email.trim() || !form.message.trim()) return;
+    if (!name.trim() || !email.trim() || !message.trim()) return;
     // TODO: 실제 전송 로직
-    setForm({ name: "", email: "", message: "" });
+    setName("");
+    setEmail("");
+    setMessage("");
     onClose();
   };
 
@@ -31,20 +35,20 @@ function ContactModal({ target, onClose }: Props) {
           <input
             className="modal-input"
             placeholder="이름"
-            value={form.name}
-            onChange={(e) => setForm({ ...form, name: e.target.value })}
+            value={name}
+            onChange={(e) => setName(e.target.value)}
           />
           <input
             className="modal-input"
             placeholder="이메일"
-            value={form.email}
-            onChange={(e) => setForm({ ...form, email: e.target.value })}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
           <textarea
             className="modal-textarea"
             placeholder="메시지를 입력하세요"
-            value={form.message}
-            onChange={(e) => setForm({ ...form, message: e.target.value })}
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
           />
         </div>
         <div className="modal-footer-row">

@@ -532,6 +532,86 @@ nav.visible { transform: translateY(0); }
 .ct-btn.ca { background: var(--a-accent); color: #1B3C53; }
 .ct-btn.cb { background: var(--b-accent); color: #e8ddd8; }
 
+/* ── CONTACT MODAL ── */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 20, 30, 0.78);
+  z-index: 300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(4px);
+  animation: fadeIn 0.15s ease;
+}
+.modal-box {
+  position: relative;
+  background: #0f1e2a;
+  border: 1px solid rgba(210,193,182,0.12);
+  border-radius: 4px;
+  padding: 40px;
+  width: 100%;
+  max-width: 480px;
+  animation: fadeUp 0.2s ease;
+}
+.modal-close {
+  position: absolute;
+  top: 16px;
+  right: 18px;
+  background: none;
+  border: none;
+  color: var(--a-muted);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.modal-close:hover { color: var(--a-text); }
+.modal-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.22em;
+  color: var(--a-muted);
+  margin-bottom: 10px;
+}
+.modal-to {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 1.4rem;
+  color: var(--a-text);
+  margin-bottom: 28px;
+}
+.modal-box.ca .modal-to span { color: var(--a-accent); }
+.modal-box.cb .modal-to span { color: var(--b-accent); }
+.modal-fields { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+.modal-input, .modal-textarea {
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 0.88rem;
+  padding: 11px 14px;
+  background: rgba(210,193,182,0.04);
+  border: 1px solid rgba(210,193,182,0.1);
+  border-radius: 3px;
+  color: var(--a-text);
+  outline: none;
+  transition: border-color 0.2s;
+}
+.modal-input:focus, .modal-textarea:focus { border-color: rgba(210,193,182,0.3); }
+.modal-input::placeholder, .modal-textarea::placeholder { color: var(--a-muted); }
+.modal-textarea { min-height: 140px; resize: none; }
+.modal-footer-row { display: flex; justify-content: flex-end; }
+.modal-submit {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  padding: 9px 22px;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.modal-submit.ca { background: var(--a-accent); color: #122533; }
+.modal-submit.cb { background: var(--b-accent); color: var(--a-text); }
+.modal-submit:hover { opacity: 0.85; }
+
 /* ── PROJECT ACCORDION ── */
 .proj-accordion { list-style: none; display: flex; flex-direction: column; }
 .proj-acc-item {
@@ -578,7 +658,7 @@ nav.visible { transform: translateY(0); }
 
 /* ── Q&A ── */
 .qna-section {
-  background: var(--a-bg);
+  background: #122533;
   color: var(--a-text);
   min-height: 100vh;
   padding: 120px 0 100px;

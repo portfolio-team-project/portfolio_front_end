@@ -6,7 +6,7 @@ function  HeaderOnlyLayout() {
     return (
         <Fragment>
             <Header />
-            <main style={{ background: "#0f172a", minHeight: "100dvh" }}>
+            <main>
                 <Outlet />
             </main>
         </Fragment>

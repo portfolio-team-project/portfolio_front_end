@@ -53,10 +53,10 @@ function Login() {
           </div>
 
           <div>
-            <div className="left-title">작물 관리 플랫폼</div>
+            <div className="left-title">개발자 포트폴리오</div>
             <div className="left-sub">
-              스마트한 농작물 관리를<br />
-              시작해보세요
+              두 개발자의 이야기를<br />
+              만나보세요
             </div>
           </div>
 

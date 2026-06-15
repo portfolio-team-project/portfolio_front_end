@@ -33,13 +33,13 @@ function Withdraw() {
         {/* LEFT */}
         <div className="left">
           <div className="left-icon">
-            <i className="ti ti-plant-2" />
+            <span className="code-icon">&lt;/&gt;</span>
           </div>
           <div>
-            <div className="left-title">작물 관리 플랫폼</div>
+            <div className="left-title">개발자 포트폴리오</div>
             <div className="left-sub">
-              스마트한 농작물 관리를<br />
-              시작해보세요
+              두 개발자의 이야기를<br />
+              만나보세요
             </div>
           </div>
           <div className="dots">

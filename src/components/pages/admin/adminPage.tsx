@@ -58,7 +58,7 @@ function AdminPage() {
             <span className="admin-logo-icon">&lt;/&gt;</span>
             <div>
               <div className="admin-logo-title">관리자 패널</div>
-              <div className="admin-logo-sub">작물 관리 플랫폼</div>
+              <div className="admin-logo-sub">개발자 포트폴리오</div>
             </div>
           </div>
 

@@ -130,9 +130,11 @@ function AdminPage() {
                 {stats.map((stat, i) => (
                   <div key={i} className="admin-stat-card">
                     <div className="admin-stat-icon">{stat.icon}</div>
-                    <div className="admin-stat-value">{stat.value}</div>
-                    <div className="admin-stat-label">{stat.label}</div>
-                    <div className="admin-stat-change">{stat.change}</div>
+                    <div className="admin-stat-info">
+                      <div className="admin-stat-label">{stat.label}</div>
+                      <div className="admin-stat-value">{stat.value}</div>
+                      <div className="admin-stat-change">{stat.change}</div>
+                    </div>
                   </div>
                 ))}
               </div>

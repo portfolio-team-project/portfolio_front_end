@@ -2901,37 +2901,43 @@ nav.visible { transform: translateY(0); }
   background: #0d1e2a;
   border: 1px solid rgba(210,193,182,0.1);
   border-radius: 12px;
-  padding: 22px 20px;
+  padding: 18px 20px;
   display: flex;
-  flex-direction: column;
-  gap: 6px;
-  transition: transform 0.2s, box-shadow 0.2s;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+  transition: box-shadow 0.2s;
 }
 .admin-stat-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.25);
 }
 
-.admin-stat-icon { font-size: 1.4rem; }
+.admin-stat-icon {
+  font-size: 1.6rem;
+  flex-shrink: 0;
+  opacity: 0.8;
+}
 
-.admin-stat-value {
-  font-family: 'Syne', sans-serif;
-  font-weight: 800;
-  font-size: 1.8rem;
-  color: #D2C1B6;
-  letter-spacing: -0.03em;
+.admin-stat-info {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
 }
 
 .admin-stat-label {
-  font-size: 0.82rem;
+  font-size: 0.78rem;
   color: #7a9ab0;
 }
 
+.admin-stat-value {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #D2C1B6;
+}
+
 .admin-stat-change {
-  font-family: 'DM Mono', monospace;
-  font-size: 0.65rem;
+  font-size: 0.68rem;
   color: #9FE1CB;
-  margin-top: 2px;
 }
 
 /* ── Section Grid ── */

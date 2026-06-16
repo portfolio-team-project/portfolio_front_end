@@ -1,10 +1,18 @@
 import { Fragment, useState } from "react";
+import { useLocation } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import type { AppDispatch } from "../../../store/store";
+import { setUser } from "../../../slices/memberSlice";
 import type { AccessionItem } from "../../../types/Accession";
 import axiosInstance from "../../../api/axiosInstance";
 import toast from "react-hot-toast";
 
 
 function Accession() {
+  const location = useLocation();
+  const kakaoId = (location.state as { kakaoId?: string })?.kakaoId;
+  const dispatch = useDispatch<AppDispatch>();
+
   const [form, setForm] = useState<AccessionItem>({
     user_id: "",
     user_name: "",
@@ -126,22 +134,27 @@ function Accession() {
     if (!isIdChecked) { toast.error("아이디 중복검사를 해주세요"); return; }
     if (!isEmailVerified) { toast.error("이메일 인증을 완료해주세요"); return; }
     if (!isAllRequired) { toast.error("필수 약관에 동의해주세요"); return; }
-    if (isPasswordMismatch || !form.password) { toast.error("비밀번호를 확인해주세요"); return; }
+    if (!kakaoId && (isPasswordMismatch || !form.password)) { toast.error("비밀번호를 확인해주세요"); return; }
     const email = `${form.emailId.trim()}@${form.emailDomain.trim()}`;
     try {
-      await axiosInstance.post("/api/accession/join", {
+      const commonFields = {
         userId: form.user_id,
         userName: form.user_name,
         rank: form.rank,
         cpName: form.cp_name,
-        password: form.password,
         work: form.work,
         department: form.department,
         email,
         termsAgree: form.terms_agree,
         privacyAgree: form.privacy_agree,
         marketingAgree: form.marketing_agree,
-      });
+      };
+      if (kakaoId) {
+        const res = await axiosInstance.post("/api/kakaoJoin", { ...commonFields, kakaoId });
+        dispatch(setUser(res.data.data));
+      } else {
+        await axiosInstance.post("/api/accession/join", { ...commonFields, password: form.password });
+      }
       toast.success("회원가입이 완료되었습니다!");
       setTimeout(() => { window.location.href = "/"; }, 1500);
     } catch (error: any) {
@@ -194,31 +207,33 @@ function Accession() {
                   </div>
                 </div>
 
-                <div className="ac-row">
-                  <div className="ac-field">
-                    <label>비밀번호 *</label>
-                    <input
-                      type="password"
-                      placeholder="비밀번호 입력"
-                      value={form.password}
-                      onChange={(e) => setForm((prev) => ({ ...prev, password: e.target.value }))}
-                    />
-                  </div>
+                {!kakaoId && (
+                  <div className="ac-row">
+                    <div className="ac-field">
+                      <label>비밀번호 *</label>
+                      <input
+                        type="password"
+                        placeholder="비밀번호 입력"
+                        value={form.password}
+                        onChange={(e) => setForm((prev) => ({ ...prev, password: e.target.value }))}
+                      />
+                    </div>
 
-                  <div className="ac-field">
-                    <label>비밀번호 확인 *</label>
-                    <input
-                      type="password"
-                      placeholder="비밀번호 재입력"
-                      className={isPasswordMismatch ? "ac-err" : ""}
-                      value={form.passwordCheck}
-                      onChange={(e) => setForm((prev) => ({ ...prev, passwordCheck: e.target.value }))}
-                    />
-                    {isPasswordMismatch && (
-                      <span className="ac-error-text">비밀번호가 일치하지 않습니다</span>
-                    )}
+                    <div className="ac-field">
+                      <label>비밀번호 확인 *</label>
+                      <input
+                        type="password"
+                        placeholder="비밀번호 재입력"
+                        className={isPasswordMismatch ? "ac-err" : ""}
+                        value={form.passwordCheck}
+                        onChange={(e) => setForm((prev) => ({ ...prev, passwordCheck: e.target.value }))}
+                      />
+                      {isPasswordMismatch && (
+                        <span className="ac-error-text">비밀번호가 일치하지 않습니다</span>
+                      )}
+                    </div>
                   </div>
-                </div>
+                )}
               </div>
 
               {/* 추가 정보 */}

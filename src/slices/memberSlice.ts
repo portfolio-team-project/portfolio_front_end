@@ -78,6 +78,9 @@ const memberSlice = createSlice({
         logout(state) {
             state.user = null;
         },
+        setUser(state, action) {
+            state.user = action.payload;
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -120,5 +123,5 @@ const memberSlice = createSlice({
     }
 });
 
-export const { logout } = memberSlice.actions;
+export const { logout, setUser } = memberSlice.actions;
 export default memberSlice.reducer;

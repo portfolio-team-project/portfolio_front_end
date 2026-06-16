@@ -17,7 +17,7 @@ function Footer() {
           <div className="ct-card ca">
             <p className="ct-name">JI <br/>SANGWON</p>
             <div className="ct-links">
-              <a href="#" className="ct-lnk">✉ sangwon@email.com</a>
+              <span className="ct-lnk">✉ sangwon@email.com</span>
               <a href="#" className="ct-lnk">⌥ github.com/sangwon</a>
               <a href="#" className="ct-lnk">in linkedin.com/in/sangwon</a>
             </div>
@@ -28,7 +28,7 @@ function Footer() {
           <div className="ct-card cb">
             <p className="ct-name">LEE <br/>EUIGWANG</p>
             <div className="ct-links">
-              <a href="#" className="ct-lnk">✉ pshowx12@naver.com</a>
+              <span className="ct-lnk">✉ pshowx12@naver.com</span>
               <a href="https://github.com/EG-L" className="ct-lnk" target="_blank" rel="noreferrer">⌥ github.com/EG-L</a>
             </div>
             <div className="ct-btn-wrap">

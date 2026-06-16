@@ -3194,4 +3194,119 @@ nav.visible { transform: translateY(0); }
   .admin-stat-card { padding: 12px; }
   .admin-stat-value { font-size: 1.4rem; }
   .admin-page-title { font-size: 1rem; }
+  .admin-pagination { gap: 4px; }
+  .admin-pagination button { padding: 4px 8px; font-size: 0.7rem; }
+}
+
+/* ── Pagination ── */
+.admin-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  padding: 16px 0 4px;
+}
+
+.admin-pagination button {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.75rem;
+  padding: 5px 12px;
+  border-radius: 4px;
+  border: 1px solid rgba(210,193,182,0.2);
+  background: transparent;
+  color: #D2C1B6;
+  cursor: pointer;
+  transition: 0.15s;
+}
+
+.admin-pagination button:hover:not(:disabled) {
+  background: rgba(210,193,182,0.1);
+}
+
+.admin-pagination button.active {
+  background: rgba(210,193,182,0.15);
+  border-color: rgba(210,193,182,0.5);
+  color: #fff;
+}
+
+.admin-pagination button:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+/* ── Member Modal ── */
+.admin-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.admin-modal {
+  background: #1a1a2e;
+  border: 1px solid rgba(210,193,182,0.15);
+  border-radius: 12px;
+  width: 420px;
+  max-width: 90vw;
+  padding: 24px;
+}
+
+.admin-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.admin-modal-title {
+  font-family: 'DM Mono', monospace;
+  font-size: 1rem;
+  color: #D2C1B6;
+}
+
+.admin-modal-close {
+  background: transparent;
+  border: none;
+  color: #D2C1B6;
+  font-size: 1rem;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: 0.15s;
+}
+
+.admin-modal-close:hover {
+  opacity: 1;
+}
+
+.admin-modal-body {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.admin-modal-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(210,193,182,0.08);
+}
+
+.admin-modal-row:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.admin-modal-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.75rem;
+  color: rgba(210,193,182,0.5);
+}
+
+.admin-modal-value {
+  font-size: 0.85rem;
+  color: #D2C1B6;
 }

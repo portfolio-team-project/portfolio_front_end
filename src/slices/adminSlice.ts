@@ -11,25 +11,44 @@ interface MemberResponse {
 
 interface AdminState {
   members: MemberResponse[];
+  totalPages: number;
+  currentpage: number;
+  totalCount: number;
   loading: boolean;
+  mounthCount: number;
   error: string | null;
 }
 const initialState: AdminState = {
   members: [],
+  totalPages: 0,
+  currentpage: 0,
+  totalCount: 0,
+  mounthCount: 0,
   loading: false,
   error: null
 }
 
 export const fetchMembers = createAsyncThunk(
   "admin/fetchMember", 
-  async (_, { rejectWithValue }) => {
+  async ({page = 0, size = 10} : {page?: number; size?: number;}, { rejectWithValue }) => {
     try {
-      const response = await axiosInstance.get("/api/admin/member");
+      const response = await axiosInstance.get("/api/admin/member",{params: {page, size}});
       return response.data.data;
     } catch (error:any) {
       return rejectWithValue(error.response?.data?.message || "사용자 데이터 불러오기를 실패했습니다.");
     }
 });
+
+export const fetchMonthCount = createAsyncThunk(
+  "admin/fetchMonthCount",
+    async (_, {rejectWithValue}) => {
+      try {
+        const response = await axiosInstance.get("/api/admin/joinMonthCount");
+        return response.data.data;
+      } catch (error:any) {
+        return rejectWithValue(error.response?.data?.message || "이번 달 가입자 수 불러오기를 실패했습니다.");
+      }
+  });
 
 const adminSlice = createSlice({
   name: "admin",
@@ -44,11 +63,26 @@ const adminSlice = createSlice({
            })
            .addCase(fetchMembers.fulfilled, (state, action) => {
               state.loading = false;
-              state.members = action.payload;
+              state.members = action.payload.content;
+              state.totalPages = action.payload.totalPages;
+              state.currentpage = action.payload.number;
+              state.totalCount = action.payload.totalElements;
            })
            .addCase(fetchMembers.rejected, (state, action) => {
               state.loading = false;
               state.error = action.payload as string;
+           })
+           .addCase(fetchMonthCount.pending, (state) => {
+            state.loading = true;
+            state.error = null;
+           })
+           .addCase(fetchMonthCount.fulfilled, (state, action)=> {
+            state.loading = false;
+            state.mounthCount = action.payload;
+           })
+           .addCase(fetchMonthCount.rejected, (state, action) => {
+            state.loading = false;
+            state.error = action.payload as string;
            });
   },
 });

@@ -2,7 +2,8 @@ import { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 import { type AppDispatch, type RootState } from "../../../store/store";
-import { fetchMembers } from "../../../slices/adminSlice";
+import { fetchMembers, fetchMonthCount } from "../../../slices/adminSlice";
+import AdminMemberModal from "./AdminMemberModal";
 
 type MenuTab = "dashboard" | "members" | "qna" | "board";
 
@@ -22,12 +23,18 @@ const mockPosts = [
 function AdminPage() {
   const { user } = useSelector((state: RootState) => state.member);
   const [activeTab, setActiveTab] = useState<MenuTab>("dashboard");
-  const {members} = useSelector((state: RootState)=> state.admin);
+  const [selectedMember, setSelectedMember] = useState<null | typeof members[0]>(null);
+  const {members, totalPages, currentpage, totalCount, mounthCount} = useSelector((state: RootState)=> state.admin);
   const dispatch = useDispatch<AppDispatch>();
-  
+
+  const handlePageChange = (page: number) => {
+    dispatch(fetchMembers({page, size: 10}));
+  };
+
   useEffect(() => {
     if (user?.role === import.meta.env.VITE_CHECK_AUTH) {
-      dispatch(fetchMembers());
+      dispatch(fetchMembers({page: 0, size: 10}));
+      dispatch(fetchMonthCount());
     }
   },[]);
 
@@ -36,7 +43,7 @@ function AdminPage() {
   }
 
   const stats = [
-    { label: "총 회원 수", value: "247", icon: "👥", change: "+12 이번 달" },
+    { label: "총 회원 수", value: totalCount.toString(), icon: "👥", change: `+${mounthCount} 이번 달` },
     { label: "Q&A 게시글", value: "84", icon: "💬", change: "+5 이번 주" },
     { label: "미답변 Q&A", value: "3", icon: "⏳", change: "빠른 처리 필요" },
     { label: "게시판 게시글", value: "391", icon: "📋", change: "+18 이번 달" },
@@ -206,7 +213,7 @@ function AdminPage() {
                   <tbody>
                     {members.map((m, idx) => (
                       <tr key={m.userId}>
-                        <td>{idx + 1}</td>
+                        <td>{currentpage * 10 + idx + 1}</td>
                         <td>{m.userId}</td>
                         <td>{m.userName}</td>
                         <td>{m.email}</td>
@@ -217,13 +224,28 @@ function AdminPage() {
                           </span>
                         </td>
                         <td>
-                          <button className="admin-action-btn">상세</button>
+                          <button className="admin-action-btn" onClick={() => setSelectedMember(m)}>상세</button>
                           <button className="admin-action-btn danger">탈퇴</button>
                         </td>
                       </tr>
                     ))}
                   </tbody>
                 </table>
+                <div className="admin-pagination">
+                  <button disabled={currentpage === 0} onClick={() => handlePageChange(0)}>처음</button>
+                  <button disabled={currentpage === 0} onClick={() => handlePageChange(currentpage - 1)}>이전</button>
+                  {Array.from({ length: totalPages }, (_, i) => (
+                    <button
+                      key={i}
+                      className={currentpage === i ? "active" : ""}
+                      onClick={() => handlePageChange(i)}
+                    >
+                      {i + 1}
+                    </button>
+                  ))}
+                  <button disabled={currentpage === totalPages - 1} onClick={() => handlePageChange(currentpage + 1)}>다음</button>
+                  <button disabled={currentpage === totalPages - 1} onClick={() => handlePageChange(totalPages - 1)}>마지막</button>
+                </div>
               </div>
             </div>
           )}
@@ -321,6 +343,9 @@ function AdminPage() {
           )}
         </main>
       </div>
+      {selectedMember && (
+        <AdminMemberModal member={selectedMember} onClose={() => setSelectedMember(null)} />
+      )}
     </Fragment>
   );
 }

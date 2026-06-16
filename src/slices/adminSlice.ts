@@ -9,13 +9,26 @@ interface MemberResponse {
   createdDate: string;
 }
 
+interface MemberDetailResponse {
+  userId: string;
+  userName: string;
+  email: string;
+  status: string;
+  createdDate: string;
+  cpName: string;
+  rank: string;
+  department: string;
+  work: string;
+}
+
 interface AdminState {
   members: MemberResponse[];
   totalPages: number;
   currentpage: number;
   totalCount: number;
-  loading: boolean;
   mounthCount: number;
+  memberDetail: MemberDetailResponse | null;
+  loading: boolean;
   error: string | null;
 }
 const initialState: AdminState = {
@@ -24,6 +37,7 @@ const initialState: AdminState = {
   currentpage: 0,
   totalCount: 0,
   mounthCount: 0,
+  memberDetail: null,
   loading: false,
   error: null
 }
@@ -49,6 +63,18 @@ export const fetchMonthCount = createAsyncThunk(
         return rejectWithValue(error.response?.data?.message || "이번 달 가입자 수 불러오기를 실패했습니다.");
       }
   });
+
+export const fetchMemberDetail = createAsyncThunk(
+  "admin/fetchMemberDetail",
+  async (userId: string, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.get("/api/admin/detailUserInfo", { params: { userId } });
+      return response.data.data;
+    } catch (error: any) {
+      return rejectWithValue(error.response?.data?.message || "회원 상세 정보 불러오기를 실패했습니다.");
+    }
+  }
+);
 
 const adminSlice = createSlice({
   name: "admin",
@@ -83,6 +109,9 @@ const adminSlice = createSlice({
            .addCase(fetchMonthCount.rejected, (state, action) => {
             state.loading = false;
             state.error = action.payload as string;
+           })
+           .addCase(fetchMemberDetail.fulfilled, (state, action) => {
+            state.memberDetail = action.payload;
            });
   },
 });

@@ -1,13 +1,17 @@
-interface MemberResponse {
+interface MemberDetailResponse {
   userId: string;
   userName: string;
   email: string;
   status: string;
   createdDate: string;
+  cpName: string;
+  rank: string;
+  department: string;
+  work: string;
 }
 
 interface Props {
-  member: MemberResponse;
+  member: MemberDetailResponse;
   onClose: () => void;
 }
 
@@ -41,6 +45,22 @@ function AdminMemberModal({ member, onClose }: Props) {
             <span className={`admin-role-badge ${member.status === "Y" ? "active" : "inactive"}`}>
               {member.status === "Y" ? "활성" : "비활성"}
             </span>
+          </div>
+          <div className="admin-modal-row">
+            <span className="admin-modal-label">회사명</span>
+            <span className="admin-modal-value">{member.cpName}</span>
+          </div>
+          <div className="admin-modal-row">
+            <span className="admin-modal-label">직급</span>
+            <span className="admin-modal-value">{member.rank}</span>
+          </div>
+          <div className="admin-modal-row">
+            <span className="admin-modal-label">부서</span>
+            <span className="admin-modal-value">{member.department}</span>
+          </div>
+          <div className="admin-modal-row">
+            <span className="admin-modal-label">담당업무</span>
+            <span className="admin-modal-value">{member.work}</span>
           </div>
         </div>
       </div>

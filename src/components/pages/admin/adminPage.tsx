@@ -2,7 +2,7 @@ import { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 import { type AppDispatch, type RootState } from "../../../store/store";
-import { fetchMembers, fetchMonthCount } from "../../../slices/adminSlice";
+import { fetchMembers, fetchMonthCount, fetchMemberDetail } from "../../../slices/adminSlice";
 import AdminMemberModal from "./AdminMemberModal";
 
 type MenuTab = "dashboard" | "members" | "qna" | "board";
@@ -24,7 +24,7 @@ function AdminPage() {
   const { user } = useSelector((state: RootState) => state.member);
   const [activeTab, setActiveTab] = useState<MenuTab>("dashboard");
   const [selectedMember, setSelectedMember] = useState<null | typeof members[0]>(null);
-  const {members, totalPages, currentpage, totalCount, mounthCount} = useSelector((state: RootState)=> state.admin);
+  const {members, totalPages, currentpage, totalCount, mounthCount, memberDetail} = useSelector((state: RootState)=> state.admin);
   const dispatch = useDispatch<AppDispatch>();
 
   const handlePageChange = (page: number) => {
@@ -224,7 +224,7 @@ function AdminPage() {
                           </span>
                         </td>
                         <td>
-                          <button className="admin-action-btn" onClick={() => setSelectedMember(m)}>상세</button>
+                          <button className="admin-action-btn" onClick={() => { dispatch(fetchMemberDetail(m.userId)); setSelectedMember(m); }}>상세</button>
                           <button className="admin-action-btn danger">탈퇴</button>
                         </td>
                       </tr>
@@ -343,8 +343,8 @@ function AdminPage() {
           )}
         </main>
       </div>
-      {selectedMember && (
-        <AdminMemberModal member={selectedMember} onClose={() => setSelectedMember(null)} />
+      {selectedMember && memberDetail && (
+        <AdminMemberModal member={memberDetail} onClose={() => setSelectedMember(null)} />
       )}
     </Fragment>
   );

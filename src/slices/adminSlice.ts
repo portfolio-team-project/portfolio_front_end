@@ -90,9 +90,9 @@ const adminSlice = createSlice({
            .addCase(fetchMembers.fulfilled, (state, action) => {
               state.loading = false;
               state.members = action.payload.content;
-              state.totalPages = action.payload.totalPages;
-              state.currentpage = action.payload.number;
-              state.totalCount = action.payload.totalElements;
+              state.totalPages = action.payload.page.totalPages;
+              state.currentpage = action.payload.page.number;
+              state.totalCount = action.payload.page.totalElements;
            })
            .addCase(fetchMembers.rejected, (state, action) => {
               state.loading = false;

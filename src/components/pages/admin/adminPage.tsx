@@ -43,7 +43,7 @@ function AdminPage() {
   }
 
   const stats = [
-    { label: "총 회원 수", value: totalCount.toString(), icon: "👥", change: `+${mounthCount} 이번 달` },
+    { label: "총 회원 수", value: (totalCount ?? 0).toString(), icon: "👥", change: `+${mounthCount} 이번 달` },
     { label: "Q&A 게시글", value: "84", icon: "💬", change: "+5 이번 주" },
     { label: "미답변 Q&A", value: "3", icon: "⏳", change: "빠른 처리 필요" },
     { label: "게시판 게시글", value: "391", icon: "📋", change: "+18 이번 달" },

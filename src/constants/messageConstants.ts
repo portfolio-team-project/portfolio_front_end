@@ -17,6 +17,15 @@ export const CERT_NUM_NOT_MATCH = "인증번호가 일치하지 않습니다.";
 export const EMAIL_SEND_FAILED = "이메일 발송에 실패했습니다.";
 export const CERT_NOT_VERIFIED = "인증이 완료되지 않았습니다.";
 
+// 비밀번호 변경
+export const REQUIRED_USER_ID = "아이디를 입력해주세요.";
+export const REQUIRED_CURRENT_PASSWORD = "현재 비밀번호를 입력해주세요.";
+export const REQUIRED_NEW_PASSWORD = "새 비밀번호와 확인을 모두 입력해주세요.";
+export const SAME_PASSWORD = "새 비밀번호가 현재 비밀번호와 동일합니다.";
+export const PASSWORD_MISMATCH = "새 비밀번호와 확인이 일치하지 않습니다.";
+export const CHANGE_PASSWORD_SUCCESS = "비밀번호가 성공적으로 변경되었습니다.";
+export const CHANGE_PASSWORD_FAIL = "비밀번호 변경에 실패했습니다.";
+
 // 인증 토큰
 export const COOKIE_NOT_FOUND = "쿠키 정보가 없습니다.";
 export const REFRESH_TOKEN_NOT_FOUND = "refresh token not found";

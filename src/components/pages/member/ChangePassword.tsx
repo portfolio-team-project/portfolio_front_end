@@ -1,34 +1,47 @@
 import axios from "axios";
+import axiosInstance from "../../../api/axiosInstance";
 import { Fragment, useState } from "react";
 import toast from "react-hot-toast";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import {
+  REQUIRED_USER_ID,
+  REQUIRED_CURRENT_PASSWORD,
+  REQUIRED_NEW_PASSWORD,
+  SAME_PASSWORD,
+  PASSWORD_MISMATCH,
+  CHANGE_PASSWORD_SUCCESS,
+  CHANGE_PASSWORD_FAIL,
+} from "../../../constants/messageConstants";
 
 function ChangePassword() {
   const location = useLocation();
   const navigate = useNavigate();
-  const [userId, setUserId] = useState((location.state as any)?.userId || "");
+  const state = location.state as any;
+  const fromAccount = state?.from === "account";
+  const [userId, setUserId] = useState(state?.userId || "");
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleChangePassword = async () => {
-    if (!userId.trim()) return toast.error("아이디를 입력해주세요.");
-    if (!currentPassword.trim()) return toast.error("현재 비밀번호를 입력해주세요.");
-    if (!newPassword.trim() || !confirmPassword.trim()) return toast.error("새 비밀번호와 확인을 모두 입력해주세요.");
-    if (newPassword !== confirmPassword) return toast.error("새 비밀번호와 확인이 일치하지 않습니다.");
+    if (!userId.trim()) return toast.error(REQUIRED_USER_ID);
+    if (!currentPassword.trim()) return toast.error(REQUIRED_CURRENT_PASSWORD);
+    if (!newPassword.trim() || !confirmPassword.trim()) return toast.error(REQUIRED_NEW_PASSWORD);
+    if (currentPassword === newPassword) return toast.error(SAME_PASSWORD);
+    if (newPassword !== confirmPassword) return toast.error(PASSWORD_MISMATCH);
 
     setLoading(true);
     try {
-      await axios.post(`${import.meta.env.VITE_API_URL}/api/member/changePassword`, {
-        userId,
-        currentPassword,
-        newPassword,
-      });
-      toast.success("비밀번호가 성공적으로 변경되었습니다.");
-      setTimeout(() => navigate("/login"), 2000);
+      const client = fromAccount ? axiosInstance : axios;
+      const url = fromAccount
+        ? `/api/member/changePassword`
+        : `${import.meta.env.VITE_API_URL}/api/member/changePassword`;
+      await client.post(url, { userId, currentPassword, newPassword });
+      toast.success(CHANGE_PASSWORD_SUCCESS);
+      setTimeout(() => navigate(fromAccount ? "/account" : "/login"), 2000);
     } catch (error: any) {
-      toast.error(error.response?.data?.message || "비밀번호 변경에 실패했습니다.");
+      toast.error(error.response?.data?.message || CHANGE_PASSWORD_FAIL);
     } finally {
       setLoading(false);
     }
@@ -60,7 +73,7 @@ function ChangePassword() {
         {/* RIGHT */}
         <div className="right">
           <h2>비밀번호 변경</h2>
-          <p>3개월마다 비밀번호를 변경해주세요</p>
+          <p>{fromAccount ? "새로운 비밀번호로 변경합니다" : "3개월마다 비밀번호를 변경해주세요"}</p>
 
           <form>
             <div className="field">
@@ -108,9 +121,15 @@ function ChangePassword() {
             </button>
           </form>
 
-          <Link to="/login" onClick={() => window.scrollTo(0, 0)} className="btn-signup-move">
-            로그인으로 돌아가기
-          </Link>
+          {fromAccount ? (
+            <Link to="/account" className="btn-signup-move">
+              계정설정으로 돌아가기
+            </Link>
+          ) : (
+            <Link to="/login" onClick={() => window.scrollTo(0, 0)} className="btn-signup-move">
+              로그인으로 돌아가기
+            </Link>
+          )}
         </div>
       </div>
     </Fragment>

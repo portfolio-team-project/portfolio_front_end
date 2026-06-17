@@ -80,7 +80,7 @@ function AccountPage() {
             <button
               type="button"
               className="btn-login"
-              onClick={() => navigate("/change-password", { state: { userId: user?.userId } })}
+              onClick={() => navigate("/change-password", { state: { userId: user?.userId, from: "account" } })}
               style={{ background: "#4a5568" }}
             >
               비밀번호 변경

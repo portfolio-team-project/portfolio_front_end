@@ -3126,6 +3126,15 @@ nav.visible { transform: translateY(0); }
 /* ── Search / Filter ── */
 .admin-search-wrap, .admin-filter-wrap { display: flex; align-items: center; gap: 8px; }
 
+.admin-search-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  border-bottom: 1px solid rgba(210,193,182,0.08);
+}
+.admin-search-bar .admin-search { width: 260px; }
+
 .admin-search {
   font-family: 'Noto Sans KR', sans-serif;
   font-size: 0.8rem;
@@ -3140,6 +3149,20 @@ nav.visible { transform: translateY(0); }
 }
 .admin-search:focus { border-color: rgba(210,193,182,0.3); }
 .admin-search::placeholder { color: #456882; }
+
+.admin-search-btn {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.8rem;
+  padding: 7px 14px;
+  border-radius: 6px;
+  border: 1px solid rgba(210,193,182,0.4);
+  background: rgba(210,193,182,0.12);
+  color: #D2C1B6;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s;
+}
+.admin-search-btn:hover { background: rgba(210,193,182,0.22); }
 
 .admin-select {
   font-family: 'DM Mono', monospace;

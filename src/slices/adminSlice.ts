@@ -44,9 +44,9 @@ const initialState: AdminState = {
 
 export const fetchMembers = createAsyncThunk(
   "admin/fetchMember",
-  async ({page = 0, size = 10, keyword = ""} : {page?: number; size?: number; keyword?: string;}, { rejectWithValue }) => {
+  async ({page = 0, size = 10, keyword = "", searchType = "userId"} : {page?: number; size?: number; keyword?: string; searchType?: string;}, { rejectWithValue }) => {
     try {
-      const response = await axiosInstance.get("/api/admin/member",{params: {page, size, keyword}});
+      const response = await axiosInstance.get("/api/admin/member",{params: {page, size, keyword, searchType}});
       return response.data.data;
     } catch (error:any) {
       return rejectWithValue(error.response?.data?.message || "사용자 데이터 불러오기를 실패했습니다.");

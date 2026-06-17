@@ -12,14 +12,21 @@ function AdminMembers({ onTabChange }: Props) {
   const dispatch = useDispatch<AppDispatch>();
   const { members, totalPages, currentpage, memberDetail } = useSelector((state: RootState) => state.admin);
   const [keyword, setKeyword] = useState("");
+  const [searchType, setSearchType] = useState("userId");
   const [selectedMember, setSelectedMember] = useState<null | typeof members[0]>(null);
 
   const handlePageChange = (page: number) => {
-    dispatch(fetchMembers({ page, size: 10, keyword }));
+    dispatch(fetchMembers({ page, size: 10, keyword, searchType }));
   };
 
   const handleSearch = () => {
-    dispatch(fetchMembers({ page: 0, size: 10, keyword }));
+    dispatch(fetchMembers({ page: 0, size: 10, keyword, searchType }));
+  };
+
+  const handleReset = () => {
+    setKeyword("");
+    setSearchType("userId");
+    dispatch(fetchMembers({ page: 0, size: 10 }));
   };
 
   return (
@@ -30,15 +37,25 @@ function AdminMembers({ onTabChange }: Props) {
           <div className="admin-card-header">
             <span className="admin-card-title">전체 회원 목록</span>
             <div className="admin-search-wrap">
+              <select
+                className="admin-select"
+                value={searchType}
+                onChange={(e) => setSearchType(e.target.value)}
+              >
+                <option value="userId">아이디</option>
+                <option value="userName">이름</option>
+                <option value="email">이메일</option>
+              </select>
               <input
                 className="admin-search"
                 type="text"
-                placeholder="아이디 또는 이름 검색..."
+                placeholder="검색어 입력..."
                 value={keyword}
                 onChange={(e) => setKeyword(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && handleSearch()}
               />
               <button className="admin-search-btn" onClick={handleSearch}>검색</button>
+              <button className="admin-search-btn" onClick={handleReset}>초기화</button>
             </div>
           </div>
           <table className="admin-table">

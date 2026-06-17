@@ -3124,7 +3124,7 @@ nav.visible { transform: translateY(0); }
 }
 
 /* ── Search / Filter ── */
-.admin-search-wrap, .admin-filter-wrap { display: flex; align-items: center; gap: 8px; }
+.admin-search-wrap, .admin-filter-wrap { display: flex; align-items: center; gap: 12px; }
 
 .admin-search-bar {
   display: flex;
@@ -3138,8 +3138,8 @@ nav.visible { transform: translateY(0); }
 .admin-search {
   font-family: 'Noto Sans KR', sans-serif;
   font-size: 0.8rem;
-  padding: 7px 14px;
-  width: 200px;
+  padding: 8px 16px;
+  width: 240px;
   background: rgba(210,193,182,0.06);
   border: 1px solid rgba(210,193,182,0.12);
   border-radius: 6px;
@@ -3167,13 +3167,14 @@ nav.visible { transform: translateY(0); }
 .admin-select {
   font-family: 'DM Mono', monospace;
   font-size: 0.75rem;
-  padding: 7px 12px;
-  background: rgba(210,193,182,0.06);
+  padding: 8px 36px 8px 16px;
+  background: rgba(210,193,182,0.06) url("/chevron-down.svg") no-repeat right 12px center;
   border: 1px solid rgba(210,193,182,0.12);
   border-radius: 6px;
   color: #e8ddd8;
   outline: none;
   cursor: pointer;
+  appearance: none;
 }
 .admin-select option { background: #0d1e2a; }
 

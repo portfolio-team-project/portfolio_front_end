@@ -96,14 +96,6 @@ function AccountPage() {
             </button>
           </div>
 
-          <button
-            type="button"
-            onClick={() => navigate(-1)}
-            className="btn-signup-move"
-            style={{ display: "block", textAlign: "center", marginTop: "20px", cursor: "pointer", background: "none", border: "none", padding: 0 }}
-          >
-            돌아가기
-          </button>
         </div>
       </div>
     </Fragment>

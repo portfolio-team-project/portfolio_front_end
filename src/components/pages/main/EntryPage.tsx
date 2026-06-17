@@ -1,6 +1,7 @@
 import { Fragment } from "react";
 import { useNavigate } from "react-router-dom";
 import githubIcon from '../../../assets/github.svg';
+import leeImage from '../../../assets/profile/leeImage.png';
 
 function  EntryPage() {
     const navigate = useNavigate();
@@ -34,7 +35,7 @@ function  EntryPage() {
                 <div className="panel-noise"></div>
                 <div className="panel-content">
                 <div className="avatar-ring">
-                    <div className="avatar-inner">👩‍💻</div>
+                    <img src={leeImage} alt="LEE EUIGWANG" className="avatar-inner" style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '50%' }} />
                 </div>
                 <div className="panel-text">
                     <p className="panel-number">02 · Fullstack</p>

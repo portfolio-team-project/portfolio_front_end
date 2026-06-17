@@ -19,28 +19,38 @@ React + TypeScript + Vite 기반의 팀 포트폴리오 프론트엔드입니다
 ```
 src/
 ├── api/
-│   └── axiosInstance.ts       # Axios 인스턴스 (interceptor 포함)
-├── assets/                    # 이미지, 아이콘
+│   └── axiosInstance.ts           # Axios 인스턴스 (interceptor 포함)
+├── assets/
+│   ├── image/                     # 일반 이미지
+│   ├── profile/                   # 프로필 이미지
+│   ├── github.svg
+│   └── kakao.svg
+├── constants/
+│   └── messageConstants.ts        # 공통 메시지 상수
 ├── components/
 │   ├── layout/
-│   │   ├── Header.tsx
+│   │   ├── Header.tsx             # 네비게이션, 프로필 드롭다운
 │   │   ├── Footer.tsx
-│   │   ├── Layout.tsx
-│   │   ├── HeaderOnlyLayout.tsx
-│   │   └── PrivateRoute.tsx
+│   │   ├── Layout.tsx             # Header + Footer 레이아웃
+│   │   ├── HeaderOnlyLayout.tsx   # Header만 있는 레이아웃
+│   │   ├── PrivateRoute.tsx       # 로그인 인증 라우트 가드
+│   │   └── ContactModal.tsx
 │   └── pages/
 │       ├── main/
-│       │   ├── EntryPage.tsx
-│       │   ├── SangwonPage.tsx
-│       │   └── EuigwangPage.tsx
+│       │   ├── EntryPage.tsx      # 메인 진입 페이지
+│       │   ├── SangwonPage.tsx    # 지상원 포트폴리오
+│       │   └── EuigwangPage.tsx   # 이의광 포트폴리오
 │       ├── admin/
-│       │   └── adminPage.tsx
+│       │   ├── adminPage.tsx      # 관리자 페이지
+│       │   └── AdminMemberModal.tsx
 │       ├── member/
-│       │   ├── Login.tsx
-│       │   ├── Accession.tsx
-│       │   ├── FindPassword.tsx
-│       │   ├── ChangePassword.tsx
-│       │   └── KakaoCallback.tsx
+│       │   ├── Login.tsx          # 로그인
+│       │   ├── Accession.tsx      # 회원가입
+│       │   ├── FindPassword.tsx   # 비밀번호 찾기 (이메일 인증)
+│       │   ├── ChangePassword.tsx # 비밀번호 변경
+│       │   ├── AccountPage.tsx    # 계정 설정
+│       │   ├── Withdraw.tsx       # 회원 탈퇴
+│       │   └── KakaoCallback.tsx  # 카카오 로그인 콜백
 │       └── qna/
 │           ├── Qna.tsx
 │           ├── BoardList.tsx
@@ -63,6 +73,26 @@ src/
 └── main.tsx
 ```
 
+## 라우트 구조
+
+| 경로 | 컴포넌트 | 인증 필요 |
+|------|----------|----------|
+| `/` | EntryPage | - |
+| `/sangwon` | SangwonPage | - |
+| `/euigwang` | EuigwangPage | - |
+| `/qna` | Qna | - |
+| `/faq` | Faq | - |
+| `/BoardList` | BoardList | O |
+| `/Boardwrite` | Boardwrite | O |
+| `/login` | Login | - |
+| `/accession` | Accession | - |
+| `/find-password` | FindPassword | - |
+| `/change-password` | ChangePassword | - |
+| `/account` | AccountPage | - |
+| `/withdraw` | Withdraw | - |
+| `/admin` | AdminPage | - |
+| `/kakao/callback` | KakaoCallback | - |
+
 ## 환경 변수
 
 `.env` 파일을 루트에 생성하고 아래 값을 설정하세요.
@@ -71,6 +101,7 @@ src/
 VITE_API_URL=http://your-api-server
 VITE_REST_API_KEY=카카오_REST_API_KEY
 VITE_REDIRECT_URL=http://your-redirect-url
+VITE_CHECK_AUTH=관리자_권한_코드
 ```
 
 ## 시작하기
@@ -107,5 +138,5 @@ npm run build
 
 | 이름 | 역할 |
 |------|------|
-| 지상원 | Frontend |
+| 지상원 | Backend |
 | 이의광 | Fullstack · Infra |

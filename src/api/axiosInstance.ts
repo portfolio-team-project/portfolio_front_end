@@ -32,8 +32,9 @@ axiosInstance.interceptors.response.use(
         window.location.href = "/Login";
       }
     }
+    const isRefreshRequest = originalRequest.url?.includes("/api/auth/refresh");
     const message = error.response?.data?.message;
-    if (message) toast.error(message);
+    if (message && !isRefreshRequest) toast.error(message);
     return Promise.reject(error);
   }
 );

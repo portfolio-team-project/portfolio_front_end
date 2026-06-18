@@ -105,21 +105,6 @@ function QnA() {
                               <p>{detail.answer}</p>
                             </div>
                           )}
-                          <div className="qna-action-btns">
-                            {detail.isMember ? (
-                              user ? (
-                                <>
-                                  <button className="qna-back-btn">수정</button>
-                                  <button className="qna-back-btn">삭제</button>
-                                </>
-                              ) : null
-                            ) : (
-                              <>
-                                <button className="qna-back-btn">수정</button>
-                                <button className="qna-back-btn">삭제</button>
-                              </>
-                            )}
-                          </div>
                         </div>
                       </td>
                     </tr>

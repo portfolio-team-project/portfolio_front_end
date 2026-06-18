@@ -31,7 +31,6 @@ export interface QnaGuestRequest {
   nickname: string;
   title: string;
   content: string;
-  qnaPwd: string;
 }
 
 export interface QnaMemberRequest {

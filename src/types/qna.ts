@@ -22,9 +22,11 @@ export interface QnaDetailItem {
 
 export interface QnaPageResponse {
   content: QnaListItem[];
-  totalPages: number;
-  totalElements: number;
-  number: number;
+  page: {
+    totalPages: number;
+    totalElements: number;
+    number: number;
+  };
 }
 
 export interface QnaGuestRequest {

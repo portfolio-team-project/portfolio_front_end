@@ -1,12 +1,8 @@
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import axiosInstance from "../../../api/axiosInstance";
 import type { RootState } from "../../../store/store";
-
-const mockQna = [
-  { no: 1, title: "작물 병해 식별 기능 문의", author: "홍길동", date: "2025-06-01", status: "answered" },
-  { no: 2, title: "회원 탈퇴 방법 안내 요청", author: "김철수", date: "2025-06-03", status: "waiting" },
-  { no: 3, title: "데이터 수출 기능 추가 요청", author: "이영희", date: "2025-06-05", status: "waiting" },
-  { no: 4, title: "모바일 앱 지원 일정 문의", author: "박민준", date: "2025-06-07", status: "answered" },
-];
+import type { QnaListItem, QnaPageResponse } from "../../../types/qna";
 
 interface Props {
   onTabChange: (tab: string) => void;
@@ -14,11 +10,32 @@ interface Props {
 
 function AdminDashboard({ onTabChange }: Props) {
   const { members, totalCount, mounthCount } = useSelector((state: RootState) => state.admin);
+  const [unansweredQna, setUnansweredQna] = useState<QnaListItem[]>([]);
+  const [unansweredCount, setUnansweredCount] = useState(0);
+  const [totalQnaCount, setTotalQnaCount] = useState(0);
+  const [qnaMonthCount, setQnaMonthCount] = useState(0);
+
+  useEffect(() => {
+    axiosInstance.get("/api/admin/qna", { params: { delYn: "N", page: 0 } }).then((res) => {
+      const data: QnaPageResponse = res.data.data;
+      setTotalQnaCount(data.page.totalElements);
+    });
+
+    axiosInstance.get("/api/admin/qna", { params: { delYn: "N", answerYn: "N", page: 0, size: 3 } }).then((res) => {
+      const data: QnaPageResponse = res.data.data;
+      setUnansweredQna(data.content);
+      setUnansweredCount(data.page.totalElements);
+    });
+
+    axiosInstance.get("/api/admin/qnaMonthCount").then((res) => {
+      setQnaMonthCount(res.data.data);
+    });
+  }, []);
 
   const stats = [
     { label: "총 회원 수", value: (totalCount ?? 0).toString(), icon: "👥", change: `+${mounthCount} 이번 달` },
-    { label: "Q&A 게시글", value: "84", icon: "💬", change: "+5 이번 주" },
-    { label: "미답변 Q&A", value: "3", icon: "⏳", change: "빠른 처리 필요" },
+    { label: "Q&A 게시글", value: totalQnaCount.toString(), icon: "💬", change: `+${qnaMonthCount} 이번 달` },
+    { label: "미답변 Q&A", value: unansweredCount.toString(), icon: "⏳", change: "빠른 처리 필요" },
     { label: "게시판 게시글", value: "391", icon: "📋", change: "+18 이번 달" },
   ];
 
@@ -71,16 +88,22 @@ function AdminDashboard({ onTabChange }: Props) {
             <button className="admin-card-link" onClick={() => onTabChange("qna")}>전체 보기 →</button>
           </div>
           <div className="admin-qna-list">
-            {mockQna.filter((q) => q.status === "waiting").map((q) => (
-              <div key={q.no} className="admin-qna-item">
-                <div className="admin-qna-title">{q.title}</div>
-                <div className="admin-qna-meta">
-                  <span>{q.author}</span>
-                  <span>{q.date}</span>
-                  <span className="admin-badge waiting">미답변</span>
+            {unansweredQna.length === 0 ? (
+              <div className="qna-empty">미답변 문의가 없습니다.</div>
+            ) : (
+              unansweredQna.map((q) => (
+                <div key={q.qnaSeq} className="admin-qna-item">
+                  <div className="admin-qna-row">
+                    <div className="admin-qna-title">{q.title}</div>
+                    <span className="admin-badge waiting">미답변</span>
+                  </div>
+                  <div className="admin-qna-meta">
+                    <span>{q.nickname}</span>
+                    <span>{q.regDt.slice(0, 10)}</span>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))
+            )}
           </div>
         </div>
       </div>

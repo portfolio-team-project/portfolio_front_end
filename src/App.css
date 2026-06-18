@@ -743,6 +743,9 @@ nav.visible { transform: translateY(0); }
 .qna-label.answer { color: var(--a-accent); }
 .qna-question p { color: rgba(232,221,216,0.55); }
 .qna-answer p { color: rgba(232,221,216,0.85); }
+.qna-answer-form { display: flex; flex-direction: column; gap: 10px; padding-left: 28px; }
+.qna-answer-form .qna-textarea { width: 100%; min-height: 120px; box-sizing: border-box; }
+.qna-answer-form .qna-submit-btn { align-self: flex-end; }
 
 .qna-empty { text-align: center; padding: 48px; color: var(--a-muted); font-size: 0.85rem; }
 
@@ -3029,7 +3032,14 @@ nav.visible { transform: translateY(0); }
 .admin-table {
   width: 100%;
   border-collapse: collapse;
+  table-layout: fixed;
 }
+.admin-table th:nth-child(1), .admin-table td:nth-child(1) { width: 60px; }
+.admin-table th:nth-child(2), .admin-table td:nth-child(2) { width: 35%; }
+.admin-table th:nth-child(3), .admin-table td:nth-child(3) { width: 100px; }
+.admin-table th:nth-child(4), .admin-table td:nth-child(4) { width: 100px; }
+.admin-table th:nth-child(5), .admin-table td:nth-child(5) { width: 90px; }
+.admin-table th:nth-child(6), .admin-table td:nth-child(6) { width: 80px; }
 
 .admin-table th {
   font-family: 'DM Mono', monospace;
@@ -3134,6 +3144,43 @@ nav.visible { transform: translateY(0); }
   background: rgba(255,107,107,0.1);
 }
 
+/* ── Confirm Modal ── */
+.confirm-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+.confirm-modal {
+  background: #1a2332;
+  border: 1px solid rgba(210,193,182,0.15);
+  border-radius: 6px;
+  padding: 32px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  min-width: 300px;
+}
+.confirm-message {
+  color: var(--a-text);
+  font-size: 0.95rem;
+  text-align: center;
+}
+.confirm-btns {
+  display: flex;
+  gap: 12px;
+}
+.confirm-btns button {
+  width: 90px;
+  height: 36px;
+  box-sizing: border-box;
+  padding: 0;
+}
+
 /* ── Q&A list (dashboard) ── */
 .admin-qna-list { display: flex; flex-direction: column; }
 
@@ -3149,12 +3196,14 @@ nav.visible { transform: translateY(0); }
 .admin-qna-item:hover { background: rgba(210,193,182,0.03); }
 .admin-qna-item:last-child { border-bottom: none; }
 
+.admin-qna-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
 .admin-qna-title {
   font-size: 0.85rem;
   color: #e8ddd8;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  text-align: left;
 }
 
 .admin-qna-meta {
@@ -3168,6 +3217,8 @@ nav.visible { transform: translateY(0); }
 
 /* ── Search / Filter ── */
 .admin-search-wrap, .admin-filter-wrap { display: flex; align-items: center; gap: 12px; }
+.admin-filter-wrap .qna-search, .admin-filter-wrap .qna-search-btn { height: 36px; padding-top: 0; padding-bottom: 0; box-sizing: border-box; font-size: 0.82rem; }
+.admin-check-label { display: flex; align-items: center; gap: 6px; font-size: 0.82rem; color: var(--a-text); cursor: pointer; white-space: nowrap; }
 
 .admin-search-bar {
   display: flex;
@@ -3269,6 +3320,21 @@ nav.visible { transform: translateY(0); }
   .admin-page-title { font-size: 1rem; }
   .admin-pagination { gap: 4px; }
   .admin-pagination button { padding: 4px 8px; font-size: 0.7rem; }
+
+  /* QnA 관리 */
+  .admin-filter-wrap { flex-wrap: wrap; width: 100%; }
+  .admin-filter-wrap .qna-search { flex: 1; min-width: 0; width: auto; }
+  .admin-filter-wrap .qna-search-btn,
+  .admin-filter-wrap .qna-back-btn { flex-shrink: 0; }
+
+  .qna-answer-form { padding-left: 0; }
+  .qna-answer-form .qna-submit-btn { align-self: stretch; }
+
+  .qna-pagination { flex-wrap: wrap; gap: 4px; }
+  .qna-page-btn { padding: 4px 8px; font-size: 0.72rem; }
+
+  /* 삭제 확인 모달 */
+  .confirm-modal { min-width: unset; width: calc(100% - 48px); padding: 24px 20px; }
 }
 
 /* ── Pagination ── */

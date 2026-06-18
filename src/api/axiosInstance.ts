@@ -1,4 +1,5 @@
 import axios from "axios";
+import toast from "react-hot-toast";
 import store from "../store/store";
 import { logout, refreshAccessToken } from "../slices/memberSlice";
 
@@ -31,6 +32,8 @@ axiosInstance.interceptors.response.use(
         window.location.href = "/Login";
       }
     }
+    const message = error.response?.data?.message;
+    if (message) toast.error(message);
     return Promise.reject(error);
   }
 );

@@ -18,7 +18,7 @@ const menuItems: { key: MenuTab; label: string; icon: string }[] = [
 ];
 
 function AdminPage() {
-  const { user } = useSelector((state: RootState) => state.member);
+  const { user, loading } = useSelector((state: RootState) => state.member);
   const [activeTab, setActiveTab] = useState<MenuTab>("dashboard");
   const dispatch = useDispatch<AppDispatch>();
 
@@ -27,7 +27,9 @@ function AdminPage() {
       dispatch(fetchMembers({ page: 0, size: 10 }));
       dispatch(fetchMonthCount());
     }
-  }, []);
+  }, [user]);
+
+  if (loading) return null;
 
   if (!user || user.role !== import.meta.env.VITE_CHECK_AUTH) {
     return <Navigate to="/" replace />;

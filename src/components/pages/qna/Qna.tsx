@@ -24,7 +24,7 @@ function QnA() {
     axiosInstance.get("/api/qna/searchQna", { params }).then((res) => {
       const data: QnaPageResponse = res.data.data;
       setItems(data.content);
-      setTotalPages(data.totalPages);
+      setTotalPages(data.page.totalPages);
     });
   }, [page, search]);
 

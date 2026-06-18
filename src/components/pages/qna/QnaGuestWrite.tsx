@@ -13,11 +13,13 @@ function QnaGuestWrite() {
     if (!form.nickname.trim() || !form.title.trim() || !form.content.trim()) return;
 
     setIsLoading(true);
-    await axiosInstance.post("/api/qna/guest", form);
-    toast.success("관리자가 확인 후 답변이 등록됩니다.");
-    setIsLoading(false);
-
-    navigate("/qna");
+    try {
+      await axiosInstance.post("/api/qna/guest", form);
+      toast.success("관리자가 확인 후 답변이 등록됩니다.");
+      navigate("/qna");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (

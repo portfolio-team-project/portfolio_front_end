@@ -1,9 +1,9 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import type { QnaItem } from "../types/qna";
+import type { QnaListItem } from "../types/qna";
 import axiosInstance from "../api/axiosInstance";
 
 interface QnaState {
-  items: QnaItem[];
+  items: QnaListItem[];
   loading: boolean;
   error: string | null;
 }

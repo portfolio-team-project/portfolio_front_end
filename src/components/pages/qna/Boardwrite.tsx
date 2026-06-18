@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import axiosInstance from "../../../api/axiosInstance";
 import type { RootState } from "../../../store/store";
 import type { QnaMemberRequest } from "../../../types/qna";
+import toast from "react-hot-toast";
 
 function Boardwrite() {
   const [form, setForm] = useState<QnaMemberRequest>({ title: "", content: "" });
@@ -14,6 +15,8 @@ function Boardwrite() {
     if (!form.title.trim() || !form.content.trim()) return;
 
     await axiosInstance.post("/api/qna/member", form);
+    
+    toast.success("관리자가 확인 후 답변이 등록됩니다.");
     navigate("/qna");
   };
 

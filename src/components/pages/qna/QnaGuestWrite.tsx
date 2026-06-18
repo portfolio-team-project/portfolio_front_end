@@ -2,6 +2,7 @@ import { Fragment, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "../../../api/axiosInstance";
 import type { QnaGuestRequest } from "../../../types/qna";
+import toast from "react-hot-toast";
 
 function QnaGuestWrite() {
   const [form, setForm] = useState<QnaGuestRequest>({ nickname: "", title: "", content: "" });
@@ -11,6 +12,8 @@ function QnaGuestWrite() {
     if (!form.nickname.trim() || !form.title.trim() || !form.content.trim()) return;
 
     await axiosInstance.post("/api/qna/guest", form);
+
+    toast.success("관리자가 확인 후 답변이 등록됩니다.");
     navigate("/qna");
   };
 

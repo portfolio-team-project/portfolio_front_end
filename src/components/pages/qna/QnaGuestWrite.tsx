@@ -6,14 +6,17 @@ import toast from "react-hot-toast";
 
 function QnaGuestWrite() {
   const [form, setForm] = useState<QnaGuestRequest>({ nickname: "", title: "", content: "" });
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async () => {
     if (!form.nickname.trim() || !form.title.trim() || !form.content.trim()) return;
 
+    setIsLoading(true);
     await axiosInstance.post("/api/qna/guest", form);
-
     toast.success("관리자가 확인 후 답변이 등록됩니다.");
+    setIsLoading(false);
+
     navigate("/qna");
   };
 
@@ -44,7 +47,9 @@ function QnaGuestWrite() {
             />
             <div className="qna-btn-group">
               <button className="qna-back-btn" onClick={() => navigate("/qna")}>이전</button>
-              <button className="qna-submit-btn" onClick={handleSubmit}>등록</button>
+              <button className="qna-submit-btn" onClick={handleSubmit} disabled={isLoading}>
+                {isLoading ? "등록 중..." : "등록"}
+              </button>
             </div>
           </div>
         </div>

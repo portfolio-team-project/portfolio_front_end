@@ -10,12 +10,15 @@ function QnaGuestWrite() {
   const navigate = useNavigate();
 
   const handleSubmit = async () => {
-    if (!form.nickname.trim() || !form.title.trim() || !form.content.trim()) return;
+    if (!form.nickname.trim() || !form.title.trim() || !form.content.trim()) {
+      toast.error("닉네임, 제목, 내용을 모두 입력해주세요.");
+      return;
+    }
 
     setIsLoading(true);
     try {
       await axiosInstance.post("/api/qna/guest", form);
-      toast.success("관리자가 확인 후 답변이 등록됩니다.");
+      toast.success("관리자 검토 후 답변 등록 시 게시됩니다.");
       navigate("/qna");
     } finally {
       setIsLoading(false);

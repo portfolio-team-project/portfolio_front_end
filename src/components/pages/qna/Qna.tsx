@@ -1,35 +1,59 @@
-import { Fragment, useState } from "react";
-import type { QnaItem } from "../../../types/qna";
-
-const initialItems: QnaItem[] = [
-  { id: 2, title: "기술 스택 관련 질문이요", content: "Spring Boot 말고 다른 프레임워크도 사용하시나요?", author: "익명", date: "2026-05-18", answer: null },
-  { id: 1, title: "포트폴리오 관련 문의드립니다.", content: "프로젝트 협업 제안드리고 싶은데 연락 방법이 있을까요?", author: "방문자", date: "2026-05-17", answer: "contact 섹션의 이메일로 연락 주시면 됩니다!" },
-];
+import { Fragment, useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import axiosInstance from "../../../api/axiosInstance";
+import type { RootState } from "../../../store/store";
+import type { QnaListItem, QnaDetailItem, QnaPageResponse } from "../../../types/qna";
 
 function QnA() {
-  const [items, setItems] = useState<QnaItem[]>(initialItems);
+  const [items, setItems] = useState<QnaListItem[]>([]);
   const [openId, setOpenId] = useState<number | null>(null);
-  const [showForm, setShowForm] = useState(false);
+  const [detail, setDetail] = useState<QnaDetailItem | null>(null);
+  const [searchInput, setSearchInput] = useState("");
   const [search, setSearch] = useState("");
-  const [form, setForm] = useState({ title: "", content: "", author: "" });
+  const [page, setPage] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
 
-  const filtered = items.filter(
-    (i) => i.title.includes(search) || i.content.includes(search)
-  );
+  const user = useSelector((state: RootState) => state.member.user);
+  const navigate = useNavigate();
 
-  const submit = () => {
-    if (!form.title.trim() || !form.content.trim()) return;
-    const newItem: QnaItem = {
-      id: items.length > 0 ? Math.max(...items.map((i) => i.id)) + 1 : 1,
-      title: form.title,
-      content: form.content,
-      author: form.author || "익명",
-      date: new Date().toISOString().slice(0, 10),
-      answer: null,
-    };
-    setItems([newItem, ...items]);
-    setForm({ title: "", content: "", author: "" });
-    setShowForm(false);
+  useEffect(() => {
+    const params: Record<string, unknown> = { page };
+    if (search) params.title = search;
+
+    axiosInstance.get("/api/qna/searchQna", { params }).then((res) => {
+      const data: QnaPageResponse = res.data.data;
+      setItems(data.content);
+      setTotalPages(data.totalPages);
+    });
+  }, [page, search]);
+
+  const handleRowClick = async (qnaSeq: number) => {
+    if (openId === qnaSeq) {
+      setOpenId(null);
+      setDetail(null);
+      return;
+    }
+    const res = await axiosInstance.get(`/api/qna/detail/${qnaSeq}`);
+    const detailData: QnaDetailItem = res.data.data;
+    setDetail(detailData);
+    setOpenId(qnaSeq);
+    setItems(prev => prev.map(item =>
+      item.qnaSeq === qnaSeq ? { ...item, viewCnt: detailData.viewCnt } : item
+    ));
+  };
+
+  const handleSearch = () => {
+    setSearch(searchInput);
+    setPage(0);
+  };
+
+  const handleWrite = () => {
+    if (user) {
+      navigate("/Boardwrite");
+    } else {
+      navigate("/qna-write-guest");
+    }
   };
 
   return (
@@ -45,49 +69,64 @@ function QnA() {
                 <th className="col-title">제목</th>
                 <th className="col-author">작성자</th>
                 <th className="col-date">작성일</th>
-                <th className="col-status">상태</th>
+                <th className="col-status">답변여부</th>
                 <th className="col-status">조회수</th>
               </tr>
             </thead>
             <tbody>
-              {filtered.map((item) => (
-                <Fragment key={item.id}>
+              {items.map((item) => (
+                <Fragment key={item.qnaSeq}>
                   <tr
-                    className={`qna-row ${openId === item.id ? "open" : ""}`}
-                    onClick={() => setOpenId(openId === item.id ? null : item.id)}
+                    className={`qna-row ${openId === item.qnaSeq ? "open" : ""}`}
+                    onClick={() => handleRowClick(item.qnaSeq)}
                   >
-                    <td className="col-no">{item.id}</td>
+                    <td className="col-no">{item.qnaSeq}</td>
                     <td className="col-title">{item.title}</td>
-                    <td className="col-author">{item.author}</td>
-                    <td className="col-date">{item.date}</td>
+                    <td className="col-author">{item.nickname}</td>
+                    <td className="col-date">{item.regDt.slice(0, 10)}</td>
                     <td className="col-status">
-                      <span className={`qna-badge ${item.answer ? "answered" : "waiting"}`}>
-                        {item.answer ? "답변완료" : "대기중"}
+                      <span className={`qna-badge ${item.answerYn === "Y" ? "answered" : "waiting"}`}>
+                        {item.answerYn === "Y" ? "답변완료" : "대기중"}
                       </span>
                     </td>
-                    <td className="col-status">0</td>
+                    <td className="col-status">{item.viewCnt}</td>
                   </tr>
-                  {openId === item.id && (
+                  {openId === item.qnaSeq && detail && (
                     <tr className="qna-detail-row">
                       <td colSpan={6}>
                         <div className="qna-detail">
                           <div className="qna-question">
                             <span className="qna-label">Q</span>
-                            <p>{item.content}</p>
+                            <p>{detail.content}</p>
                           </div>
-                          {item.answer && (
+                          {detail.answer && (
                             <div className="qna-answer">
                               <span className="qna-label answer">A</span>
-                              <p>{item.answer}</p>
+                              <p>{detail.answer}</p>
                             </div>
                           )}
+                          <div className="qna-action-btns">
+                            {detail.isMember ? (
+                              user ? (
+                                <>
+                                  <button className="qna-back-btn">수정</button>
+                                  <button className="qna-back-btn">삭제</button>
+                                </>
+                              ) : null
+                            ) : (
+                              <>
+                                <button className="qna-back-btn">수정</button>
+                                <button className="qna-back-btn">삭제</button>
+                              </>
+                            )}
+                          </div>
                         </div>
                       </td>
                     </tr>
                   )}
                 </Fragment>
               ))}
-              {filtered.length === 0 && (
+              {items.length === 0 && (
                 <tr>
                   <td colSpan={6} className="qna-empty">검색 결과가 없습니다.</td>
                 </tr>
@@ -98,36 +137,26 @@ function QnA() {
           <div className="qna-bottom">
             <input
               className="qna-search"
-              placeholder="Search"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
+              placeholder="제목 검색"
+              value={searchInput}
+              onChange={(e) => setSearchInput(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && handleSearch()}
             />
-            <button className="qna-write-btn" onClick={() => setShowForm(!showForm)}>
-              {showForm ? "취소" : "글쓰기"}
-            </button>
+            <button className="qna-search-btn" onClick={handleSearch}>검색</button>
+            <button className="qna-write-btn" onClick={handleWrite}>글쓰기</button>
           </div>
 
-          {showForm && (
-            <div className="qna-form">
-              <input
-                className="qna-input"
-                placeholder="닉네임 (선택)"
-                value={form.author}
-                onChange={(e) => setForm({ ...form, author: e.target.value })}
-              />
-              <input
-                className="qna-input"
-                placeholder="제목"
-                value={form.title}
-                onChange={(e) => setForm({ ...form, title: e.target.value })}
-              />
-              <textarea
-                className="qna-textarea"
-                placeholder="질문 내용을 입력하세요"
-                value={form.content}
-                onChange={(e) => setForm({ ...form, content: e.target.value })}
-              />
-              <button className="qna-submit-btn" onClick={submit}>등록</button>
+          {totalPages > 1 && (
+            <div className="qna-pagination">
+              {Array.from({ length: totalPages }, (_, i) => (
+                <button
+                  key={i}
+                  className={`qna-page-btn ${page === i ? "active" : ""}`}
+                  onClick={() => setPage(i)}
+                >
+                  {i + 1}
+                </button>
+              ))}
             </div>
           )}
         </div>

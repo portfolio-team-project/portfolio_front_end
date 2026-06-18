@@ -1,19 +1,16 @@
 import { Fragment, useState } from "react";
-import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "../../../api/axiosInstance";
-import type { RootState } from "../../../store/store";
-import type { QnaMemberRequest } from "../../../types/qna";
+import type { QnaGuestRequest } from "../../../types/qna";
 
-function Boardwrite() {
-  const [form, setForm] = useState<QnaMemberRequest>({ title: "", content: "" });
-  const user = useSelector((state: RootState) => state.member.user);
+function QnaGuestWrite() {
+  const [form, setForm] = useState<QnaGuestRequest>({ nickname: "", title: "", content: "", qnaPwd: "" });
   const navigate = useNavigate();
 
   const handleSubmit = async () => {
-    if (!form.title.trim() || !form.content.trim()) return;
+    if (!form.nickname.trim() || !form.title.trim() || !form.content.trim() || !form.qnaPwd.trim()) return;
 
-    await axiosInstance.post("/api/qna/member", form);
+    await axiosInstance.post("/api/qna/guest", form);
     navigate("/qna");
   };
 
@@ -26,9 +23,9 @@ function Boardwrite() {
           <div className="qna-form">
             <input
               className="qna-input"
-              placeholder="작성자 이름"
-              value={user?.userId ?? ""}
-              readOnly
+              placeholder="닉네임"
+              value={form.nickname}
+              onChange={(e) => setForm({ ...form, nickname: e.target.value })}
             />
             <input
               className="qna-input"
@@ -42,6 +39,13 @@ function Boardwrite() {
               value={form.content}
               onChange={(e) => setForm({ ...form, content: e.target.value })}
             />
+            <input
+              className="qna-input"
+              type="password"
+              placeholder="비밀번호 (수정/삭제 시 필요)"
+              value={form.qnaPwd}
+              onChange={(e) => setForm({ ...form, qnaPwd: e.target.value })}
+            />
             <div className="qna-btn-group">
               <button className="qna-back-btn" onClick={() => navigate("/qna")}>이전</button>
               <button className="qna-submit-btn" onClick={handleSubmit}>등록</button>
@@ -53,4 +57,4 @@ function Boardwrite() {
   );
 }
 
-export default Boardwrite;
+export default QnaGuestWrite;

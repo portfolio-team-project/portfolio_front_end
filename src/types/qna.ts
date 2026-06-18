@@ -1,8 +1,40 @@
-export interface QnaItem {
-  id: number;
+export interface QnaListItem {
+  qnaSeq: number;
+  nickname: string;
+  title: string;
+  regDt: string;
+  answerYn: string;
+  viewCnt: number;
+}
+
+export interface QnaDetailItem {
+  qnaSeq: number;
+  nickname: string;
   title: string;
   content: string;
-  author: string;
-  date: string;
+  regDt: string;
+  answerYn: string;
   answer: string | null;
+  answerDt: string | null;
+  viewCnt: number;
+  isMember: boolean;
+}
+
+export interface QnaPageResponse {
+  content: QnaListItem[];
+  totalPages: number;
+  totalElements: number;
+  number: number;
+}
+
+export interface QnaGuestRequest {
+  nickname: string;
+  title: string;
+  content: string;
+  qnaPwd: string;
+}
+
+export interface QnaMemberRequest {
+  title: string;
+  content: string;
 }

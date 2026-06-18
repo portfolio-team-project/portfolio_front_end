@@ -9,7 +9,7 @@ import EuigwangPage from "./components/pages/main/EuigwangPage";
 import QnA from "./components/pages/qna/Qna";
 import BoardList from "./components/pages/qna/BoardList";
 import Boardwrite from "./components/pages/qna/Boardwrite";
-import Faq from "./components/pages/qna/Faq";
+import QnaGuestWrite from "./components/pages/qna/QnaGuestWrite";
 import Accession from "./components/pages/member/Accession";
 import Login from "./components/pages/member/Login";
 import HeaderOnlyLayout from "./components/layout/HeaderOnlyLayout";
@@ -41,11 +41,11 @@ function App() {
             <Route path="/sangwon" element={<SangwonPage />} />
             <Route path="/euigwang" element={<EuigwangPage />} />
             <Route path="/qna" element={<QnA />} />
+            <Route path="/qna-write-guest" element={<QnaGuestWrite />} />
             <Route element={<PrivateRoute />}>
               <Route path="/BoardList" element={<BoardList />} />
               <Route path="/Boardwrite" element={<Boardwrite />} />
             </Route>
-            <Route path="/faq" element={<Faq />} />
           </Route>
           <Route element={<HeaderOnlyLayout />}>
             <Route path="/accession" element={<Accession />} />

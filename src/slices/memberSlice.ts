@@ -108,10 +108,15 @@ const memberSlice = createSlice({
                 state.loading = false;
                 state.error = action.payload as string;
             })
+            .addCase(refreshAccessToken.pending, (state) => {
+                state.loading = true;
+            })
             .addCase(refreshAccessToken.fulfilled, (state, action) => {
+                state.loading = false;
                 state.user = action.payload;
             })
             .addCase(refreshAccessToken.rejected, (state) => {
+                state.loading = false;
                 state.user = null;
             })
             .addCase(logoutAsync.fulfilled, (state) => {

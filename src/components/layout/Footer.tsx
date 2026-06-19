@@ -1,5 +1,8 @@
 import { Fragment, useState } from "react";
 import ContactModal from "./ContactModal";
+import PolicyModal from "./PolicyModal";
+
+type PolicyType = "terms" | "privacy" | null;
 
 const CONTACTS = {
   ca: { name: "JI SANGWON", theme: "ca" as const },
@@ -8,6 +11,7 @@ const CONTACTS = {
 
 function Footer() {
   const [modal, setModal] = useState<typeof CONTACTS[keyof typeof CONTACTS] | null>(null);
+  const [policy, setPolicy] = useState<PolicyType>(null);
 
   return (
     <Fragment>
@@ -37,9 +41,15 @@ function Footer() {
           </div>
         </div>
         <p className="footer">© 2026 JI SANGWON × LEE EUIGWANG</p>
+        <div className="footer-policy">
+          <button className="footer-policy-btn" onClick={() => setPolicy("terms")}>이용약관</button>
+          <span className="footer-policy-divider">|</span>
+          <button className="footer-policy-btn" onClick={() => setPolicy("privacy")}>개인정보처리방침</button>
+        </div>
       </section>
 
       <ContactModal target={modal} onClose={() => setModal(null)} />
+      <PolicyModal type={policy} onClose={() => setPolicy(null)} />
     </Fragment>
   );
 }

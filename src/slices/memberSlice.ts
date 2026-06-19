@@ -2,11 +2,12 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axiosInstance from "../api/axiosInstance";
 
 interface MemberState {
-    user: { 
+    user: {
         userId: string;
         userName: string;
         accessToken: string;
         role: string;
+        isSocial: boolean;
     } | null;
     loading: boolean;
     error: string | null;

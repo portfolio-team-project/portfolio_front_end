@@ -1,21 +1,28 @@
 import { Fragment, useState } from "react";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import type { RootState } from "../../../store/store";
 import axiosInstance from "../../../api/axiosInstance";
 import { logout } from "../../../slices/memberSlice";
 import store from "../../../store/store";
 
 function Withdraw() {
   const navigate = useNavigate();
+  const isSocial = useSelector((state: RootState) => state.member.user?.isSocial ?? false);
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleWithdraw = async () => {
-    if (!password.trim()) return toast.error("비밀번호를 입력해주세요.");
+    if (!isSocial && !password.trim()) return toast.error("비밀번호를 입력해주세요.");
 
     setLoading(true);
     try {
-      await axiosInstance.post("/api/member/withdraw", { password });
+      if (isSocial) {
+        await axiosInstance.post("/api/member/socialWithdraw");
+      } else {
+        await axiosInstance.post("/api/member/withdraw", { password });
+      }
       store.dispatch(logout());
       toast.success("회원 탈퇴가 완료되었습니다.");
       setTimeout(() => navigate("/login"), 2000);
@@ -68,16 +75,18 @@ function Withdraw() {
           </div>
 
           <form>
-            <div className="field">
-              <label>비밀번호 확인</label>
-              <input
-                type="password"
-                placeholder="현재 비밀번호를 입력하세요"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                onKeyDown={(e) => e.key === "Enter" && handleWithdraw()}
-              />
-            </div>
+            {!isSocial && (
+              <div className="field">
+                <label>비밀번호 확인</label>
+                <input
+                  type="password"
+                  placeholder="현재 비밀번호를 입력하세요"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  onKeyDown={(e) => e.key === "Enter" && handleWithdraw()}
+                />
+              </div>
+            )}
 
             <button
               className="btn-login"

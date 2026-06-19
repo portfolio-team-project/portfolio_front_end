@@ -26,7 +26,7 @@ interface AdminState {
   totalPages: number;
   currentpage: number;
   totalCount: number;
-  mounthCount: number;
+  monthCount: number;
   memberDetail: MemberDetailResponse | null;
   loading: boolean;
   error: string | null;
@@ -36,7 +36,7 @@ const initialState: AdminState = {
   totalPages: 0,
   currentpage: 0,
   totalCount: 0,
-  mounthCount: 0,
+  monthCount: 0,
   memberDetail: null,
   loading: false,
   error: null
@@ -104,7 +104,7 @@ const adminSlice = createSlice({
            })
            .addCase(fetchMonthCount.fulfilled, (state, action)=> {
             state.loading = false;
-            state.mounthCount = action.payload;
+            state.monthCount = action.payload;
            })
            .addCase(fetchMonthCount.rejected, (state, action) => {
             state.loading = false;

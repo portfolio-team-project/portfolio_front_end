@@ -67,7 +67,7 @@ function AccountPage() {
 
             <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
               <div style={{ display: "flex", justifyContent: "space-between", fontSize: "14px" }}>
-                <span style={{ color: "#718096" }}>역할</span>
+                <span style={{ color: "#718096" }}>등급</span>
                 <span style={{ fontWeight: "600", color: "#2d3748" }}>
                   {user?.role === import.meta.env.VITE_CHECK_AUTH ? "관리자" : "일반 회원"}
                 </span>

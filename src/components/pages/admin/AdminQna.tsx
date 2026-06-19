@@ -128,7 +128,7 @@ function AdminQna({ onTabChange }: Props) {
                 >
                   <td>{item.qnaSeq}</td>
                   <td className="col-left">{item.title}</td>
-                  <td>{item.nickname}</td>
+                  <td>{item.nickname ?? "탈퇴한 회원"}</td>
                   <td>{item.regDt.slice(0, 10)}</td>
                   <td>
                     <span className={`admin-badge ${item.answerYn === "Y" ? "answered" : "waiting"}`}>

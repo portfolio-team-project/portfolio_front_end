@@ -82,7 +82,7 @@ function QnA() {
                   >
                     <td className="col-no">{item.qnaSeq}</td>
                     <td className="col-title">{item.title}</td>
-                    <td className="col-author">{item.nickname}</td>
+                    <td className="col-author">{item.nickname ?? "탈퇴한 회원"}</td>
                     <td className="col-date">{item.regDt.slice(0, 10)}</td>
                     <td className="col-status">
                       <span className={`qna-badge ${item.answerYn === "Y" ? "answered" : "waiting"}`}>

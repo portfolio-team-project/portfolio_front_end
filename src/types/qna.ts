@@ -1,6 +1,6 @@
 export interface QnaListItem {
   qnaSeq: number;
-  nickname: string;
+  nickname: string | null;
   title: string;
   regDt: string;
   answerYn: string;
@@ -9,7 +9,7 @@ export interface QnaListItem {
 
 export interface QnaDetailItem {
   qnaSeq: number;
-  nickname: string;
+  nickname: string | null;
   title: string;
   content: string;
   regDt: string;

@@ -225,7 +225,10 @@ function Accession() {
                       placeholder="이름 입력"
                       value={form.user_name}
                       maxLength={5}
-                      onChange={(e) => setForm((prev) => ({ ...prev, user_name: e.target.value }))}
+                      onChange={(e) => {
+                        const koreanOnly = e.target.value.replace(/[^가-힣]/g, "");
+                        setForm((prev) => ({ ...prev, user_name: koreanOnly }));
+                      }}
                     />
                   </div>
                 </div>

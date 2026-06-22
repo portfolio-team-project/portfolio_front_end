@@ -3,11 +3,11 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "../../../api/axiosInstance";
 import type { RootState } from "../../../store/store";
-import type { QnaMemberRequest } from "../../../types/qna";
+import type { boardWriteRequest } from "../../../types/BoardList";
 import toast from "react-hot-toast";
 
 function Boardwrite() {
-  const [form, setForm] = useState<QnaMemberRequest>({ title: "", content: "" });
+  const [form, setForm] = useState<boardWriteRequest>({ title: "", content: "" });
   const [isLoading, setIsLoading] = useState(false);
   const user = useSelector((state: RootState) => state.member.user);
   const navigate = useNavigate();
@@ -20,9 +20,9 @@ function Boardwrite() {
 
     setIsLoading(true);
     try {
-      await axiosInstance.post("/api/qna/member", form);
-      toast.success("관리자 검토 후 답변 등록 시 게시됩니다.");
-      navigate("/qna");
+      await axiosInstance.post("/api/board/write", form);
+      toast.success("게시글이 등록되었습니다.");
+      navigate("/boardList");
     } finally {
       setIsLoading(false);
     }
@@ -32,12 +32,12 @@ function Boardwrite() {
     <Fragment>
       <section className="qna-section">
         <div className="qna-wrap">
-          <h2 className="qna-title">문의 작성</h2>
+          <h2 className="qna-title">게시글 작성</h2>
 
           <div className="qna-form">
             <input
               className="qna-input"
-              placeholder="작성자 이름"
+              placeholder="작성자"
               value={user?.userId ?? ""}
               readOnly
             />
@@ -54,7 +54,7 @@ function Boardwrite() {
               onChange={(e) => setForm({ ...form, content: e.target.value })}
             />
             <div className="qna-btn-group">
-              <button className="qna-back-btn" onClick={() => navigate("/qna")}>이전</button>
+              <button className="qna-back-btn" onClick={() => navigate("/boardList")}>이전</button>
               <button className="qna-submit-btn" onClick={handleSubmit} disabled={isLoading}>
                 {isLoading ? "등록 중..." : "등록"}
               </button>

@@ -9,6 +9,7 @@ import EuigwangPage from "./components/pages/main/EuigwangPage";
 import QnA from "./components/pages/qna/Qna";
 import BoardList from "./components/pages/qna/BoardList";
 import Boardwrite from "./components/pages/qna/Boardwrite";
+import BoardDetail from "./components/pages/qna/BoardDetail";
 import QnaGuestWrite from "./components/pages/qna/QnaGuestWrite";
 import Accession from "./components/pages/member/Accession";
 import Login from "./components/pages/member/Login";
@@ -45,6 +46,7 @@ function App() {
             <Route element={<PrivateRoute />}>
               <Route path="/BoardList" element={<BoardList />} />
               <Route path="/Boardwrite" element={<Boardwrite />} />
+              <Route path="/boardDetail/:localId" element={<BoardDetail />} />
             </Route>
           </Route>
           <Route element={<HeaderOnlyLayout />}>

@@ -1,16 +1,42 @@
 export interface boardListItem {
-local_id : string
-user_id : string
-title : string
-content : string
-view_cnt : number
-like_cnt : number
-comment : string
-created_date : Date
-updated_date : Date
-del_YN : string
-del_date : Date
-reveal_YN : string
-board_type : string
+  localId: number;
+  userId: string | null;
+  title: string;
+  createdDate: string;
+  viewCnt: number;
+  likeCnt: number;
+  noticeYn: string;
+}
 
+export interface boardPageResponse {
+  content: boardListItem[];
+  page: {
+    totalPages: number;
+    totalElements: number;
+    number: number;
+  };
+}
+
+export interface boardDetailItem {
+  localId: number;
+  userId: string;
+  title: string;
+  content: string;
+  createdDate: string;
+  viewCnt: number;
+  likeCnt: number;
+}
+
+export interface boardWriteRequest {
+  title: string;
+  content: string;
+}
+
+export interface commentItem {
+  localId: number;
+  boardId: number;
+  userId: string;
+  content: string;
+  createdDate: string;
+  updatedDate: string | null;
 }

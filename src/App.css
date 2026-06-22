@@ -3068,7 +3068,20 @@ nav.visible { transform: translateY(0); }
   text-align: center;
   color: #7a9ab0;
   border-bottom: 1px solid rgba(210,193,182,0.04);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: 0;
 }
+
+/* 회원 목록 전용 컬럼 너비 (7컬럼) */
+.admin-members-table th:nth-child(1), .admin-members-table td:nth-child(1) { width: 5%; }
+.admin-members-table th:nth-child(2), .admin-members-table td:nth-child(2) { width: 13%; }
+.admin-members-table th:nth-child(3), .admin-members-table td:nth-child(3) { width: 9%; }
+.admin-members-table th:nth-child(4), .admin-members-table td:nth-child(4) { width: 30%; }
+.admin-members-table th:nth-child(5), .admin-members-table td:nth-child(5) { width: 13%; }
+.admin-members-table th:nth-child(6), .admin-members-table td:nth-child(6) { width: 10%; }
+.admin-members-table th:nth-child(7), .admin-members-table td:nth-child(7) { width: 13%; }
 
 .admin-table td.col-left { text-align: left; color: #e8ddd8; }
 

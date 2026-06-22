@@ -58,7 +58,7 @@ function AdminMembers({ onTabChange }: Props) {
               <button className="admin-search-btn" onClick={handleReset}>초기화</button>
             </div>
           </div>
-          <table className="admin-table">
+          <table className="admin-table admin-members-table">
             <thead>
               <tr>
                 <th>No</th>

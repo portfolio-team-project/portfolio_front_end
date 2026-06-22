@@ -3,6 +3,9 @@ import axiosInstance from "../../../api/axiosInstance";
 import { Fragment, useState } from "react";
 import toast from "react-hot-toast";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import type { AppDispatch } from "../../../store/store";
+import { logout } from "../../../slices/memberSlice";
 import {
   REQUIRED_USER_ID,
   REQUIRED_CURRENT_PASSWORD,
@@ -10,12 +13,14 @@ import {
   SAME_PASSWORD,
   PASSWORD_MISMATCH,
   CHANGE_PASSWORD_SUCCESS,
+  CHANGE_PASSWORD_EXPIRED_SUCCESS,
   CHANGE_PASSWORD_FAIL,
 } from "../../../constants/messageConstants";
 
 function ChangePassword() {
   const location = useLocation();
   const navigate = useNavigate();
+  const dispatch = useDispatch<AppDispatch>();
   const state = location.state as any;
   const fromAccount = state?.from === "account";
   const [userId, setUserId] = useState(state?.userId || "");
@@ -25,7 +30,7 @@ function ChangePassword() {
   const [loading, setLoading] = useState(false);
 
   const handleChangePassword = async () => {
-    if (!userId.trim()) return toast.error(REQUIRED_USER_ID);
+    if (!fromAccount && !userId.trim()) return toast.error(REQUIRED_USER_ID);
     if (!currentPassword.trim()) return toast.error(REQUIRED_CURRENT_PASSWORD);
     if (!newPassword.trim() || !confirmPassword.trim()) return toast.error(REQUIRED_NEW_PASSWORD);
     if (currentPassword === newPassword) return toast.error(SAME_PASSWORD);
@@ -37,11 +42,30 @@ function ChangePassword() {
       const url = fromAccount
         ? `/api/member/changePassword`
         : `${import.meta.env.VITE_API_URL}/api/member/changePassword`;
-      await client.post(url, { userId, currentPassword, newPassword });
-      toast.success(CHANGE_PASSWORD_SUCCESS);
-      setTimeout(() => navigate(fromAccount ? "/account" : "/login"), 2000);
+      const body = fromAccount
+        ? { currentPassword, newPassword }
+        : { userId, currentPassword, newPassword };
+      await client.post(url, body);
+      toast.success(fromAccount ? CHANGE_PASSWORD_SUCCESS : CHANGE_PASSWORD_EXPIRED_SUCCESS);
+      if (fromAccount) dispatch(logout());
+      setTimeout(() => navigate("/login"), 2000);
     } catch (error: any) {
-      toast.error(error.response?.data?.message || CHANGE_PASSWORD_FAIL);
+      const status = error.response?.status;
+      const message = error.response?.data?.message;
+      if (status === 423) {
+        if (fromAccount) {
+          dispatch(logout());
+          setTimeout(() => navigate("/login"), 2000);
+        }
+        if (!fromAccount) toast.error(message);
+        return;
+      }
+      // 일반 실패 — fromAccount는 인터셉터가 toast 처리, message 없는 경우만 보완
+      if (!fromAccount) {
+        toast.error(message || CHANGE_PASSWORD_FAIL);
+      } else if (!message) {
+        toast.error(CHANGE_PASSWORD_FAIL);
+      }
     } finally {
       setLoading(false);
     }
@@ -76,15 +100,17 @@ function ChangePassword() {
           <p>{fromAccount ? "새로운 비밀번호로 변경합니다" : "3개월마다 비밀번호를 변경해주세요"}</p>
 
           <form>
-            <div className="field">
-              <label>아이디</label>
-              <input
-                type="text"
-                placeholder="아이디를 입력하세요"
-                value={userId}
-                onChange={(e) => setUserId(e.target.value)}
-              />
-            </div>
+            {!fromAccount && (
+              <div className="field">
+                <label>아이디</label>
+                <input
+                  type="text"
+                  placeholder="아이디를 입력하세요"
+                  value={userId}
+                  onChange={(e) => setUserId(e.target.value)}
+                />
+              </div>
+            )}
 
             <div className="field">
               <label>현재 비밀번호</label>

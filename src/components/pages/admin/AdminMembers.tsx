@@ -16,6 +16,7 @@ function AdminMembers({ onTabChange }: Props) {
   const [keyword, setKeyword] = useState("");
   const [searchType, setSearchType] = useState("userId");
   const [selectedMember, setSelectedMember] = useState<null | typeof members[0]>(null);
+  const [deleteTargetId, setDeleteTargetId] = useState<string | null>(null);
 
   const handlePageChange = (page: number) => {
     dispatch(fetchMembers({ page, size: 10, keyword, searchType }));
@@ -31,19 +32,33 @@ function AdminMembers({ onTabChange }: Props) {
     dispatch(fetchMembers({ page: 0, size: 10 }));
   };
 
-  const handleDelete = async (userId: string) => {
-    if (!window.confirm(`${userId} 계정을 삭제하시겠습니까?`)) return;
+  const handleDeleteConfirm = async () => {
+    if (deleteTargetId === null) return;
     try {
-      await axiosInstance.post(`/api/admin/deleteId?userId=${userId}`);
+      await axiosInstance.post(`/api/admin/deleteId?userId=${deleteTargetId}`);
       toast.success("계정이 삭제되었습니다.");
       dispatch(fetchMembers({ page: currentpage, size: 10, keyword, searchType }));
     } catch {
       toast.error("계정 삭제에 실패했습니다.");
+    } finally {
+      setDeleteTargetId(null);
     }
   };
 
   return (
     <>
+      {deleteTargetId !== null && (
+        <div className="confirm-overlay" onClick={() => setDeleteTargetId(null)}>
+          <div className="confirm-modal" onClick={(e) => e.stopPropagation()}>
+            <p className="confirm-message">{deleteTargetId} 계정을 삭제하시겠습니까?</p>
+            <div className="confirm-btns">
+              <button className="admin-action-btn danger" onClick={handleDeleteConfirm}>삭제</button>
+              <button className="qna-back-btn" onClick={() => setDeleteTargetId(null)}>취소</button>
+            </div>
+          </div>
+        </div>
+      )}
+
       <div className="admin-content">
         <button className="admin-back-btn" onClick={() => onTabChange("dashboard")}>← 대시보드로</button>
         <div className="admin-card">
@@ -104,7 +119,7 @@ function AdminMembers({ onTabChange }: Props) {
                   </td>
                   <td>
                     <button className="admin-action-btn" onClick={() => { dispatch(fetchMemberDetail(m.userId)); setSelectedMember(m); }}>상세</button>
-                    <button className="admin-action-btn danger" onClick={() => handleDelete(m.userId)}>탈퇴</button>
+                    <button className="admin-action-btn danger" onClick={() => setDeleteTargetId(m.userId)}>탈퇴</button>
                   </td>
                 </tr>
               ))}

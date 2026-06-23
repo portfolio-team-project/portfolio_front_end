@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch, RootState } from "../../../store/store";
 import { fetchMembers, fetchMemberDetail } from "../../../slices/adminSlice";
 import AdminMemberModal from "./AdminMemberModal";
+import axiosInstance from "../../../api/axiosInstance";
+import toast from "react-hot-toast";
 
 interface Props {
   onTabChange: (tab: string) => void;
@@ -27,6 +29,17 @@ function AdminMembers({ onTabChange }: Props) {
     setKeyword("");
     setSearchType("userId");
     dispatch(fetchMembers({ page: 0, size: 10 }));
+  };
+
+  const handleDelete = async (userId: string) => {
+    if (!window.confirm(`${userId} 계정을 삭제하시겠습니까?`)) return;
+    try {
+      await axiosInstance.post(`/api/admin/deleteId?userId=${userId}`);
+      toast.success("계정이 삭제되었습니다.");
+      dispatch(fetchMembers({ page: currentpage, size: 10, keyword, searchType }));
+    } catch {
+      toast.error("계정 삭제에 실패했습니다.");
+    }
   };
 
   return (
@@ -82,10 +95,15 @@ function AdminMembers({ onTabChange }: Props) {
                     <span className={`admin-role-badge ${m.status === "Y" ? "active" : "inactive"}`}>
                       {m.status === "Y" ? "활성" : "비활성"}
                     </span>
+                    {m.isSocial === "Y" && (
+                      <span className="admin-role-badge" style={{ background: "#f6ad55", color: "#fff", marginLeft: "4px" }}>
+                        카카오
+                      </span>
+                    )}
                   </td>
                   <td>
                     <button className="admin-action-btn" onClick={() => { dispatch(fetchMemberDetail(m.userId)); setSelectedMember(m); }}>상세</button>
-                    <button className="admin-action-btn danger">탈퇴</button>
+                    <button className="admin-action-btn danger" onClick={() => handleDelete(m.userId)}>탈퇴</button>
                   </td>
                 </tr>
               ))}

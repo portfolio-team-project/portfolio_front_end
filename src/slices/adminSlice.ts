@@ -6,6 +6,7 @@ interface MemberResponse {
   userName: string;
   email: string;
   status: string;
+  isSocial: string;
   createdDate: string;
 }
 

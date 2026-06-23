@@ -77,14 +77,16 @@ function AccountPage() {
 
           {/* 설정 메뉴 */}
           <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-            <button
-              type="button"
-              className="btn-login"
-              onClick={() => navigate("/change-password", { state: { userId: user?.userId, from: "account" } })}
-              style={{ background: "#4a5568" }}
-            >
-              비밀번호 변경
-            </button>
+            {!user?.isSocial && (
+              <button
+                type="button"
+                className="btn-login"
+                onClick={() => navigate("/change-password", { state: { userId: user?.userId, from: "account" } })}
+                style={{ background: "#4a5568" }}
+              >
+                비밀번호 변경
+              </button>
+            )}
 
             <button
               type="button"

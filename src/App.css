@@ -3116,14 +3116,15 @@ nav.visible { transform: translateY(0); }
   max-width: 0;
 }
 
-/* 회원 목록 전용 컬럼 너비 (7컬럼) */
+/* 회원 목록 전용 컬럼 너비 (8컬럼) */
 .admin-members-table th:nth-child(1), .admin-members-table td:nth-child(1) { width: 5%; }
-.admin-members-table th:nth-child(2), .admin-members-table td:nth-child(2) { width: 13%; }
+.admin-members-table th:nth-child(2), .admin-members-table td:nth-child(2) { width: 12%; }
 .admin-members-table th:nth-child(3), .admin-members-table td:nth-child(3) { width: 9%; }
-.admin-members-table th:nth-child(4), .admin-members-table td:nth-child(4) { width: 30%; }
-.admin-members-table th:nth-child(5), .admin-members-table td:nth-child(5) { width: 13%; }
-.admin-members-table th:nth-child(6), .admin-members-table td:nth-child(6) { width: 10%; }
-.admin-members-table th:nth-child(7), .admin-members-table td:nth-child(7) { width: 13%; }
+.admin-members-table th:nth-child(4), .admin-members-table td:nth-child(4) { width: 25%; }
+.admin-members-table th:nth-child(5), .admin-members-table td:nth-child(5) { width: 12%; }
+.admin-members-table th:nth-child(6), .admin-members-table td:nth-child(6) { width: 9%; }
+.admin-members-table th:nth-child(7), .admin-members-table td:nth-child(7) { width: 9%; }
+.admin-members-table th:nth-child(8), .admin-members-table td:nth-child(8) { width: 10%; }
 
 .admin-table td.col-left { text-align: left; color: #e8ddd8; }
 
@@ -3375,7 +3376,10 @@ nav.visible { transform: translateY(0); }
   .admin-topbar { padding: 12px 16px; }
   .admin-card { overflow-x: auto; }
   .admin-table { min-width: 480px; font-size: 0.72rem; }
+  .admin-members-table { min-width: 680px; }
   .admin-table th, .admin-table td { padding: 8px 6px; }
+  .admin-search-wrap { flex-wrap: wrap; gap: 8px; }
+  .admin-search { width: 100%; min-width: 0; flex: 1; }
   .admin-section-grid { grid-template-columns: 1fr; }
   .admin-card-header { flex-direction: column; align-items: flex-start; gap: 8px; }
   .admin-stat-card { padding: 12px; }

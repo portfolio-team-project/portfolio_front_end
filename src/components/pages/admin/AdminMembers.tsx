@@ -79,6 +79,7 @@ function AdminMembers({ onTabChange }: Props) {
                 <th>이름</th>
                 <th>이메일</th>
                 <th>가입일</th>
+                <th>구분</th>
                 <th>상태</th>
                 <th>관리</th>
               </tr>
@@ -92,14 +93,14 @@ function AdminMembers({ onTabChange }: Props) {
                   <td>{m.email}</td>
                   <td>{m.createdDate?.slice(0, 10)}</td>
                   <td>
+                    <span className={`admin-role-badge ${m.isSocial === "Y" ? "active" : "inactive"}`}>
+                      {m.isSocial === "Y" ? "카카오" : "일반"}
+                    </span>
+                  </td>
+                  <td>
                     <span className={`admin-role-badge ${m.status === "Y" ? "active" : "inactive"}`}>
                       {m.status === "Y" ? "활성" : "비활성"}
                     </span>
-                    {m.isSocial === "Y" && (
-                      <span className="admin-role-badge" style={{ background: "#f6ad55", color: "#fff", marginLeft: "4px" }}>
-                        카카오
-                      </span>
-                    )}
                   </td>
                   <td>
                     <button className="admin-action-btn" onClick={() => { dispatch(fetchMemberDetail(m.userId)); setSelectedMember(m); }}>상세</button>

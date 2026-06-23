@@ -2,14 +2,12 @@ import { Fragment } from "react";
 import { useNavigate } from "react-router-dom";
 import githubIcon from '../../../assets/github.svg';
 import leeImage from '../../../assets/profile/leeImage.png';
-import NoticeModal from "./NoticeModal";
 
 function  EntryPage() {
     const navigate = useNavigate();
 
     return (
         <Fragment>
-            <NoticeModal />
             <div id="entry">
             <div className="panel panel-a" onClick={() => navigate('/sangwon')}>
                 <div className="panel-grid"></div>

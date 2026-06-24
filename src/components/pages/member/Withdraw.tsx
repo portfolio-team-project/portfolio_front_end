@@ -27,7 +27,7 @@ function Withdraw() {
       toast.success("회원 탈퇴가 완료되었습니다.");
       setTimeout(() => navigate("/login"), 2000);
     } catch (error: any) {
-      toast.error(error.response?.data?.message || "회원 탈퇴에 실패했습니다.");
+      if (!error.response?.data?.message) toast.error("회원 탈퇴에 실패했습니다.");
     } finally {
       setLoading(false);
     }

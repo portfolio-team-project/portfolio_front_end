@@ -39,7 +39,7 @@ function AdminMembers({ onTabChange }: Props) {
       toast.success("계정이 삭제되었습니다.");
       dispatch(fetchMembers({ page: currentpage, size: 10, keyword, searchType }));
     } catch {
-      toast.error("계정 삭제에 실패했습니다.");
+      // 인터셉터에서 서버 메시지 toast 처리
     } finally {
       setDeleteTargetId(null);
     }

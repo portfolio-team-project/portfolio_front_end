@@ -32,7 +32,7 @@ function AdminMemberModal({ member, isSocial, onClose }: Props) {
       setResetConfirm(false);
       onClose();
     } catch {
-      toast.error("임시 비밀번호 발송에 실패했습니다.");
+      // 인터셉터에서 서버 메시지 toast 처리
     } finally {
       setSending(false);
     }

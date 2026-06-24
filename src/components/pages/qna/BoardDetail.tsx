@@ -64,7 +64,7 @@ function BoardDetail() {
       toast.success("수정되었습니다.");
       setIsEditing(false);
     } catch {
-      toast.error("수정에 실패했습니다.");
+      // 인터셉터에서 서버 메시지 toast 처리
     } finally {
       setIsLoading(false);
     }

@@ -10,6 +10,7 @@ export const UUID_NOT_FOUND = "존재하지 않는 유저 식별번호입니다.
 export const MEMBER_INFO_NOT_FOUND = "정보가 존재하지 않습니다.";
 export const USER_NOT_FOUND = "존재하지 않는 유저입니다.";
 export const PWD_EXPIRED = "비밀번호를 변경해주세요.";
+export const CHG_PWD_TEMP_PWD = "임시비밀번호입니다. 보안을 위해 비밀번호 변경 페이지로 이동합니다.";
 
 // 인증
 export const CERT_NUM_EXPIRED = "인증번호가 만료되었습니다.";

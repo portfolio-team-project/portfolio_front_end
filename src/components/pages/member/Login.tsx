@@ -26,6 +26,9 @@ function Login() {
       if (message === MessageConstants.PWD_EXPIRED) {
         toast.error("비밀번호가 만료되었습니다. 비밀번호 변경 페이지로 이동합니다.");
         navigate("/change-password", { state: { userId } });
+      } else if (message === MessageConstants.CHG_PWD_TEMP_PWD) {
+        toast.error("임시 비밀번호로 로그인되었습니다. 비밀번호를 변경해주세요.");
+        navigate("/change-password", { state: { from: "tempPwd", userId } });
       } else {
         toast.error(message);
       }

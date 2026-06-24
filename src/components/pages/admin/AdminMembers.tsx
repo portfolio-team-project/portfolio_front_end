@@ -143,7 +143,11 @@ function AdminMembers({ onTabChange }: Props) {
         </div>
       </div>
       {selectedMember && memberDetail && (
-        <AdminMemberModal member={memberDetail} onClose={() => setSelectedMember(null)} />
+        <AdminMemberModal
+          member={memberDetail}
+          isSocial={selectedMember.isSocial === "Y"}
+          onClose={() => setSelectedMember(null)}
+        />
       )}
     </>
   );

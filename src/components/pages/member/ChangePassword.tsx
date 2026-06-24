@@ -23,6 +23,7 @@ function ChangePassword() {
   const dispatch = useDispatch<AppDispatch>();
   const state = location.state as any;
   const fromAccount = state?.from === "account";
+  const fromTempPwd = state?.from === "tempPwd";
   const [userId, setUserId] = useState(state?.userId || "");
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
@@ -30,7 +31,7 @@ function ChangePassword() {
   const [loading, setLoading] = useState(false);
 
   const handleChangePassword = async () => {
-    if (!fromAccount && !userId.trim()) return toast.error(REQUIRED_USER_ID);
+    if (!fromAccount && !fromTempPwd && !userId.trim()) return toast.error(REQUIRED_USER_ID);
     if (!currentPassword.trim()) return toast.error(REQUIRED_CURRENT_PASSWORD);
     if (!newPassword.trim() || !confirmPassword.trim()) return toast.error(REQUIRED_NEW_PASSWORD);
     if (currentPassword === newPassword) return toast.error(SAME_PASSWORD);
@@ -97,7 +98,13 @@ function ChangePassword() {
         {/* RIGHT */}
         <div className="right">
           <h2>비밀번호 변경</h2>
-          <p>{fromAccount ? "새로운 비밀번호로 변경합니다" : "3개월마다 비밀번호를 변경해주세요"}</p>
+          <p>
+            {fromAccount
+              ? "새로운 비밀번호로 변경합니다"
+              : fromTempPwd
+              ? "임시 비밀번호로 로그인되었습니다. 새 비밀번호를 설정해주세요"
+              : "3개월마다 비밀번호를 변경해주세요"}
+          </p>
 
           <form>
             {!fromAccount && (
@@ -113,10 +120,10 @@ function ChangePassword() {
             )}
 
             <div className="field">
-              <label>현재 비밀번호</label>
+              <label>{fromTempPwd ? "임시 비밀번호" : "현재 비밀번호"}</label>
               <input
                 type="password"
-                placeholder="현재 비밀번호를 입력하세요"
+                placeholder={fromTempPwd ? "임시 비밀번호를 입력하세요" : "현재 비밀번호를 입력하세요"}
                 value={currentPassword}
                 onChange={(e) => setCurrentPassword(e.target.value)}
               />

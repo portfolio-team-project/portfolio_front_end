@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
 import axiosInstance from "../api/axiosInstance";
 
 interface MemberState {
@@ -23,7 +24,7 @@ export const login = createAsyncThunk(
     "member/login",
     async (data: { userId: string; password: string }, {rejectWithValue}) => {
         try {
-            const response = await axiosInstance.post(`/api/login`, data);
+            const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/login`, data);
 
             if (!response.data.success) {
                 return rejectWithValue(response.data.message || "로그인에 실패했습니다.");

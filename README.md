@@ -14,46 +14,61 @@ React + TypeScript + Vite 기반의 팀 포트폴리오 프론트엔드입니다
 | **Editor** | Tiptap |
 | **UI** | react-hot-toast |
 
+## 주요 기능
+
+- JWT 기반 인증 (Access Token + HttpOnly Cookie Refresh Token)
+- 카카오 소셜 로그인 (OAuth 2.0)
+- 비밀번호 만료 / 임시 비밀번호 강제 변경 플로우
+- 관리자 페이지 (회원 관리, Q&A 관리, 게시판 관리, 대시보드)
+- 게시판 (CRUD, 댓글)
+- 공개 Q&A (비회원 작성 지원)
+
 ## 폴더 구조
 
 ```
 src/
 ├── api/
-│   └── axiosInstance.ts           # Axios 인스턴스 (interceptor 포함)
+│   └── axiosInstance.ts              # Axios 인스턴스 (interceptor, 401 refresh 포함)
 ├── assets/
-│   ├── image/                     # 일반 이미지
-│   ├── profile/                   # 프로필 이미지
+│   ├── image/                        # 일반 이미지
+│   ├── profile/                      # 프로필 이미지
 │   ├── github.svg
 │   └── kakao.svg
 ├── constants/
-│   └── messageConstants.ts        # 공통 메시지 상수
+│   └── messageConstants.ts           # 공통 메시지 상수
 ├── components/
 │   ├── layout/
-│   │   ├── Header.tsx             # 네비게이션, 프로필 드롭다운
+│   │   ├── Header.tsx                # 네비게이션, 프로필 드롭다운
 │   │   ├── Footer.tsx
-│   │   ├── Layout.tsx             # Header + Footer 레이아웃
-│   │   ├── HeaderOnlyLayout.tsx   # Header만 있는 레이아웃
-│   │   ├── PrivateRoute.tsx       # 로그인 인증 라우트 가드
+│   │   ├── Layout.tsx                # Header + Footer 레이아웃
+│   │   ├── HeaderOnlyLayout.tsx      # Header만 있는 레이아웃
+│   │   ├── PrivateRoute.tsx          # 로그인 인증 라우트 가드
 │   │   └── ContactModal.tsx
 │   └── pages/
 │       ├── main/
-│       │   ├── EntryPage.tsx      # 메인 진입 페이지
-│       │   ├── SangwonPage.tsx    # 지상원 포트폴리오
-│       │   └── EuigwangPage.tsx   # 이의광 포트폴리오
+│       │   ├── EntryPage.tsx         # 메인 진입 페이지
+│       │   ├── SangwonPage.tsx       # 지상원 포트폴리오
+│       │   └── EuigwangPage.tsx      # 이의광 포트폴리오
 │       ├── admin/
-│       │   ├── adminPage.tsx      # 관리자 페이지
-│       │   └── AdminMemberModal.tsx
+│       │   ├── adminPage.tsx         # 관리자 페이지 (탭 컨테이너)
+│       │   ├── AdminDashboard.tsx    # 대시보드 탭
+│       │   ├── AdminMembers.tsx      # 회원 관리 탭
+│       │   ├── AdminMemberModal.tsx  # 회원 상세 / 비밀번호 초기화
+│       │   ├── AdminQna.tsx          # Q&A 관리 탭
+│       │   └── AdminBoard.tsx        # 게시판 관리 탭
 │       ├── member/
-│       │   ├── Login.tsx          # 로그인
-│       │   ├── Accession.tsx      # 회원가입
-│       │   ├── FindPassword.tsx   # 비밀번호 찾기 (이메일 인증)
-│       │   ├── ChangePassword.tsx # 비밀번호 변경
-│       │   ├── AccountPage.tsx    # 계정 설정
-│       │   ├── Withdraw.tsx       # 회원 탈퇴
-│       │   └── KakaoCallback.tsx  # 카카오 로그인 콜백
+│       │   ├── Login.tsx             # 로그인
+│       │   ├── Accession.tsx         # 회원가입
+│       │   ├── FindPassword.tsx      # 비밀번호 찾기 (이메일 인증)
+│       │   ├── ChangePassword.tsx    # 비밀번호 변경 (만료 / 임시비밀번호 / 계정설정)
+│       │   ├── AccountPage.tsx       # 계정 설정
+│       │   ├── Withdraw.tsx          # 회원 탈퇴
+│       │   └── KakaoCallback.tsx     # 카카오 로그인 콜백
 │       └── qna/
 │           ├── Qna.tsx
+│           ├── QnaGuestWrite.tsx     # 비회원 Q&A 작성
 │           ├── BoardList.tsx
+│           ├── BoardDetail.tsx
 │           ├── Boardwrite.tsx
 │           └── Faq.tsx
 ├── slices/
@@ -81,17 +96,19 @@ src/
 | `/sangwon` | SangwonPage | - |
 | `/euigwang` | EuigwangPage | - |
 | `/qna` | Qna | - |
+| `/qna-write-guest` | QnaGuestWrite | - |
 | `/faq` | Faq | - |
 | `/BoardList` | BoardList | O |
 | `/Boardwrite` | Boardwrite | O |
+| `/boardDetail/:localId` | BoardDetail | O |
 | `/login` | Login | - |
 | `/accession` | Accession | - |
 | `/find-password` | FindPassword | - |
 | `/change-password` | ChangePassword | - |
 | `/account` | AccountPage | - |
 | `/withdraw` | Withdraw | - |
-| `/admin` | AdminPage | - |
 | `/kakao/callback` | KakaoCallback | - |
+| `/admin` | AdminPage | 관리자 전용 |
 
 ## 환경 변수
 

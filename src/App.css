@@ -3836,7 +3836,6 @@ nav.visible { transform: translateY(0); }
 .ProseMirror {
   max-width: 100% !important;
   box-sizing: border-box !important;
-  overflow-x: hidden !important;
 }
 
 .toastui-editor-toolbar {
@@ -3845,12 +3844,24 @@ nav.visible { transform: translateY(0); }
 }
 
 /* Toast UI Editor 이미지 팝업 모바일 */
-.toastui-editor-popup {
-  max-width: calc(100vw - 32px) !important;
-  box-sizing: border-box !important;
-  left: 50% !important;
-  transform: translateX(-50%) !important;
-  right: auto !important;
+@media (max-width: 600px) {
+  .toastui-editor-popup {
+    position: fixed !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    width: calc(100vw - 32px) !important;
+    max-width: calc(100vw - 32px) !important;
+    box-sizing: border-box !important;
+    z-index: 9999 !important;
+  }
+
+  .toastui-editor-popup-body,
+  .toastui-editor-popup-body input,
+  .toastui-editor-popup-body button {
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
 }
 
 /* Toast UI Editor 뷰어 (읽기 전용) */

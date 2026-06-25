@@ -3848,10 +3848,10 @@ nav.visible { transform: translateY(0); }
   .toastui-editor-popup {
     position: fixed !important;
     top: 50% !important;
-    left: 50% !important;
-    transform: translate(-50%, -50%) !important;
-    width: calc(100vw - 32px) !important;
-    max-width: calc(100vw - 32px) !important;
+    left: 16px !important;
+    right: 16px !important;
+    width: auto !important;
+    transform: translateY(-50%) !important;
     box-sizing: border-box !important;
     z-index: 9999 !important;
   }

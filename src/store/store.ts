@@ -1,13 +1,18 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { createLogger } from "redux-logger";
-import rootReducer from "../reducers/index";
-
-const logger = createLogger();
+import qnaReducer from "../slices/qnaSlice";
+import memberReducer from "../slices/memberSlice";
+import adminReducer from "../slices/adminSlice";
 
 const store = configureStore({
-    reducer: rootReducer,
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
+    reducer: {
+        qna: qnaReducer,
+        member: memberReducer,
+        admin: adminReducer
+    },
     devTools: process.env.NODE_ENV !== 'production',
 });
 
 export default store;
+
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;

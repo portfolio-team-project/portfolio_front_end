@@ -1,5 +1,7 @@
 import { Fragment } from "react";
 import { useNavigate } from "react-router-dom";
+import githubIcon from '../../../assets/github.svg';
+import leeImage from '../../../assets/profile/leeImage.png';
 
 function  EntryPage() {
     const navigate = useNavigate();
@@ -28,36 +30,40 @@ function  EntryPage() {
                 </div>
             </div>
 
-            {/* Center divider */}
-            <div className="entry-divider"></div>
-            <div className="entry-center">
-                <div className="entry-badge">L×J</div>
-                <span className="entry-badge-label">SELECT</span>
-            </div>
-
             {/* Panel B */}
             <div className="panel panel-b" onClick={() => navigate('/euigwang')}>
                 <div className="panel-noise"></div>
                 <div className="panel-content">
                 <div className="avatar-ring">
-                    <div className="avatar-inner">👩‍💻</div>
+                    <img src={leeImage} alt="LEE EUIGWANG" className="avatar-inner" style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '50%' }} />
                 </div>
                 <div className="panel-text">
-                    <p className="panel-number">02 · FRONTEND</p>
+                    <p className="panel-number">02 · Fullstack</p>
                     <h2 className="panel-name" style={{ color: 'var(--b-text)', fontSize: '2.4rem' }}>
                     LEE<br />EUIGWANG
                     </h2>
-                    <p className="panel-role">Frontend Engineer</p>
+                    <p className="panel-role">Fullstack Engineer</p>
                     <div className="panel-tags">
+                    <span className="ptag">Spring Boot</span>
+                    <span className="ptag">Python</span>
+                    <span className="ptag">Docker</span>
+                    <span className="ptag">Jenkins</span>
                     <span className="ptag">React</span>
-                    <span className="ptag">Next.js</span>
-                    <span className="ptag">Three.js</span>
-                    <span className="ptag">Figma</span>
                     </div>
                     <button className="panel-cta">포트폴리오 보기 →</button>
                 </div>
                 </div>
             </div>
+            </div>
+            <div className="github-links">
+                <a href="https://github.com/portfolio-team-project/portfolio_back_end/tree/crops_project" target="_blank" rel="noopener noreferrer">
+                    <img src={githubIcon} alt="GitHub" width={20} height={20} />
+                    Backend
+                </a>
+                <a href="https://github.com/portfolio-team-project/portfolio_front_end/tree/cropsProject" target="_blank" rel="noopener noreferrer">
+                    <img src={githubIcon} alt="GitHub" width={20} height={20} />
+                    Frontend
+                </a>
             </div>
         </Fragment>
     );

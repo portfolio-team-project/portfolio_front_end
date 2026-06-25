@@ -24,7 +24,7 @@ export const login = createAsyncThunk(
     "member/login",
     async (data: { userId: string; password: string }, {rejectWithValue}) => {
         try {
-            const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/login`, data);
+            const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/login`, data, { withCredentials: true });
 
             if (!response.data.success) {
                 return rejectWithValue(response.data.message || "로그인에 실패했습니다.");

@@ -1,3 +1,6 @@
+import "@toast-ui/editor/dist/toastui-editor.css";
+import Editor from "@toast-ui/editor";
+import DOMPurify from "dompurify";
 import { Fragment, useState, useEffect, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -27,6 +30,8 @@ function BoardDetail() {
 
   const commentInputRef = useRef<HTMLTextAreaElement>(null);
   const fetchedRef = useRef(false);
+  const editorContainerRef = useRef<HTMLDivElement>(null);
+  const editorRef = useRef<Editor | null>(null);
 
   const user = useSelector((state: RootState) => state.member.user);
   const navigate = useNavigate();
@@ -45,23 +50,50 @@ function BoardDetail() {
     }).catch(() => {});
   }, [localId]);
 
-  const handleEdit = () => setIsEditing(true);
+  const handleEdit = () => {
+    setIsEditing(true);
+    setTimeout(() => {
+      if (editorContainerRef.current && !editorRef.current) {
+        editorRef.current = new Editor({
+          el: editorContainerRef.current,
+          initialEditType: "wysiwyg",
+          hideModeSwitch: true,
+          height: "400px",
+          initialValue: board?.content ?? "",
+          hooks: {
+            addImageBlobHook: async (blob, callback) => {
+              const formData = new FormData();
+              const ext = blob.type.split("/")[1] || "png";
+              formData.append("image", blob, `image.${ext}`);
+              const res = await axiosInstance.post("/api/qna/uploadImg", formData);
+              callback(`${import.meta.env.VITE_API_URL}${res.data.data.url}`);
+            },
+          },
+        });
+      }
+    }, 0);
+  };
 
   const handleCancel = () => {
     setEditForm({ title: board!.title, content: board!.content });
+    editorRef.current?.destroy();
+    editorRef.current = null;
     setIsEditing(false);
   };
 
   const handleSave = async () => {
-    if (!editForm.title.trim() || !editForm.content.trim()) {
+    const content = editorRef.current?.getHTML() ?? "";
+    if (!editForm.title.trim() || !content.trim()) {
       toast.error("제목과 내용을 입력해주세요.");
       return;
     }
     setIsLoading(true);
     try {
-      await axiosInstance.put(`/api/board/${localId}`, editForm);
-      setBoard((prev) => prev ? { ...prev, title: editForm.title, content: editForm.content } : prev);
+      await axiosInstance.put(`/api/board/${localId}`, { ...editForm, content });
+      setBoard((prev) => prev ? { ...prev, title: editForm.title, content } : prev);
       toast.success("수정되었습니다.");
+      editorRef.current?.destroy();
+      editorRef.current = null;
       setIsEditing(false);
     } catch {
       // 인터셉터에서 서버 메시지 toast 처리
@@ -192,12 +224,10 @@ function BoardDetail() {
               readOnly={!isEditing}
               onChange={(e) => setEditForm({ ...editForm, title: e.target.value })}
             />
-            <textarea
-              className="qna-textarea"
-              value={isEditing ? editForm.content : board.content}
-              readOnly={!isEditing}
-              onChange={(e) => setEditForm({ ...editForm, content: e.target.value })}
-            />
+            {isEditing
+              ? <div ref={editorContainerRef} />
+              : <div className="toastui-editor-contents" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(board.content) }} />
+            }
             <div className="board-detail-meta">
               <span>작성일 : {board.createdDate?.slice(0, 10)}</span>
               <span>조회수 : {board.viewCnt}</span>

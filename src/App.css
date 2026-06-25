@@ -3820,3 +3820,30 @@ nav.visible { transform: translateY(0); }
   text-decoration: underline;
   cursor: pointer;
 }
+
+/* Toast UI Editor override */
+.toastui-editor-contents,
+.toastui-editor-contents p,
+.ProseMirror {
+  text-align: left !important;
+}
+
+/* Toast UI Editor 뷰어 (읽기 전용) */
+.qna-section .toastui-editor-contents,
+.admin-content .toastui-editor-contents {
+  background: transparent !important;
+  color: var(--a-text) !important;
+  padding: 12px 0;
+}
+
+.qna-section .toastui-editor-contents p,
+.admin-content .toastui-editor-contents p,
+.qna-section .toastui-editor-contents li,
+.admin-content .toastui-editor-contents li {
+  color: var(--a-text) !important;
+}
+
+.qna-section .toastui-editor-contents img,
+.admin-content .toastui-editor-contents img {
+  max-width: 100%;
+}

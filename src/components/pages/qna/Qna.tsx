@@ -1,3 +1,4 @@
+import DOMPurify from "dompurify";
 import { Fragment, useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -97,7 +98,7 @@ function QnA() {
                         <div className="qna-detail">
                           <div className="qna-question">
                             <span className="qna-label">Q</span>
-                            <p>{detail.content}</p>
+                            <div className="toastui-editor-contents" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(detail.content) }} />
                           </div>
                           {detail.answer && (
                             <div className="qna-answer">

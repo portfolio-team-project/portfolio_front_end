@@ -1,4 +1,6 @@
-import { Fragment, useState } from "react";
+import "@toast-ui/editor/dist/toastui-editor.css";
+import Editor from "@toast-ui/editor";
+import { Fragment, useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "../../../api/axiosInstance";
@@ -7,20 +9,49 @@ import type { boardWriteRequest } from "../../../types/BoardList";
 import toast from "react-hot-toast";
 
 function Boardwrite() {
-  const [form, setForm] = useState<boardWriteRequest>({ title: "", content: "" });
+  const [form, setForm] = useState<Omit<boardWriteRequest, "content">>({ title: "" });
   const [isLoading, setIsLoading] = useState(false);
+  const editorContainerRef = useRef<HTMLDivElement>(null);
+  const editorRef = useRef<Editor | null>(null);
   const user = useSelector((state: RootState) => state.member.user);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if (editorContainerRef.current && !editorRef.current) {
+      editorRef.current = new Editor({
+        el: editorContainerRef.current,
+        initialEditType: "wysiwyg",
+        hideModeSwitch: true,
+        height: "400px",
+        hooks: {
+          addImageBlobHook: async (blob, callback) => {
+            const formData = new FormData();
+            const ext = blob.type.split("/")[1] || "png";
+            formData.append("image", blob, `image.${ext}`);
+            const res = await axiosInstance.post("/api/qna/uploadImg", formData);
+            callback(`${import.meta.env.VITE_API_URL}${res.data.data.url}`);
+          },
+        },
+      });
+    }
+
+    return () => {
+      editorRef.current?.destroy();
+      editorRef.current = null;
+    };
+  }, []);
+
   const handleSubmit = async () => {
-    if (!form.title.trim() || !form.content.trim()) {
+    const content = editorRef.current?.getHTML() ?? "";
+
+    if (!form.title.trim() || !content.trim()) {
       toast.error("제목과 내용을 입력해주세요.");
       return;
     }
 
     setIsLoading(true);
     try {
-      await axiosInstance.post("/api/board/write", form);
+      await axiosInstance.post("/api/board/write", { ...form, content });
       toast.success("게시글이 등록되었습니다.");
       navigate("/boardList");
     } finally {
@@ -47,12 +78,7 @@ function Boardwrite() {
               value={form.title}
               onChange={(e) => setForm({ ...form, title: e.target.value })}
             />
-            <textarea
-              className="qna-textarea"
-              placeholder="내용을 입력하세요"
-              value={form.content}
-              onChange={(e) => setForm({ ...form, content: e.target.value })}
-            />
+            <div ref={editorContainerRef} />
             <div className="qna-btn-group">
               <button className="qna-back-btn" onClick={() => navigate("/boardList")}>이전</button>
               <button className="qna-submit-btn" onClick={handleSubmit} disabled={isLoading}>

@@ -13,6 +13,7 @@ function FindPassword() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const [isSending,setIsSending] = useState(false);
+  const [sessionToken, setSessionToken] = useState("");
 
   const handleSendCode = async () => {
       if (userId.trim() === "" && email.trim() === "") {
@@ -36,9 +37,10 @@ function FindPassword() {
 
   const handleSendEmail = async (): Promise<boolean> => {
     try {
-      await axios.post(`${import.meta.env.VITE_API_URL}/api/member/findPassword`, null, {
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/member/findPassword`, null, {
         params: { userId, email }
       });
+      setSessionToken(response.data.data);
       return true;
     } catch (error: any) {
       toast.error(error.response?.data?.message || "인증번호 발송에 실패했습니다.");
@@ -50,7 +52,8 @@ function FindPassword() {
     await axios.post(`${import.meta.env.VITE_API_URL}/api/member/verifyNum`, null, {
       params: {
         userId,
-        certificateNum
+        certificateNum,
+        sessionToken
       }
     }).then((response) => {
       if (response.data.success) {

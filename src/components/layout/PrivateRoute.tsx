@@ -4,13 +4,14 @@ import type { RootState } from "../../store/store";
 import toast from "react-hot-toast";
 
 function PrivateRoute() {
-    const { user } = useSelector((state: RootState) => state.member);
+    const { user, loading } = useSelector((state: RootState) => state.member);
 
-        if (!user) {
-            toast.error("로그인이 필요한 페이지입니다.");
+    if (loading) return null;
 
-            return <Navigate to="/login" />;
-        }
+    if (!user) {
+        toast.error("로그인이 필요한 페이지입니다.");
+        return <Navigate to="/login" />;
+    }
 
     return <Outlet />;
 }

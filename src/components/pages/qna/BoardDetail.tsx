@@ -1,6 +1,7 @@
 import "@toast-ui/editor/dist/toastui-editor.css";
 import Editor from "@toast-ui/editor";
 import DOMPurify from "dompurify";
+import { fixEditorPopupOnMobile } from "../../../utils/fixEditorPopup";
 import { Fragment, useState, useEffect, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -50,6 +51,8 @@ function BoardDetail() {
     }).catch(() => {});
   }, [localId]);
 
+  const popupObserverRef = useRef<(() => void) | null>(null);
+
   const handleEdit = () => {
     setIsEditing(true);
     setTimeout(() => {
@@ -70,12 +73,15 @@ function BoardDetail() {
             },
           },
         });
+        popupObserverRef.current = fixEditorPopupOnMobile(editorContainerRef.current!);
       }
     }, 0);
   };
 
   const handleCancel = () => {
     setEditForm({ title: board!.title, content: board!.content });
+    popupObserverRef.current?.();
+    popupObserverRef.current = null;
     editorRef.current?.destroy();
     editorRef.current = null;
     setIsEditing(false);
@@ -92,6 +98,8 @@ function BoardDetail() {
       await axiosInstance.put(`/api/board/${localId}`, { ...editForm, content });
       setBoard((prev) => prev ? { ...prev, title: editForm.title, content } : prev);
       toast.success("수정되었습니다.");
+      popupObserverRef.current?.();
+      popupObserverRef.current = null;
       editorRef.current?.destroy();
       editorRef.current = null;
       setIsEditing(false);

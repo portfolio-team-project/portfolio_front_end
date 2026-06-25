@@ -1,6 +1,7 @@
 import "@toast-ui/editor/dist/toastui-editor.css";
 import Editor from "@toast-ui/editor";
 import { Fragment, useEffect, useRef, useState } from "react";
+import { fixEditorPopupOnMobile } from "../../../utils/fixEditorPopup";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "../../../api/axiosInstance";
@@ -35,7 +36,10 @@ function Boardwrite() {
       });
     }
 
+    const cleanup = editorContainerRef.current ? fixEditorPopupOnMobile(editorContainerRef.current) : null;
+
     return () => {
+      cleanup?.();
       editorRef.current?.destroy();
       editorRef.current = null;
     };

@@ -3844,16 +3844,15 @@ nav.visible { transform: translateY(0); }
 }
 
 /* Toast UI Editor 이미지 팝업 모바일 */
-@media (max-width: 600px) {
+@media screen and (max-width: 768px) {
+  .toastui-editor-defaultUI .toastui-editor-popup,
   .toastui-editor-popup {
-    position: fixed !important;
-    top: 50% !important;
-    left: 16px !important;
-    right: 16px !important;
+    left: 0 !important;
+    right: 0 !important;
     width: auto !important;
-    transform: translateY(-50%) !important;
+    max-width: none !important;
+    margin: 0 16px !important;
     box-sizing: border-box !important;
-    z-index: 9999 !important;
   }
 
   .toastui-editor-popup-body,

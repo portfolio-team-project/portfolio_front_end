@@ -4,6 +4,7 @@ import { Fragment, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import axiosInstance from "../../../api/axiosInstance";
+import { fixEditorPopupOnMobile } from "../../../utils/fixEditorPopup";
 import type { QnaGuestRequest } from "../../../types/qna";
 import toast from "react-hot-toast";
 
@@ -33,7 +34,10 @@ function QnaGuestWrite() {
       });
     }
 
+    const cleanup = editorContainerRef.current ? fixEditorPopupOnMobile(editorContainerRef.current) : null;
+
     return () => {
+      cleanup?.();
       editorRef.current?.destroy();
       editorRef.current = null;
     };

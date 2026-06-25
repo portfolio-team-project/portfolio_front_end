@@ -192,7 +192,15 @@ function FindPassword() {
                 </button>
               </form>
 
-              <button className="btn-signup-move" type="button" onClick={() => {handleSendEmail(); startTimer();}} disabled={isSending}>
+              <button className="btn-signup-move" type="button" onClick={async () => {
+                setIsSending(true);
+                try {
+                  await handleSendEmail();
+                  startTimer();
+                } finally {
+                  setIsSending(false);
+                }
+              }} disabled={isSending}>
                 {isSending ? "발송 중" : "인증번호 재전송"}
               </button>
 

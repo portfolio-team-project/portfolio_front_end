@@ -49,6 +49,12 @@ function QnA() {
     setPage(0);
   };
 
+  const handleReset = () => {
+    setSearchInput("");
+    setSearch("");
+    setPage(0);
+  };
+
   const handleWrite = () => {
     if (user) {
       navigate("/Boardwrite");
@@ -129,6 +135,7 @@ function QnA() {
               onKeyDown={(e) => e.key === "Enter" && handleSearch()}
             />
             <button className="qna-search-btn" onClick={handleSearch}>검색</button>
+            <button className="qna-search-btn" onClick={handleReset}>초기화</button>
             <button className="qna-write-btn" onClick={handleWrite}>글쓰기</button>
           </div>
 

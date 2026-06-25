@@ -816,7 +816,7 @@ nav.visible { transform: translateY(0); }
   letter-spacing: 0.06em;
   padding: 9px 20px;
   border-radius: 2px;
-  border: none;
+  border: 1px solid transparent;
   background: var(--a-accent);
   color: #1B3C53;
   cursor: pointer;
@@ -1183,9 +1183,9 @@ nav.visible { transform: translateY(0); }
   .qna-wrap { padding: 0 16px; }
   /* 검색바 + 글쓰기 버튼 겹침 방지 */
   .qna-bottom,
-  .boardList-top { justify-content: flex-start; gap: 8px; }
+  .boardList-top { justify-content: flex-start; gap: 8px; flex-wrap: wrap; }
   .qna-write-btn { position: static; }
-  .qna-search { flex: 1; width: auto; }
+  .qna-search { flex: 1; min-width: 120px; width: auto; }
   /* 고정 레이아웃으로 제목 칸이 나머지를 모두 차지하게 설정 */
   .qna-table { table-layout: fixed; width: 100%; }
   .qna-table th.col-title,

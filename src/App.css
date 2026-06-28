@@ -3828,6 +3828,7 @@ nav.visible { transform: translateY(0); }
   text-align: left !important;
 }
 
+
 /* Toast UI Editor 모바일 overflow 방지 */
 .toastui-editor-defaultUI,
 .toastui-editor-main,
@@ -3863,19 +3864,34 @@ nav.visible { transform: translateY(0); }
   }
 }
 
-/* Toast UI Editor 뷰어 (읽기 전용) */
-.qna-section .toastui-editor-contents,
-.admin-content .toastui-editor-contents {
+/* Toast UI Editor 뷰어 (읽기 전용) — .toastui-editor-defaultUI 없는 경우만 */
+.qna-section .toastui-editor-contents:not(.toastui-editor-defaultUI *),
+.admin-content .toastui-editor-contents:not(.toastui-editor-defaultUI *) {
   background: transparent !important;
   color: var(--a-text) !important;
   padding: 12px 0;
 }
 
-.qna-section .toastui-editor-contents p,
-.admin-content .toastui-editor-contents p,
-.qna-section .toastui-editor-contents li,
-.admin-content .toastui-editor-contents li {
+.qna-section .toastui-editor-contents:not(.toastui-editor-defaultUI *) p,
+.admin-content .toastui-editor-contents:not(.toastui-editor-defaultUI *) p,
+.qna-section .toastui-editor-contents:not(.toastui-editor-defaultUI *) li,
+.admin-content .toastui-editor-contents:not(.toastui-editor-defaultUI *) li {
   color: var(--a-text) !important;
+}
+
+/* Toast UI Editor 에디터 입력 글자색 */
+.qna-section .toastui-editor-defaultUI .toastui-editor-contents,
+.admin-content .toastui-editor-defaultUI .toastui-editor-contents {
+  color: #000 !important;
+}
+
+.qna-section .toastui-editor-defaultUI .toastui-editor-contents p,
+.admin-content .toastui-editor-defaultUI .toastui-editor-contents p,
+.qna-section .toastui-editor-defaultUI .toastui-editor-contents li,
+.admin-content .toastui-editor-defaultUI .toastui-editor-contents li,
+.qna-section .toastui-editor-defaultUI .ProseMirror,
+.admin-content .toastui-editor-defaultUI .ProseMirror {
+  color: #000 !important;
 }
 
 .qna-section .toastui-editor-contents img,

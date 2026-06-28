@@ -50,6 +50,11 @@ function PolicyModal({ type, onClose }: Props) {
                     <td>서비스 맞춤화</td>
                     <td>탈퇴 후 즉시 삭제</td>
                   </tr>
+                  <tr>
+                    <td>접속 IP 주소, 접속 일시</td>
+                    <td>서버 운영 및 보안 관리</td>
+                    <td>6개월 후 삭제</td>
+                  </tr>
                 </tbody>
               </table>
               <p>수집된 개인정보는 위 목적 이외의 용도로 사용되지 않습니다. 이용자는 언제든지 개인정보 열람·정정·삭제를 요청하거나 동의를 철회할 수 있습니다.</p>

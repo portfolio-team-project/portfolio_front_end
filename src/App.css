@@ -471,6 +471,12 @@ nav.visible { transform: translateY(0); }
 .a-theme .proj-link { color: var(--a-accent); }
 .b-theme .proj-link { color: var(--b-accent); }
 
+/* GitHub Stats */
+.github-stats-wrap { margin-bottom: 80px; }
+.github-chart-img { width: 100%; height: auto; border-radius: 4px; margin-bottom: 16px; }
+.github-lang-grid { display: flex; flex-wrap: wrap; gap: 12px; }
+.github-lang-img { flex: 1; min-width: 200px; max-width: 100%; height: auto; border-radius: 4px; }
+
 /* Timeline */
 .tl-wrap { margin-bottom: 40px; }
 .b-theme .tl-wrap {

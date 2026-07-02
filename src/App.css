@@ -3878,10 +3878,8 @@ nav.visible { transform: translateY(0); }
   padding: 12px 0;
 }
 
-.qna-section .toastui-editor-contents:not(.toastui-editor-defaultUI *) p,
-.admin-content .toastui-editor-contents:not(.toastui-editor-defaultUI *) p,
-.qna-section .toastui-editor-contents:not(.toastui-editor-defaultUI *) li,
-.admin-content .toastui-editor-contents:not(.toastui-editor-defaultUI *) li {
+.qna-section .toastui-editor-contents:not(.toastui-editor-defaultUI *) *,
+.admin-content .toastui-editor-contents:not(.toastui-editor-defaultUI *) * {
   color: var(--a-text) !important;
 }
 

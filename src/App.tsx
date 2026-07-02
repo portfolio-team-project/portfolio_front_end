@@ -11,6 +11,7 @@ import BoardList from "./components/pages/qna/BoardList";
 import Boardwrite from "./components/pages/qna/Boardwrite";
 import BoardDetail from "./components/pages/qna/BoardDetail";
 import QnaGuestWrite from "./components/pages/qna/QnaGuestWrite";
+import QnaMemberWrite from "./components/pages/qna/QnaMemberWrite";
 import Accession from "./components/pages/member/Accession";
 import Login from "./components/pages/member/Login";
 import HeaderOnlyLayout from "./components/layout/HeaderOnlyLayout";
@@ -47,6 +48,7 @@ function App() {
               <Route path="/BoardList" element={<BoardList />} />
               <Route path="/Boardwrite" element={<Boardwrite />} />
               <Route path="/boardDetail/:localId" element={<BoardDetail />} />
+              <Route path="/qna-write" element={<QnaMemberWrite />} />
             </Route>
           </Route>
           <Route element={<HeaderOnlyLayout />}>

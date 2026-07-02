@@ -57,7 +57,7 @@ function QnA() {
 
   const handleWrite = () => {
     if (user) {
-      navigate("/Boardwrite");
+      navigate("/qna-write");
     } else {
       navigate("/qna-write-guest");
     }

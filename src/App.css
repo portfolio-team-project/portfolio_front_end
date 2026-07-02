@@ -471,6 +471,12 @@ nav.visible { transform: translateY(0); }
 .a-theme .proj-link { color: var(--a-accent); }
 .b-theme .proj-link { color: var(--b-accent); }
 
+/* GitHub Stats */
+.github-stats-wrap { margin-bottom: 80px; }
+.github-chart-img { width: 100%; height: auto; border-radius: 4px; margin-bottom: 16px; }
+.github-lang-grid { display: flex; flex-wrap: wrap; gap: 12px; }
+.github-lang-img { flex: 1; min-width: 200px; max-width: 100%; height: auto; border-radius: 4px; }
+
 /* Timeline */
 .tl-wrap { margin-bottom: 40px; }
 .b-theme .tl-wrap {
@@ -749,7 +755,7 @@ nav.visible { transform: translateY(0); }
   color: var(--a-muted);
 }
 .qna-label.answer { color: var(--a-accent); }
-.qna-question p { color: rgba(232,221,216,0.55); }
+.qna-question p { color: rgba(232,221,216,0.85); }
 .qna-answer p { color: rgba(232,221,216,0.85); }
 .qna-answer-form { display: flex; flex-direction: column; gap: 10px; padding-left: 28px; }
 .qna-answer-form .qna-textarea { width: 100%; min-height: 120px; box-sizing: border-box; }
@@ -816,7 +822,7 @@ nav.visible { transform: translateY(0); }
   letter-spacing: 0.06em;
   padding: 9px 20px;
   border-radius: 2px;
-  border: none;
+  border: 1px solid transparent;
   background: var(--a-accent);
   color: #1B3C53;
   cursor: pointer;
@@ -1183,9 +1189,9 @@ nav.visible { transform: translateY(0); }
   .qna-wrap { padding: 0 16px; }
   /* 검색바 + 글쓰기 버튼 겹침 방지 */
   .qna-bottom,
-  .boardList-top { justify-content: flex-start; gap: 8px; }
+  .boardList-top { justify-content: flex-start; gap: 8px; flex-wrap: wrap; }
   .qna-write-btn { position: static; }
-  .qna-search { flex: 1; width: auto; }
+  .qna-search { flex: 1; min-width: 120px; width: auto; }
   /* 고정 레이아웃으로 제목 칸이 나머지를 모두 차지하게 설정 */
   .qna-table { table-layout: fixed; width: 100%; }
   .qna-table th.col-title,
@@ -3819,4 +3825,80 @@ nav.visible { transform: translateY(0); }
   color: var(--a-accent);
   text-decoration: underline;
   cursor: pointer;
+}
+
+/* Toast UI Editor override */
+.toastui-editor-contents,
+.toastui-editor-contents p,
+.ProseMirror {
+  text-align: left !important;
+}
+
+
+/* Toast UI Editor 모바일 overflow 방지 */
+.toastui-editor-defaultUI,
+.toastui-editor-main,
+.toastui-editor-ww-container,
+.toastui-editor,
+.ProseMirror {
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.toastui-editor-toolbar {
+  overflow-x: auto !important;
+  flex-wrap: nowrap;
+}
+
+/* Toast UI Editor 이미지 팝업 모바일 */
+@media screen and (max-width: 768px) {
+  .toastui-editor-defaultUI .toastui-editor-popup,
+  .toastui-editor-popup {
+    left: 0 !important;
+    right: 0 !important;
+    width: auto !important;
+    max-width: none !important;
+    margin: 0 16px !important;
+    box-sizing: border-box !important;
+  }
+
+  .toastui-editor-popup-body,
+  .toastui-editor-popup-body input,
+  .toastui-editor-popup-body button {
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+}
+
+/* Toast UI Editor 뷰어 (읽기 전용) — .toastui-editor-defaultUI 없는 경우만 */
+.qna-section .toastui-editor-contents:not(.toastui-editor-defaultUI *),
+.admin-content .toastui-editor-contents:not(.toastui-editor-defaultUI *) {
+  background: transparent !important;
+  color: var(--a-text) !important;
+  padding: 12px 0;
+}
+
+.qna-section .toastui-editor-contents:not(.toastui-editor-defaultUI *) *,
+.admin-content .toastui-editor-contents:not(.toastui-editor-defaultUI *) * {
+  color: var(--a-text) !important;
+}
+
+/* Toast UI Editor 에디터 입력 글자색 */
+.qna-section .toastui-editor-defaultUI .toastui-editor-contents,
+.admin-content .toastui-editor-defaultUI .toastui-editor-contents {
+  color: #000 !important;
+}
+
+.qna-section .toastui-editor-defaultUI .toastui-editor-contents p,
+.admin-content .toastui-editor-defaultUI .toastui-editor-contents p,
+.qna-section .toastui-editor-defaultUI .toastui-editor-contents li,
+.admin-content .toastui-editor-defaultUI .toastui-editor-contents li,
+.qna-section .toastui-editor-defaultUI .ProseMirror,
+.admin-content .toastui-editor-defaultUI .ProseMirror {
+  color: #000 !important;
+}
+
+.qna-section .toastui-editor-contents img,
+.admin-content .toastui-editor-contents img {
+  max-width: 100%;
 }

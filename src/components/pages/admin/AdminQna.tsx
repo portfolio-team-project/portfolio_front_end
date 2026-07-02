@@ -1,3 +1,4 @@
+import DOMPurify from "dompurify";
 import { Fragment, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import axiosInstance from "../../../api/axiosInstance";
@@ -145,7 +146,7 @@ function AdminQna({ onTabChange }: Props) {
                       <div className="qna-detail">
                         <div className="qna-question">
                           <span className="qna-label">Q</span>
-                          <p>{detail.content}</p>
+                          <div className="toastui-editor-contents" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(detail.content) }} />
                         </div>
                         {detail.answer ? (
                           <div className="qna-answer">

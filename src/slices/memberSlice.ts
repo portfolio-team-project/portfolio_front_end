@@ -11,12 +11,14 @@ interface MemberState {
         isSocial: boolean;
     } | null;
     loading: boolean;
+    initialized: boolean;
     error: string | null;
 }
 
 const initialState: MemberState = {
     user: null,
     loading: false,
+    initialized: false,
     error: null,
 };
 
@@ -24,7 +26,7 @@ export const login = createAsyncThunk(
     "member/login",
     async (data: { userId: string; password: string }, {rejectWithValue}) => {
         try {
-            const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/login`, data);
+            const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/login`, data, { withCredentials: true });
 
             if (!response.data.success) {
                 return rejectWithValue(response.data.message || "로그인에 실패했습니다.");
@@ -115,10 +117,12 @@ const memberSlice = createSlice({
             })
             .addCase(refreshAccessToken.fulfilled, (state, action) => {
                 state.loading = false;
+                state.initialized = true;
                 state.user = action.payload;
             })
             .addCase(refreshAccessToken.rejected, (state) => {
                 state.loading = false;
+                state.initialized = true;
                 state.user = null;
             })
             .addCase(logoutAsync.fulfilled, (state) => {

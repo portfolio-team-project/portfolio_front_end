@@ -1,3 +1,4 @@
+import DOMPurify from "dompurify";
 import { Fragment, useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -48,9 +49,15 @@ function QnA() {
     setPage(0);
   };
 
+  const handleReset = () => {
+    setSearchInput("");
+    setSearch("");
+    setPage(0);
+  };
+
   const handleWrite = () => {
     if (user) {
-      navigate("/Boardwrite");
+      navigate("/qna-write");
     } else {
       navigate("/qna-write-guest");
     }
@@ -97,7 +104,7 @@ function QnA() {
                         <div className="qna-detail">
                           <div className="qna-question">
                             <span className="qna-label">Q</span>
-                            <p>{detail.content}</p>
+                            <div className="toastui-editor-contents" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(detail.content) }} />
                           </div>
                           {detail.answer && (
                             <div className="qna-answer">
@@ -128,6 +135,7 @@ function QnA() {
               onKeyDown={(e) => e.key === "Enter" && handleSearch()}
             />
             <button className="qna-search-btn" onClick={handleSearch}>검색</button>
+            <button className="qna-search-btn" onClick={handleReset}>초기화</button>
             <button className="qna-write-btn" onClick={handleWrite}>글쓰기</button>
           </div>
 

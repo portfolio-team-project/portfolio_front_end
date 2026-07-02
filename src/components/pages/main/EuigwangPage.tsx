@@ -112,6 +112,27 @@ function EuigwangPage() {
                         </div>
                     </div>
 
+                    <div className="github-stats-wrap">
+                        <p className="sub-title">GitHub</p>
+                        <img
+                            src="https://ghchart.rshah.org/219138/EG-L"
+                            alt="EG-L GitHub 기여도"
+                            className="github-chart-img"
+                        />
+                        <div className="github-lang-grid">
+                            <img
+                                src="https://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username=EG-L&theme=transparent"
+                                alt="레포지토리별 언어"
+                                className="github-lang-img"
+                            />
+                            <img
+                                src="https://github-profile-summary-cards.vercel.app/api/cards/most-commit-language?username=EG-L&theme=transparent"
+                                alt="커밋별 언어"
+                                className="github-lang-img"
+                            />
+                        </div>
+                    </div>
+
                     <div className="proj-wrap">
                         <p className="sub-title">진행 프로젝트</p>
                         <ul className="proj-accordion">

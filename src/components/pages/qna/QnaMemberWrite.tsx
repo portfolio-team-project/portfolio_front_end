@@ -1,16 +1,16 @@
 import "@toast-ui/editor/dist/toastui-editor.css";
 import Editor from "@toast-ui/editor";
 import { Fragment, useEffect, useRef, useState } from "react";
-import { fixEditorPopupOnMobile } from "../../../utils/fixEditorPopup";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "../../../api/axiosInstance";
+import { fixEditorPopupOnMobile } from "../../../utils/fixEditorPopup";
 import type { RootState } from "../../../store/store";
-import type { boardWriteRequest } from "../../../types/BoardList";
+import type { QnaMemberRequest } from "../../../types/qna";
 import toast from "react-hot-toast";
 
-function Boardwrite() {
-  const [form, setForm] = useState<Omit<boardWriteRequest, "content">>({ title: "" });
+function QnaMemberWrite() {
+  const [form, setForm] = useState<QnaMemberRequest>({ title: "", content: "" });
   const [isLoading, setIsLoading] = useState(false);
   const editorContainerRef = useRef<HTMLDivElement>(null);
   const editorRef = useRef<Editor | null>(null);
@@ -55,9 +55,9 @@ function Boardwrite() {
 
     setIsLoading(true);
     try {
-      await axiosInstance.post("/api/board/write", { ...form, content });
-      toast.success("게시글이 등록되었습니다.");
-      navigate("/boardList");
+      await axiosInstance.post("/api/qna/member", { ...form, content });
+      toast.success("문의가 등록되었습니다.");
+      navigate("/qna");
     } finally {
       setIsLoading(false);
     }
@@ -67,7 +67,7 @@ function Boardwrite() {
     <Fragment>
       <section className="qna-section">
         <div className="qna-wrap">
-          <h2 className="qna-title">게시글 작성</h2>
+          <h2 className="qna-title">문의 작성</h2>
 
           <div className="qna-form">
             <input
@@ -84,7 +84,7 @@ function Boardwrite() {
             />
             <div ref={editorContainerRef} />
             <div className="qna-btn-group">
-              <button className="qna-back-btn" onClick={() => navigate("/boardList")}>이전</button>
+              <button className="qna-back-btn" onClick={() => navigate("/qna")}>이전</button>
               <button className="qna-submit-btn" onClick={handleSubmit} disabled={isLoading}>
                 {isLoading ? "등록 중..." : "등록"}
               </button>
@@ -96,4 +96,4 @@ function Boardwrite() {
   );
 }
 
-export default Boardwrite;
+export default QnaMemberWrite;

@@ -1,23 +1,59 @@
-import { Fragment, useState } from "react";
+import "@toast-ui/editor/dist/toastui-editor.css";
+import Editor from "@toast-ui/editor";
+import { Fragment, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import axiosInstance from "../../../api/axiosInstance";
+import { fixEditorPopupOnMobile } from "../../../utils/fixEditorPopup";
 import type { QnaGuestRequest } from "../../../types/qna";
 import toast from "react-hot-toast";
 
 function QnaGuestWrite() {
-  const [form, setForm] = useState<QnaGuestRequest>({ nickname: "", title: "", content: "" });
+  const [form, setForm] = useState<Omit<QnaGuestRequest, "content">>({ nickname: "", title: "" });
   const [isLoading, setIsLoading] = useState(false);
+  const editorContainerRef = useRef<HTMLDivElement>(null);
+  const editorRef = useRef<Editor | null>(null);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if (editorContainerRef.current && !editorRef.current) {
+      editorRef.current = new Editor({
+        el: editorContainerRef.current,
+        initialEditType: "wysiwyg",
+        hideModeSwitch: true,
+        height: "400px",
+        hooks: {
+          addImageBlobHook: async (blob, callback) => {
+            const formData = new FormData();
+            const ext = blob.type.split("/")[1] || "png";
+            formData.append("image", blob, `image.${ext}`);
+            const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/qna/uploadImg`, formData);
+            callback(`${import.meta.env.VITE_API_URL}${res.data.data.url}`);
+          },
+        },
+      });
+    }
+
+    const cleanup = editorContainerRef.current ? fixEditorPopupOnMobile(editorContainerRef.current) : null;
+
+    return () => {
+      cleanup?.();
+      editorRef.current?.destroy();
+      editorRef.current = null;
+    };
+  }, []);
+
   const handleSubmit = async () => {
-    if (!form.nickname.trim() || !form.title.trim() || !form.content.trim()) {
+    const content = editorRef.current?.getHTML() ?? "";
+
+    if (!form.nickname.trim() || !form.title.trim() || !content.trim()) {
       toast.error("닉네임, 제목, 내용을 모두 입력해주세요.");
       return;
     }
 
     setIsLoading(true);
     try {
-      await axiosInstance.post("/api/qna/guest", form);
+      await axiosInstance.post("/api/qna/guest", { ...form, content });
       toast.success("관리자 검토 후 답변 등록 시 게시됩니다.");
       navigate("/qna");
     } finally {
@@ -44,12 +80,7 @@ function QnaGuestWrite() {
               value={form.title}
               onChange={(e) => setForm({ ...form, title: e.target.value })}
             />
-            <textarea
-              className="qna-textarea"
-              placeholder="내용을 입력하세요"
-              value={form.content}
-              onChange={(e) => setForm({ ...form, content: e.target.value })}
-            />
+            <div ref={editorContainerRef} />
             <div className="qna-btn-group">
               <button className="qna-back-btn" onClick={() => navigate("/qna")}>이전</button>
               <button className="qna-submit-btn" onClick={handleSubmit} disabled={isLoading}>

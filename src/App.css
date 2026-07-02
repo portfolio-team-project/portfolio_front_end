@@ -755,7 +755,7 @@ nav.visible { transform: translateY(0); }
   color: var(--a-muted);
 }
 .qna-label.answer { color: var(--a-accent); }
-.qna-question p { color: rgba(232,221,216,0.55); }
+.qna-question p { color: rgba(232,221,216,0.85); }
 .qna-answer p { color: rgba(232,221,216,0.85); }
 .qna-answer-form { display: flex; flex-direction: column; gap: 10px; padding-left: 28px; }
 .qna-answer-form .qna-textarea { width: 100%; min-height: 120px; box-sizing: border-box; }

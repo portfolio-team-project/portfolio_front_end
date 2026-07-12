@@ -28,7 +28,7 @@ function  SangwonPage() {
                     <span className="sk">JavaScript</span><span className="sk">React</span><span className="sk">Vue.js</span><span className="sk">CSS</span><span className="sk">HTML</span>
                     </div>
                     <div className="skill-row">
-                    <span className="sk">Spring Boot</span><span className="sk">FastAPI</span><span className="sk">Jenkins</span><span className="sk">SVN</span><span className="sk">AWS</span>
+                    <span className="sk">Spring Boot</span><span className="sk">REST API</span><span className="sk">Jenkins</span><span className="sk">SVN</span><span className="sk">AWS</span>
                     </div>
                     <div className="skill-row">
                     <span className="sk">Oracle</span><span className="sk">Tibero</span><span className="sk">PostgreSQL</span><span className="sk">MongoDB</span><span className="sk">MySQL</span>

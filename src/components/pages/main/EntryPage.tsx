@@ -2,6 +2,7 @@ import { Fragment } from "react";
 import { useNavigate } from "react-router-dom";
 import githubIcon from '../../../assets/github.svg';
 import leeImage from '../../../assets/profile/leeImage.png';
+import sangwon from '../../../assets/image/sangwon2.jpg';
 
 function  EntryPage() {
     const navigate = useNavigate();
@@ -13,17 +14,19 @@ function  EntryPage() {
                 <div className="panel-grid"></div>
                 <div className="panel-content">
                 <div className="avatar-ring">
-                    <div className="avatar-inner">👨‍💻</div>
+                    <img src={sangwon} alt="SANGWON" className="avatar-inner" style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '50%' }} />
                 </div>
                 <div className="panel-text">
-                    <p className="panel-number">01 · BACKEND</p>
+                    <p className="panel-number">01 · FULLSTACK</p>
                     <h2 className="panel-name" style={{ fontSize: '2.4rem' }}>JI<br />SANGWON</h2>
-                    <p className="panel-role">Backend Engineer</p>
+                    <p className="panel-role">FULLSTACK ENGINEER</p>
                     <div className="panel-tags">
-                    <span className="ptag">Python</span>
-                    <span className="ptag">Spring</span>
-                    <span className="ptag">Docker</span>
-                    <span className="ptag">AWS</span>
+                    <span className="ptag">React</span>
+                    <span className="ptag">Spring Boot</span>
+                    <span className="ptag">PostgreSQL</span>
+                    <span className="ptag">Ubuntu</span>
+                    
+
                     </div>
                     <button className="panel-cta">포트폴리오 보기 →</button>
                 </div>

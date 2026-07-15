@@ -200,6 +200,12 @@ function EuigwangPage() {
                                 <p className="tl-ttl">정보통신산업기사</p>
                                 <p className="tl-sub">한국방송통신전파진흥원</p>
                             </div>
+                            <div className="tl-item">
+                                <div className="tl-dot" />
+                                <p className="tl-date">2021.06</p>
+                                <p className="tl-ttl">정보처리산업기사</p>
+                                <p className="tl-sub">한국산업인력공단</p>
+                            </div>
                         </div>
                     </div>
 

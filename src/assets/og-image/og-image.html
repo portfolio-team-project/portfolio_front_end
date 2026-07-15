@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Mono:wght@400;500&family=Noto+Sans+KR:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body {
+    width: 1200px;
+    height: 630px;
+    overflow: hidden;
+    background: #1B3C53;
+    font-family: 'Noto Sans KR', sans-serif;
+  }
+  .stage {
+    position: relative;
+    width: 1200px;
+    height: 630px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 90px;
+  }
+  .split {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50%;
+    height: 100%;
+    background: #234C6A;
+    clip-path: polygon(30% 0, 100% 0, 100% 100%, 0% 100%);
+  }
+  .grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(210,193,182,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(210,193,182,0.06) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+  .eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 20px;
+    letter-spacing: 4px;
+    color: #D2C1B6;
+    opacity: 0.75;
+    margin-bottom: 22px;
+    z-index: 2;
+  }
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 108px;
+    line-height: 1;
+    color: #F3ECE7;
+    letter-spacing: -2px;
+    z-index: 2;
+  }
+  h1 span {
+    color: #D2C1B6;
+    font-weight: 700;
+  }
+  .subtitle {
+    margin-top: 26px;
+    font-size: 30px;
+    font-weight: 400;
+    color: #D2C1B6;
+    z-index: 2;
+  }
+  .tags {
+    margin-top: 40px;
+    display: flex;
+    gap: 14px;
+    z-index: 2;
+  }
+  .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 18px;
+    padding: 10px 20px;
+    border: 1px solid rgba(210,193,182,0.4);
+    border-radius: 999px;
+    color: #D2C1B6;
+  }
+</style>
+</head>
+<body>
+  <div class="stage">
+    <div class="split"></div>
+    <div class="grid"></div>
+    <p class="eyebrow">TEAM PORTFOLIO</p>
+    <h1>LEE <span>×</span> JI</h1>
+    <p class="subtitle">지상원 · 이의광 팀 포트폴리오</p>
+    <div class="tags">
+      <span class="tag">React</span>
+      <span class="tag">Spring Boot</span>
+      <span class="tag">Docker</span>
+    </div>
+  </div>
+</body>
+</html>

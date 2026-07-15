@@ -21,9 +21,8 @@ function Footer() {
           <div className="ct-card ca">
             <p className="ct-name">JI <br/>SANGWON</p>
             <div className="ct-links">
-              <span className="ct-lnk">✉ sangwon@email.com</span>
-              <a href="#" className="ct-lnk">⌥ github.com/sangwon</a>
-              <a href="#" className="ct-lnk">in linkedin.com/in/sangwon</a>
+              <span className="ct-lnk">✉ jisang034@naver.com</span>
+              <a href="https://github.com/SangWon-Ji" className="ct-lnk" target="_blank" rel="noreferrer">⌥ github.com/SangWon-Ji</a>
             </div>
             <div className="ct-btn-wrap">
               <button className="ct-btn ca" onClick={() => setModal(CONTACTS.ca)}>Contact</button>

@@ -35,7 +35,7 @@ function BoardList() {
 
   const handleWrite = () => {
     if (user) {
-      navigate("/Boardwrite");
+      navigate("/boardWrite");
     } else {
       navigate("/login");
     }

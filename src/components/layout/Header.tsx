@@ -72,7 +72,7 @@ function Header() {
             <ul className="dropdown-menu">
               {!user && (
                 <li>
-                  <Link to="/Login" className="Login" onClick={() => { window.scrollTo(0, 0); closeMenu(); }}>
+                  <Link to="/login" className="Login" onClick={() => { window.scrollTo(0, 0); closeMenu(); }}>
                     LOGIN
                   </Link>
                 </li>
@@ -83,7 +83,7 @@ function Header() {
                 </Link>
               </li>
               <li>
-                <Link to="/BoardList" className="BoardList" onClick={() => { window.scrollTo(0, 0); closeMenu(); }}>
+                <Link to="/boardList" className="BoardList" onClick={() => { window.scrollTo(0, 0); closeMenu(); }}>
                   게시판
                 </Link>
               </li>

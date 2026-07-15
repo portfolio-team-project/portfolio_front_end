@@ -29,7 +29,7 @@ axiosInstance.interceptors.response.use(
         return axiosInstance(originalRequest);
       } catch {
         store.dispatch(logout());
-        window.location.href = "/Login";
+        window.location.href = "/login";
       }
     }
     const isRefreshRequest = originalRequest.url?.includes("/api/auth/refresh");

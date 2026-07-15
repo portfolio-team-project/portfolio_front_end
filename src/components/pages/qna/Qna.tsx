@@ -57,9 +57,9 @@ function QnA() {
 
   const handleWrite = () => {
     if (user) {
-      navigate("/qna-write");
+      navigate("/qnaWrite");
     } else {
-      navigate("/qna-write-guest");
+      navigate("/qnaWriteGuest");
     }
   };
 

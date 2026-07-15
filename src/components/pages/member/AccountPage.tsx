@@ -36,42 +36,27 @@ function AccountPage() {
           <p>계정 정보를 확인하고 관리하세요</p>
 
           {/* 계정 정보 */}
-          <div style={{
-            background: "#f8f9fa",
-            border: "1px solid #e2e8f0",
-            borderRadius: "12px",
-            padding: "20px",
-            marginBottom: "28px",
-          }}>
-            <div style={{ display: "flex", alignItems: "center", gap: "16px", marginBottom: "16px" }}>
-              <div style={{
-                width: "56px",
-                height: "56px",
-                borderRadius: "50%",
-                background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                fontSize: "22px",
-                fontWeight: "700",
-                color: "#fff",
-                flexShrink: 0,
-              }}>
+          <div className="account-card">
+            <div className="account-card-header">
+              <div className="account-avatar">
                 {user?.userName?.charAt(0) ?? "?"}
               </div>
               <div>
-                <div style={{ fontWeight: "700", fontSize: "17px", color: "#1a1a1a" }}>{user?.userName}</div>
-                <div style={{ fontSize: "13px", color: "#718096", marginTop: "2px" }}>ID: {user?.userId}</div>
+                <div className="account-name">{user?.userName}</div>
+                <div className="account-id">ID: {user?.userId}</div>
               </div>
             </div>
 
-            <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-              <div style={{ display: "flex", justifyContent: "space-between", fontSize: "14px" }}>
-                <span style={{ color: "#718096" }}>등급</span>
-                <span style={{ fontWeight: "600", color: "#2d3748" }}>
-                  {user?.role === import.meta.env.VITE_CHECK_AUTH ? "관리자" : "일반 회원"}
-                </span>
-              </div>
+            <div className="account-row">
+              <span className="account-row-label">등급</span>
+              {(() => {
+                const isAdmin = user?.role === import.meta.env.VITE_CHECK_AUTH;
+                return (
+                  <span className={`account-badge${isAdmin ? " is-admin" : ""}`}>
+                    {isAdmin ? "관리자" : "일반 회원"}
+                  </span>
+                );
+              })()}
             </div>
           </div>
 

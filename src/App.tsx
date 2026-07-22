@@ -25,6 +25,7 @@ import AccountPage from "./components/pages/member/AccountPage";
 import AdminPage from "./components/pages/admin/adminPage";
 import { useEffect } from "react";
 import { refreshAccessToken } from "./slices/memberSlice";
+import ChatWidget from "./components/layout/ChatWidget";
 
 function App() {
   // App.tsx
@@ -62,6 +63,7 @@ function App() {
             <Route path="/admin" element={<AdminPage />} />
           </Route>
         </Routes>
+        <ChatWidget />
       </Router>
     </Provider>
   )

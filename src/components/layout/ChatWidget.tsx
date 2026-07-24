@@ -32,9 +32,12 @@ function ChatWidget() {
       setMessages((prev) => [...prev, { role: "bot", text: res.data.data }]);
     } catch (error: any) {
       const status = error.response?.status;
+      const serverMessage = error.response?.data?.message;
       const text =
         status === 401 || status === 403
           ? "로그인한 사용자만 사용이 가능합니다."
+          : serverMessage
+          ? serverMessage
           : error.response
           ? "죄송해요, 지금은 답변을 가져올 수 없어요."
           : "챗봇 서비스가 아직 준비 중이에요. 잠시 후 다시 시도해주세요.";

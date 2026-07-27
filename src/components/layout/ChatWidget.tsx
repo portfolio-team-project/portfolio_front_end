@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import axiosInstance from "../../api/axiosInstance";
+import store from "../../store/store";
 
 interface ChatMessage {
   role: "user" | "bot";
@@ -28,20 +28,59 @@ function ChatWidget() {
     setIsLoading(true);
 
     try {
-      const res = await axiosInstance.get("/api/chatbot", { params: { content: question } });
-      setMessages((prev) => [...prev, { role: "bot", text: res.data.data }]);
-    } catch (error: any) {
-      const status = error.response?.status;
-      const serverMessage = error.response?.data?.message;
-      const text =
-        status === 401 || status === 403
-          ? "로그인한 사용자만 사용이 가능합니다."
-          : serverMessage
-          ? serverMessage
-          : error.response
-          ? "죄송해요, 지금은 답변을 가져올 수 없어요."
-          : "챗봇 서비스가 아직 준비 중이에요. 잠시 후 다시 시도해주세요.";
-      setMessages((prev) => [...prev, { role: "bot", text }]);
+      const token = store.getState().member.user?.accessToken;
+      const url = `${import.meta.env.VITE_API_URL}/api/chatbot/stream?content=${encodeURIComponent(question)}`;
+      const res = await fetch(url, {
+        headers: token ? { Authorization: `Bearer ${token}` } : undefined,
+        credentials: "include",
+      });
+
+      if (!res.ok || !res.body) {
+        let serverMessage: string | undefined;
+        try {
+          serverMessage = (await res.json())?.message;
+        } catch {
+          // 본문이 JSON이 아닌 경우 무시
+        }
+        const text =
+          res.status === 401 || res.status === 403
+            ? "로그인한 사용자만 사용이 가능합니다."
+            : serverMessage ?? "죄송해요, 지금은 답변을 가져올 수 없어요.";
+        setMessages((prev) => [...prev, { role: "bot", text }]);
+        return;
+      }
+
+      const reader = res.body.getReader();
+      const decoder = new TextDecoder();
+      let buffer = "";
+      let answer = "";
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+
+        buffer += decoder.decode(value, { stream: true });
+        const events = buffer.split("\n\n");
+        buffer = events.pop() ?? "";
+
+        for (const event of events) {
+          const dataLines = event
+            .split("\n")
+            .filter((line) => line.startsWith("data:"))
+            .map((line) => line.slice(5).replace(/^ /, ""));
+          if (dataLines.length) answer += dataLines.join("\n");
+        }
+      }
+
+      setMessages((prev) => [
+        ...prev,
+        { role: "bot", text: answer || "답변을 가져오지 못했어요." },
+      ]);
+    } catch {
+      setMessages((prev) => [
+        ...prev,
+        { role: "bot", text: "챗봇 서비스가 아직 준비 중이에요. 잠시 후 다시 시도해주세요." },
+      ]);
     } finally {
       setIsLoading(false);
     }

@@ -67,14 +67,19 @@ function ChatWidget() {
           const dataLines = event
             .split("\n")
             .filter((line) => line.startsWith("data:"))
-            .map((line) => line.slice(5).replace(/^ /, ""));
+            .map((line) => line.slice(5));
           if (dataLines.length) answer += dataLines.join("\n");
         }
       }
 
+      const cleanAnswer = answer
+        .replace(/\*\*(.+?)\*\*/g, "$1")
+        .replace(/\n{3,}/g, "\n\n")
+        .trim();
+
       setMessages((prev) => [
         ...prev,
-        { role: "bot", text: answer || "답변을 가져오지 못했어요." },
+        { role: "bot", text: cleanAnswer || "답변을 가져오지 못했어요." },
       ]);
     } catch {
       setMessages((prev) => [

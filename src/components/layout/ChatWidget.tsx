@@ -64,10 +64,21 @@ function ChatWidget() {
         buffer = events.pop() ?? "";
 
         for (const event of events) {
-          const dataLines = event
-            .split("\n")
+          const lines = event.split("\n");
+          const isDone = lines.some((line) => line.replace(/^event:\s*/, "").trim() === "done" && line.startsWith("event:"));
+          if (isDone) continue;
+
+          const dataLines = lines
             .filter((line) => line.startsWith("data:"))
-            .map((line) => line.slice(5));
+            .map((line) => {
+              const raw = line.slice(5).replace(/^ /, "");
+              try {
+                const parsed = JSON.parse(raw);
+                return typeof parsed === "string" ? parsed : raw;
+              } catch {
+                return raw;
+              }
+            });
           if (dataLines.length) answer += dataLines.join("\n");
         }
       }

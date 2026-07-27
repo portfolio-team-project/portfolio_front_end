@@ -6,8 +6,8 @@ interface ChatMessage {
   text: string;
 }
 
-const POLL_INTERVAL_MS = 1500;
-const MAX_POLL_ATTEMPTS = 80;
+const POLL_INTERVAL_MS = 10000;
+const MAX_POLL_ATTEMPTS = 60;
 
 function cleanAnswerText(text: string) {
   return text

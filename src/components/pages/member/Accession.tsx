@@ -114,7 +114,7 @@ function Accession() {
     try {
       const res = await axiosInstance.get("/api/member/idCheck", { params: { userId: form.user_id } });
       const status = res.data?.data;
-      if (status === "DUPLICATED" || status === "WITHDRAWN") {
+      if (status === "UNAVAILABLE") {
         toast.error("사용할 수 없는 아이디입니다");
         setIsIdChecked(false);
       } else {

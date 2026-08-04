@@ -114,11 +114,8 @@ function Accession() {
     try {
       const res = await axiosInstance.get("/api/member/idCheck", { params: { userId: form.user_id } });
       const status = res.data?.data;
-      if (status === "DUPLICATED") {
-        toast.error("이미 사용 중인 아이디입니다");
-        setIsIdChecked(false);
-      } else if (status === "WITHDRAWN") {
-        toast.error("탈퇴한 계정의 아이디입니다");
+      if (status === "DUPLICATED" || status === "WITHDRAWN") {
+        toast.error("사용할 수 없는 아이디입니다");
         setIsIdChecked(false);
       } else {
         toast.success("사용 가능한 아이디입니다");

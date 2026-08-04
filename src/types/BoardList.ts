@@ -19,7 +19,7 @@ export interface boardPageResponse {
 
 export interface boardDetailItem {
   localId: number;
-  userId: string;
+  userId: string | null;
   title: string;
   content: string;
   createdDate: string;
@@ -35,7 +35,7 @@ export interface boardWriteRequest {
 export interface commentItem {
   localId: number;
   boardId: number;
-  userId: string;
+  userId: string | null;
   content: string;
   createdDate: string;
   updatedDate: string | null;

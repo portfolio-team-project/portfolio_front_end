@@ -641,6 +641,7 @@ nav.visible { transform: translateY(0); }
   padding: 18px 0;
   cursor: pointer;
   gap: 12px;
+  text-align: left;
 }
 .proj-acc-left { display: flex; align-items: center; gap: 16px; }
 .proj-acc-right { display: flex; align-items: center; gap: 12px; }
@@ -655,7 +656,13 @@ nav.visible { transform: translateY(0); }
   font-weight: 700;
   font-size: 1rem;
 }
-.proj-acc-arrow { font-size: 0.6rem; opacity: 0.4; }
+.proj-acc-arrow {
+  font-size: 0.6rem;
+  opacity: 0.4;
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+.proj-acc-item.open .proj-acc-arrow { transform: rotate(180deg); }
 .proj-acc-period {
   font-family: 'DM Mono', monospace;
   font-size: 0.65rem;
@@ -663,7 +670,18 @@ nav.visible { transform: translateY(0); }
   white-space: nowrap;
 }
 
+.proj-acc-body-wrap {
+  display: grid;
+  grid-template-rows: minmax(0, 0fr);
+  transition: grid-template-rows 0.35s ease;
+  overflow: hidden;
+}
+.proj-acc-item.open .proj-acc-body-wrap {
+  grid-template-rows: minmax(0, 1fr);
+}
 .proj-acc-body {
+  min-height: 0;
+  overflow: hidden;
   padding: 0 0 20px 36px;
   display: flex;
   flex-direction: column;
@@ -1209,7 +1227,7 @@ nav.visible { transform: translateY(0); }
   .qna-table th, .qna-table td { padding: 12px 6px; font-size: 0.78rem; }
 
   /* ▸ 프로젝트 아코디언 헤더 (긴 이름 overflow 방지) */
-  .proj-acc-left { flex-wrap: wrap; gap: 4px; min-width: 0; overflow: hidden; }
+  .proj-acc-left { flex-wrap: wrap; gap: 4px; min-width: 0; width: 100%; overflow: hidden; }
   .proj-acc-name { font-size: 0.88rem; }
   .proj-acc-period { width: 100%; order: 3; padding-left: 30px; }
   .b-theme .proj-acc-period { width: 100%; order: 3; padding-left: 0; white-space: nowrap; opacity: 0.5; font-size: 0.65rem; }

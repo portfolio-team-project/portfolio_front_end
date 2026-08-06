@@ -20,7 +20,8 @@ axiosInstance.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config;
-    if (error.response?.status === 401 && !originalRequest._retry) {
+    const isChatRequest = originalRequest.url?.includes("/api/chatbot");
+    if (error.response?.status === 401 && !originalRequest._retry && !isChatRequest) {
       originalRequest._retry = true;
       try {
         await store.dispatch(refreshAccessToken());
@@ -29,12 +30,12 @@ axiosInstance.interceptors.response.use(
         return axiosInstance(originalRequest);
       } catch {
         store.dispatch(logout());
-        window.location.href = "/Login";
+        window.location.href = "/login";
       }
     }
     const isRefreshRequest = originalRequest.url?.includes("/api/auth/refresh");
     const message = error.response?.data?.message;
-    if (message && !isRefreshRequest) toast.error(message);
+    if (message && !isRefreshRequest && !isChatRequest) toast.error(message);
     return Promise.reject(error);
   }
 );

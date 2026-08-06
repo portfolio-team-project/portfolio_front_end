@@ -67,10 +67,10 @@ src/
 │       └── qna/
 │           ├── Qna.tsx
 │           ├── QnaGuestWrite.tsx     # 비회원 Q&A 작성
+│           ├── QnaMemberWrite.tsx    # 회원 Q&A 작성
 │           ├── BoardList.tsx
 │           ├── BoardDetail.tsx
-│           ├── Boardwrite.tsx
-│           └── Faq.tsx
+│           └── Boardwrite.tsx
 ├── slices/
 │   ├── memberSlice.ts
 │   ├── qnaSlice.ts
@@ -96,15 +96,15 @@ src/
 | `/sangwon` | SangwonPage | - |
 | `/euigwang` | EuigwangPage | - |
 | `/qna` | Qna | - |
-| `/qna-write-guest` | QnaGuestWrite | - |
-| `/faq` | Faq | - |
-| `/BoardList` | BoardList | O |
-| `/Boardwrite` | Boardwrite | O |
+| `/qnaWriteGuest` | QnaGuestWrite | - |
+| `/qnaWrite` | QnaMemberWrite | O |
+| `/boardList` | BoardList | O |
+| `/boardWrite` | Boardwrite | O |
 | `/boardDetail/:localId` | BoardDetail | O |
 | `/login` | Login | - |
 | `/accession` | Accession | - |
-| `/find-password` | FindPassword | - |
-| `/change-password` | ChangePassword | - |
+| `/findPassword` | FindPassword | - |
+| `/changePassword` | ChangePassword | - |
 | `/account` | AccountPage | - |
 | `/withdraw` | Withdraw | - |
 | `/kakao/callback` | KakaoCallback | - |

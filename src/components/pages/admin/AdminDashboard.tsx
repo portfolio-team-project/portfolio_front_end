@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import axiosInstance from "../../../api/axiosInstance";
 import type { RootState } from "../../../store/store";
 import type { QnaListItem, QnaPageResponse } from "../../../types/qna";
+import type { boardPageResponse } from "../../../types/BoardList";
 
 interface Props {
   onTabChange: (tab: string) => void;
@@ -14,6 +15,8 @@ function AdminDashboard({ onTabChange }: Props) {
   const [unansweredCount, setUnansweredCount] = useState(0);
   const [totalQnaCount, setTotalQnaCount] = useState(0);
   const [qnaMonthCount, setQnaMonthCount] = useState(0);
+  const [totalBoardCount, setTotalBoardCount] = useState(0);
+  const [boardMonthCount, setBoardMonthCount] = useState(0);
 
   useEffect(() => {
     axiosInstance.get("/api/admin/qna", { params: { delYn: "N", page: 0 } }).then((res) => {
@@ -30,13 +33,22 @@ function AdminDashboard({ onTabChange }: Props) {
     axiosInstance.get("/api/admin/qnaMonthCount").then((res) => {
       setQnaMonthCount(res.data.data);
     });
+
+    axiosInstance.get("/api/board/list", { params: { page: 0 } }).then((res) => {
+      const data: boardPageResponse = res.data.data;
+      setTotalBoardCount(data.page.totalElements);
+    });
+
+    axiosInstance.get("/api/admin/boardMonthCount").then((res) => {
+      setBoardMonthCount(res.data.data);
+    });
   }, []);
 
   const stats = [
     { label: "총 회원 수", value: (totalCount ?? 0).toString(), icon: "👥", change: `+${monthCount} 이번 달` },
     { label: "Q&A 게시글", value: totalQnaCount.toString(), icon: "💬", change: `+${qnaMonthCount} 이번 달` },
     { label: "미답변 Q&A", value: unansweredCount.toString(), icon: "⏳", change: "빠른 처리 필요" },
-    { label: "게시판 게시글", value: "391", icon: "📋", change: "+18 이번 달" },
+    { label: "게시판 게시글", value: totalBoardCount.toString(), icon: "📋", change: `+${boardMonthCount} 이번 달` },
   ];
 
   return (

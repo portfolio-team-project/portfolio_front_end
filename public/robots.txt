@@ -1,0 +1,17 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /account
+Disallow: /withdraw
+Disallow: /login
+Disallow: /accession
+Disallow: /findPassword
+Disallow: /changePassword
+Disallow: /kakao/callback
+Disallow: /boardList
+Disallow: /boardWrite
+Disallow: /boardDetail
+Disallow: /qnaWrite
+Disallow: /qnaWriteGuest
+
+Sitemap: https://crops-project.com/sitemap.xml

@@ -19,6 +19,8 @@ function BoardDetail() {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [deletePassword, setDeletePassword] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
+  const [showAdminDeleteModal, setShowAdminDeleteModal] = useState(false);
+  const [isAdminDeleting, setIsAdminDeleting] = useState(false);
 
   const [comments, setComments] = useState<commentItem[]>([]);
   const [commentInput, setCommentInput] = useState("");
@@ -135,6 +137,20 @@ function BoardDetail() {
     setDeletePassword("");
   };
 
+  const handleAdminDeleteConfirm = async () => {
+    setIsAdminDeleting(true);
+    try {
+      await axiosInstance.post(`/api/admin/deleteBoard/${localId}`);
+      toast.success("게시글이 삭제되었습니다.");
+      navigate("/boardList");
+    } catch {
+      // 인터셉터에서 서버 메시지 toast 처리
+    } finally {
+      setIsAdminDeleting(false);
+      setShowAdminDeleteModal(false);
+    }
+  };
+
   const handleCommentSubmit = async () => {
     if (!commentInput.trim()) {
       toast.error("댓글을 입력해주세요.");
@@ -211,6 +227,7 @@ function BoardDetail() {
   if (!board) return null;
 
   const isAuthor = user?.userId === board.userId;
+  const isAdmin = user?.role === import.meta.env.VITE_CHECK_AUTH;
 
   return (
     <Fragment>
@@ -222,7 +239,7 @@ function BoardDetail() {
             <input
               className="qna-input"
               placeholder="작성자"
-              value={board.userId}
+              value={board.userId ?? "탈퇴한 회원"}
               readOnly
             />
             <input
@@ -244,6 +261,11 @@ function BoardDetail() {
               <button className="qna-back-btn" onClick={() => navigate("/boardList")}>목록</button>
               {isAuthor && !isEditing && (
                 <button className="qna-submit-btn" onClick={handleEdit}>수정</button>
+              )}
+              {isAdmin && !isAuthor && !isEditing && (
+                <button className="board-delete-btn" onClick={() => setShowAdminDeleteModal(true)}>
+                  관리자 삭제
+                </button>
               )}
               {isEditing && (
                 <>
@@ -275,7 +297,7 @@ function BoardDetail() {
                   <div key={comment.localId} className={`comment-item${isMine ? " is-mine" : ""}`}>
                     <div className="comment-body">
                       <div className="comment-author-row">
-                        <span className="comment-author">{comment.userId}</span>
+                        <span className="comment-author">{comment.userId ?? "탈퇴한 회원"}</span>
                         <span className="comment-date">{comment.createdDate?.slice(0, 10)}</span>
                         {isMine && <span className="comment-mine-badge">내 댓글</span>}
                       </div>
@@ -354,6 +376,22 @@ function BoardDetail() {
               <button className="board-delete-btn" onClick={handleDeleteConfirm} disabled={isDeleting}>
                 {isDeleting ? "삭제 중..." : "삭제"}
               </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* 관리자 강제 삭제 모달 */}
+      {showAdminDeleteModal && (
+        <div className="board-modal-overlay" onClick={() => setShowAdminDeleteModal(false)}>
+          <div className="board-modal" onClick={(e) => e.stopPropagation()}>
+            <p className="board-modal-title">게시글 강제 삭제</p>
+            <p className="board-modal-desc">관리자 권한으로 이 게시글을 삭제합니다. 계속하시겠습니까?</p>
+            <div className="board-modal-btns">
+              <button className="board-delete-btn" onClick={handleAdminDeleteConfirm} disabled={isAdminDeleting}>
+                {isAdminDeleting ? "삭제 중..." : "삭제"}
+              </button>
+              <button className="qna-back-btn" onClick={() => setShowAdminDeleteModal(false)}>취소</button>
             </div>
           </div>
         </div>

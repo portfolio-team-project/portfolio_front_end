@@ -114,11 +114,8 @@ function Accession() {
     try {
       const res = await axiosInstance.get("/api/member/idCheck", { params: { userId: form.user_id } });
       const status = res.data?.data;
-      if (status === "DUPLICATED") {
-        toast.error("이미 사용 중인 아이디입니다");
-        setIsIdChecked(false);
-      } else if (status === "WITHDRAWN") {
-        toast.error("탈퇴한 계정의 아이디입니다");
+      if (status === "UNAVAILABLE") {
+        toast.error("사용할 수 없는 아이디입니다");
         setIsIdChecked(false);
       } else {
         toast.success("사용 가능한 아이디입니다");
@@ -132,7 +129,7 @@ function Accession() {
   const handleSubmit = async (e: { preventDefault(): void }) => {
     e.preventDefault();
     if (!isIdChecked) { toast.error("아이디 중복검사를 해주세요"); return; }
-    if (!form.user_name.trim() || /[ㄱ-ㅎㅏ-ㅣ]/.test(form.user_name) || form.user_name.trim().length < 2) { toast.error("이름을 확인해주세요"); return; }
+    if (!form.user_name.trim() || /[^(가-힣a-zA-Z)]/.test(form.user_name) || form.user_name.trim().length < 2) { toast.error("이름을 확인해주세요"); return; }
     if (!isEmailVerified) { toast.error("이메일 인증을 완료해주세요"); return; }
     if (!isAllRequired) { toast.error("필수 약관에 동의해주세요"); return; }
     if (!kakaoId && (isPasswordMismatch || !form.password)) { toast.error("비밀번호를 확인해주세요"); return; }
@@ -220,13 +217,13 @@ function Accession() {
                   </div>
 
                   <div className="ac-field">
-                    <label>이름 *</label>
+                    <label>이름(한글) *</label>
                     <input
                       placeholder="이름 입력"
                       value={form.user_name}
                       maxLength={5}
                       onChange={(e) => {
-                        const koreanOnly = e.target.value.replace(/[^가-힣]/g, "");
+                        const koreanOnly = e.target.value.replace(/[^ㄱ-ㅎㅏ-ㅣ가-힣]/g, "");
                         setForm((prev) => ({ ...prev, user_name: koreanOnly }));
                       }}
                     />

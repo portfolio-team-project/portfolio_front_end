@@ -145,10 +145,10 @@ function EuigwangPage() {
                                             <span className="proj-acc-period">{proj.period}</span>
                                         </div>
                                         <div className="proj-acc-right">
-                                            <span className="proj-acc-arrow">{openId === proj.id ? "▲" : "▼"}</span>
+                                            <span className="proj-acc-arrow">▼</span>
                                         </div>
                                     </div>
-                                    {openId === proj.id && (
+                                    <div className="proj-acc-body-wrap">
                                         <div className="proj-acc-body" style={{ textAlign: "left" }}>
                                             <ul className="proj-desc-list">
                                                 {(proj.desc as string[]).map((line, i) => (
@@ -161,7 +161,7 @@ function EuigwangPage() {
                                                 ))}
                                             </div>
                                         </div>
-                                    )}
+                                    </div>
                                 </li>
                             ))}
                         </ul>
@@ -199,6 +199,12 @@ function EuigwangPage() {
                                 <p className="tl-date">2022.05</p>
                                 <p className="tl-ttl">정보통신산업기사</p>
                                 <p className="tl-sub">한국방송통신전파진흥원</p>
+                            </div>
+                            <div className="tl-item">
+                                <div className="tl-dot" />
+                                <p className="tl-date">2021.06</p>
+                                <p className="tl-ttl">정보처리산업기사</p>
+                                <p className="tl-sub">한국산업인력공단</p>
                             </div>
                         </div>
                     </div>

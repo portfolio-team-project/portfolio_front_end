@@ -25,6 +25,7 @@ import AccountPage from "./components/pages/member/AccountPage";
 import AdminPage from "./components/pages/admin/adminPage";
 import { useEffect } from "react";
 import { refreshAccessToken } from "./slices/memberSlice";
+import ChatWidget from "./components/layout/ChatWidget";
 
 function App() {
   // App.tsx
@@ -43,25 +44,26 @@ function App() {
             <Route path="/sangwon" element={<SangwonPage />} />
             <Route path="/euigwang" element={<EuigwangPage />} />
             <Route path="/qna" element={<QnA />} />
-            <Route path="/qna-write-guest" element={<QnaGuestWrite />} />
+            <Route path="/qnaWriteGuest" element={<QnaGuestWrite />} />
             <Route element={<PrivateRoute />}>
-              <Route path="/BoardList" element={<BoardList />} />
-              <Route path="/Boardwrite" element={<Boardwrite />} />
+              <Route path="/boardList" element={<BoardList />} />
+              <Route path="/boardWrite" element={<Boardwrite />} />
               <Route path="/boardDetail/:localId" element={<BoardDetail />} />
-              <Route path="/qna-write" element={<QnaMemberWrite />} />
+              <Route path="/qnaWrite" element={<QnaMemberWrite />} />
             </Route>
           </Route>
           <Route element={<HeaderOnlyLayout />}>
             <Route path="/accession" element={<Accession />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/find-password" element={<FindPassword />} />
+            <Route path="/findPassword" element={<FindPassword />} />
             <Route path="/kakao/callback" element={<KakaoCallback />} />
-            <Route path="/change-password" element={<ChangePassword />} />
+            <Route path="/changePassword" element={<ChangePassword />} />
             <Route path="/withdraw" element={<Withdraw />} />
             <Route path="/account" element={<AccountPage />} />
             <Route path="/admin" element={<AdminPage />} />
           </Route>
         </Routes>
+        <ChatWidget />
       </Router>
     </Provider>
   )

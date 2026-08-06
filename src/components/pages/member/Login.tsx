@@ -25,10 +25,10 @@ function Login() {
       const message = String(result.payload || "로그인에 실패했습니다.");
       if (message === MessageConstants.PWD_EXPIRED) {
         toast.error("비밀번호가 만료되었습니다. 비밀번호 변경 페이지로 이동합니다.");
-        navigate("/change-password", { state: { userId } });
+        navigate("/changePassword", { state: { userId } });
       } else if (message === MessageConstants.CHG_PWD_TEMP_PWD) {
         toast.error("임시 비밀번호로 로그인되었습니다. 비밀번호를 변경해주세요.");
-        navigate("/change-password", { state: { from: "tempPwd", userId } });
+        navigate("/changePassword", { state: { from: "tempPwd", userId } });
       } else {
         toast.error(message);
       }
@@ -85,7 +85,7 @@ function Login() {
             <div className="field">
               <label>비밀번호</label>
               <input type="password" placeholder="비밀번호를 입력하세요" value={password} onChange={(e) => setPassword(e.target.value)} />
-              <Link to="/find-password" onClick={() => window.scrollTo(0, 0)} className="find-password-link">
+              <Link to="/findPassword" onClick={() => window.scrollTo(0, 0)} className="find-password-link">
                 비밀번호 찾기
               </Link>
             </div>
@@ -96,7 +96,7 @@ function Login() {
           </form>
 
           <Link
-            to="/Accession" onClick={() => window.scrollTo(0, 0)} className="btn-signup-move">
+            to="/accession" onClick={() => window.scrollTo(0, 0)} className="btn-signup-move">
             회원가입
           </Link>
 

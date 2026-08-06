@@ -2,10 +2,8 @@ import "@toast-ui/editor/dist/toastui-editor.css";
 import Editor from "@toast-ui/editor";
 import { Fragment, useEffect, useRef, useState } from "react";
 import { fixEditorPopupOnMobile } from "../../../utils/fixEditorPopup";
-import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "../../../api/axiosInstance";
-import type { RootState } from "../../../store/store";
 import type { boardWriteRequest } from "../../../types/BoardList";
 import toast from "react-hot-toast";
 
@@ -14,7 +12,6 @@ function Boardwrite() {
   const [isLoading, setIsLoading] = useState(false);
   const editorContainerRef = useRef<HTMLDivElement>(null);
   const editorRef = useRef<Editor | null>(null);
-  const user = useSelector((state: RootState) => state.member.user);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -70,12 +67,6 @@ function Boardwrite() {
           <h2 className="qna-title">게시글 작성</h2>
 
           <div className="qna-form">
-            <input
-              className="qna-input"
-              placeholder="작성자"
-              value={user?.userId ?? ""}
-              readOnly
-            />
             <input
               className="qna-input"
               placeholder="제목"
